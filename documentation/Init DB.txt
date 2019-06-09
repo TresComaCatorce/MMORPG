@@ -1,0 +1,3 @@
+<instalation_directory>\mongod.exe --dbpath <database_directory>\MongoDB
+
+mongod.exe --dbpath F:\WorkSpaces\mmorpg\database\MongoDB

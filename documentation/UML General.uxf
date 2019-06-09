@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>40</y>
+      <w>280</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>*Archivo player.cfg*
+-
+Informacion del personaje
+-
+ -Nombre
+ -Raza
+ -Nivel
+ -Fuerza (Stat)
+ -Agilidad (Stat)
+ -Vitalidad (Stat)
+ -Energia (Stat)
+ -Inteligencia (Stat)
+ -Velocidad de movimiento
+ -Experiencia
+ -Experiencia para proximo nivel
+ -HP actual
+ -HP máximo
+ -Mana actual
+ -Mana máximo
+ -ID del mapa donde se encuentra
+ -Coordenada X
+ -Coordenada Y
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>390</y>
+      <w>260</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>*Configuraciones cargadas al inicio*
+-
+Archivos de configuracion del
+juego
+-
+player.cfg
+monsters.cfg
+spawners.cfg
+
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>650</y>
+      <w>280</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>*Archivo spawners.cfg*
+-
+Spawn de los mobs, tanto enemigos
+como NPC's.
+-
+ -ID del mob a spawnear
+ -Cantidad de mobs a spawnear
+ -Tiempo de respawn de los mobs
+ -Coordenada X1
+ -Coordenada Y1
+ -Coordenada X2
+ -Coordenada Y2
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>390</y>
+      <w>280</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>*Archivo monsters.cfg*
+-
+Atributos de las diferentes clases de mobs
+-
+ -ID del mob
+ -Nombre a mostrar
+ -Velocidad de movimiento
+ -HP actual
+ -HP maximo
+ -Experiencia minima que otorga
+ -Experiencia máxima que otorga
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
