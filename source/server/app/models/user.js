@@ -31,9 +31,9 @@ userSchema.statics.register = function( username, password, cb)
 
         sprite : "spr_Hero",
 
-        current_room : maps[config.starting_zone].room,
-        pos_x : maps[config.starting_zone].start_x,
-        pos_y : maps[config.starting_zone].start_y,
+        current_room : maps[config.common.starting_zone].room,
+        pos_x : maps[config.common.starting_zone].start_x,
+        pos_y : maps[config.common.starting_zone].start_y,
     });
 
     new_user.save(function(err)
@@ -52,6 +52,7 @@ userSchema.statics.register = function( username, password, cb)
 //Login de usuario ya existente.
 userSchema.statics.login = function( username, password, cb)
 {
+    console.log("CBF P: ", username, password);
     User.findOne({username: username}, function( err, username )
     {
         if( !err && username )

@@ -9,13 +9,14 @@
 */
 
 //Imports de las librerias
-var now = require('performance-now');
-var _ = require('underscore');
+let now = require('performance-now');
+let _ = require('underscore');
 
+console.log("CBF Client: ", config);
 
 module.exports = function()
 {
-    var client = this;
+    let client = this;
     //Estos objetos seran agregados en tiempo de ejecucion de la siguiente manera:
     //this.socket = {...}
     //this.user = {...}
@@ -27,8 +28,6 @@ module.exports = function()
     //Se le envia data al cliente (GameMaker).
     this.initiate = function()
     {
-        var client = this; //Se hace para poder tener acceso al 'this' desde funciones secundarias.
-
         //Envio del packete de handshake al servidor.
         client.socket.write(packet.build(["HELLO", now().toString()]));
 

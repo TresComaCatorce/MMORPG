@@ -1,0 +1,19 @@
+{
+    "test":
+    {
+        "ip": "127.0.0.1",
+        "name": "Ragnum_TEST"
+    },
+
+    "stage":
+    {
+        "ip": "127.0.0.1",
+        "name": "Ragnum_STAGE"
+    },
+
+    "prod":
+    {
+        "ip": "127.0.0.1",
+        "name": "Ragnum_PROD"
+    }
+}

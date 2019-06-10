@@ -90,9 +90,11 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\handle_packet.gml</script>
-    <script>scripts\network_write.gml</script>
     <script>scripts\gui_name_box_draw.gml</script>
+    <scripts name="networking">
+      <script>scripts\network_write.gml</script>
+      <script>scripts\handle_packet.gml</script>
+    </scripts>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Ragtum</font>
