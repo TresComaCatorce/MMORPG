@@ -1,11 +1,13 @@
 /*
     Proyecto: MMORPGServer
-    Fecha: 25/01/2018
+    Fecha: 09/06/2019
     Autor: Cristian Ferrero
 
-    Descripcion:
+    Descripcion: Administrador de paquetes hexadecimales recibidos/enviados al servidor.
 
-
+    @function "build":
+    @function "parse":
+    @function "interpret":
 */
 
 var zeroBuffer = new Buffer('00', 'hex');
@@ -27,7 +29,6 @@ module.exports = packet =
             {
                 buffer = new Buffer( param, 'utf8');
                 buffer = Buffer.concat( [buffer, zeroBuffer] , buffer.length + 1);
-
             }
             else if( typeof param === 'number' )
             {
@@ -57,11 +58,11 @@ module.exports = packet =
     //Parse de un paquete para ser manejado por el cliente.
     parse: function( cliente, data )
     {
-        var idx = 0;
+        let idx = 0;
         while( idx < data.length )
         {
-            var packetSize = data.readUInt8( idx );
-            var extractedPacket = new Buffer( packetSize );
+            let packetSize = data.readUInt8( idx );
+            let extractedPacket = new Buffer( packetSize );
             data.copy( extractedPacket, 0, idx, idx+packetSize );
 
             this.interpret( cliente, extractedPacket );
@@ -73,7 +74,7 @@ module.exports = packet =
     interpret: function( cliente, datapacket )
     {
         var header = PacketModels.header.parse(datapacket);
-        console.log( "Action:", header.command.toUpperCase() );
+        // console.log( "Action:", header.command.toUpperCase() );
 
         switch( header.command.toUpperCase() )
         {
@@ -144,7 +145,7 @@ module.exports = packet =
                 //el dato actualizado por otro cliente.
                 cliente.broadcastroom(packet.build(["POS_UPDATE", cliente.user.username, data.new_x, data.new_y, data.direction, data.animation]));
 
-                console.log(data);
+                // console.log(data);
 
                 break;
             }

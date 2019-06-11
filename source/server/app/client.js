@@ -12,8 +12,6 @@
 let now = require('performance-now');
 let _ = require('underscore');
 
-console.log("CBF Client: ", config);
-
 module.exports = function()
 {
     let client = this;
