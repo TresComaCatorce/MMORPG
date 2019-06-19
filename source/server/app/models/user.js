@@ -1,13 +1,14 @@
 /*
     Proyecto: MMORPGServer
-    Fecha: 31/01/2018
+    Fecha: 31/01/2019
     Autor: Cristian Ferrero
+
+    Esquema de la coleccion <user> de la base de datos.n
 */
 
 //Require de la libreria JS mongoose.
 var mongoose = require('mongoose');
 
-//Esquema de la coleccion <user> de la base de datos.
 var userSchema = new mongoose.Schema
 ({
     username : {type: String, unique: true},
@@ -52,14 +53,13 @@ userSchema.statics.register = function( username, password, cb)
 //Login de usuario ya existente.
 userSchema.statics.login = function( username, password, cb)
 {
-    console.log("CBF P: ", username, password);
-    User.findOne({username: username}, function( err, username )
+    User.findOne({username: username}, function( err, useData )
     {
-        if( !err && username )
+        if( !err && useData )
         {
-            if( username.password == password )
+            if( useData.password == password )
             {
-                cb( true, username );
+                cb( true, useData );
             }
             else
             {

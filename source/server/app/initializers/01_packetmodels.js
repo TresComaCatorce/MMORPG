@@ -1,7 +1,9 @@
 /*
     Proyecto: MMORPGServer
-    Fecha: 24/01/2018
+    Fecha: 24/01/2019
     Autor: Cristian Ferrero
+
+    Definición del formato de los paquetes recibidos desde el cliente.
 */
 
 //Include de BinaryParser.
@@ -29,6 +31,6 @@ module.exports = PacketModels =
         .int32le( "new_x", StringOptions )
         .int32le( "new_y", StringOptions )
         .int32le( "direction", StringOptions )
-        .int32le( "animation", StringOptions )
+        .int32le( "state", StringOptions )
         //.floatbe()
 }

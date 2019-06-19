@@ -29,7 +29,7 @@
 self.name = noone;
 
 //Estado del personaje.
-self.state = global.idle;
+self.state = global.playerStateIdle;
 
 //Caja con el nombre del personaje.
 self.nameBox = noone;
@@ -148,9 +148,9 @@ if( rate &gt; 0 ) // sort animation cycle
     if( frm &gt; endFrm )
     {
         frm = startFrm;
-        if( self.state = global.attack )
+        if( self.state = global.playerStateAttacking )
         {
-            state = global.idle;
+            state = global.playerStateIdle;
         } // at the end of an attack go back to idle
     }
     if( frm &lt; startFrm )
@@ -160,21 +160,21 @@ if( rate &gt; 0 ) // sort animation cycle
 }
 
 
-if( state = global.idle )
+if( state = global.playerStateIdle )
 {
     startFrm = 26;
     endFrm = 39;
     rate = 0.25;
 }
     
-if( state = global.walking )
+if( state = global.playerStateWalking )
 {
     startFrm = 0;
     endFrm = 14;
     rate = 0.5;
 }
 
-if( state = global.running )
+if( state = global.playerStateRunning )
 {
     startFrm = 15;
     endFrm = 25;
@@ -182,7 +182,7 @@ if( state = global.running )
 }
     
   
-if( state = global.attack )
+if( state = global.playerStateAttacking )
 {
     startFrm = 40; 
     endFrm = 56;

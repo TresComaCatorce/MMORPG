@@ -37,7 +37,7 @@ module.exports = packet =
             }
             else
             {
-                console.log("WARNING: Unknown data type in packet builder.");
+                console.log("WARNING: Unknown data type in packet builder.", params[0], typeof param, param);
             }
 
             packetSize += buffer.length;
@@ -71,33 +71,53 @@ module.exports = packet =
         }
     },
 
+    // Interprete de los paquetes recibidos desde el cliente.
     interpret: function( cliente, datapacket )
     {
         var header = PacketModels.header.parse(datapacket);
-        // console.log( "Action:", header.command.toUpperCase() );
+
+        //console.log( "Action:", header.command.toUpperCase() );
 
         switch( header.command.toUpperCase() )
         {
             //--------------------------------
-            // Caso de login de un usuario.
+            // Paquete de login recibido
             //--------------------------------
-            case "LOGIN":
+            case "C_LOGIN":
             {
+                //Se leen los datos enviados.
                 var data = PacketModels.login.parse( datapacket );
-                console.log( "User: " + data.username );
 
+                //Se busca el usuario en la DB.
                 User.login( data.username, data.password, function( result, user )
                 {
-                    console.log("Login result:", result);
+                    let is_kernel_buffer_full;
+
+                    //Si los datos de login son correctos.
                     if( result )
                     {
+                        //Se guarda el objecto user en el cliente (se utiliza para persistir los datos).
                         cliente.user = user;
-                        cliente.enterroom( cliente.user.current_room );
-                        cliente.socket.write( packet.build(["LOGIN", "TRUE", cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
+
+                        //Se guarda el ID del user en la DB dentro del cliente.
+                        cliente.id = user._id.toString();
+
+                        //Ingresa al room correspondiente.
+                        cliente.enterRoom( cliente.user.current_room );
+
+                        //Informa el ingreso a los demas clientes.
+                        cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
+
+                        is_kernel_buffer_full = cliente.socket.write( packet.build(["S_LOGIN", "TRUE", cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
                     }
-                    else
+                    else //Si los datos de login son incorrectos.
                     {
-                        cliente.socket.write( packet.build(["LOGIN", "FALSE"]) );
+                        is_kernel_buffer_full = cliente.socket.write( packet.build(["S_LOGIN", "FALSE"]) );
+                    }
+
+                    if(!is_kernel_buffer_full)
+                    {
+                        socket.pause();
                     }
                 });
                 break;
@@ -105,18 +125,18 @@ module.exports = packet =
             //--------------------------------------
             // Caso de registro de usuario nuevo.
             //--------------------------------------
-            case "REGISTER":
+            case "C_REGISTER":
             {
                 var data = PacketModels.register.parse(datapacket);
                 User.register( data.username, data.password, function(result)
                 {
                     if(result)
                     {
-                        cliente.socket.write( packet.build( ["REGISTER", "TRUE"] ) );
+                        cliente.socket.write( packet.build( ["S_REGISTER", "TRUE"] ) );
                     }
                     else
                     {
-                        cliente.socket.write( packet.build( ["REGISTER", "FALSE"] ) );
+                        cliente.socket.write( packet.build( ["S_REGISTER", "FALSE"] ) );
                     }
                 });
                 break;
@@ -125,13 +145,15 @@ module.exports = packet =
             //------------------------------------------------------
             // Caso de actualizacion en la posicion de un personaje.
             //------------------------------------------------------
-            case "POS_UPDATE":
+            case "C_UPDATE":
             {
-                //Utilizo el "PacketModel" de update de posicion (definido en <00_packetmodels.js>).
+                //Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
                 var data = PacketModels.position_update.parse(datapacket);
 
                 //console.log('X: '+data.new_x); //Valor X de la posicion obtenido del cliente que actualizo.
                 //console.log('Y: '+data.new_y); //Valor Y de la posicion obtenido del cliente que actualizo.
+
+                //TODO Checkear que las nuevas coordenadas no sean incoherentes.
 
                 //Se actualizan los valores de la posicion del objeto personaje
                 //con los valores recibidos. X e Y.
@@ -143,7 +165,7 @@ module.exports = packet =
 
                 //Se le comunica al cliente que debe actualizar en su cliente
                 //el dato actualizado por otro cliente.
-                cliente.broadcastroom(packet.build(["POS_UPDATE", cliente.user.username, data.new_x, data.new_y, data.direction, data.animation]));
+                cliente.broadcastRoom( cliente.user.username, data.new_x, data.new_y, data.direction, data.state );
 
                 // console.log(data);
 

@@ -1,12 +1,10 @@
 {
-    "test":
-    {
+    "test": {
         "name": "MMORPG Server",
         "version": "0.0.1",
         "environment_description": "Test",
         "max_player": "10",
-        "data_paths":
-        {
+        "data_paths": {
             "items": "items",
             "maps": "maps"
         },
@@ -14,14 +12,12 @@
         "port": "8083"
     },
 
-    "stage":
-    {
+    "stage": {
         "name": "MMORPG Server",
         "version": "0.0.1",
         "environment_description": "Stage",
         "max_player": "100",
-        "data_paths":
-        {
+        "data_paths": {
             "items": "items",
             "maps": "maps"
         },
@@ -29,14 +25,12 @@
         "port": "8082"
     },
 
-    "prod":
-    {
+    "prod": {
         "name": "MMORPG Server",
         "version": "0.0.1",
         "environment_description": "Production",
         "max_player": "300",
-        "data_paths":
-        {
+        "data_paths": {
             "items": "items",
             "maps": "maps"
         },

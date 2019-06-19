@@ -90,10 +90,23 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\gui_name_box_draw.gml</script>
-    <scripts name="networking">
+    <scripts name="Networking">
       <script>scripts\network_write.gml</script>
       <script>scripts\handle_packet.gml</script>
+    </scripts>
+    <scripts name="Constants">
+      <script>scripts\scr_constants_definition.gml</script>
+    </scripts>
+    <scripts name="Rooms">
+      <script>scripts\scr_general_creation_code.gml</script>
+      <script>scripts\scr_maps_creation_code.gml</script>
+      <script>scripts\scr_init_creation_code.gml</script>
+      <script>scripts\scr_lorencia_creation_code.gml</script>
+      <script>scripts\scr_market_town_creation_code.gml</script>
+      <script>scripts\scr_login_creation_code.gml</script>
+    </scripts>
+    <scripts name="Player">
+      <script>scripts\gui_name_box_draw.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -150,7 +163,7 @@
     <room>rooms\rom_login</room>
     <rooms name="maps">
       <room>rooms\rm_lorencia</room>
-      <room>rooms\rm_loren_market</room>
+      <room>rooms\rm_market_town</room>
     </rooms>
   </rooms>
   <help>

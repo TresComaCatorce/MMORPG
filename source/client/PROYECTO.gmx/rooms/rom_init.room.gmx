@@ -10,20 +10,8 @@
   <persistent>0</persistent>
   <colour>12632256</colour>
   <showcolour>-1</showcolour>
-  <code>//-----------------------------------------------------------//
-//--- Inicializacion de las variables globales del juego. ---//
-//-----------------------------------------------------------//
-
-
-//-----------------//
-//--- Personaje ---//
-//-----------------//
-//Posibles estados del personaje.
-global.idle = 0; //Parado.
-global.walking = 1; //Caminando.
-global.running = 2; //Corriendo.
-global.attack = 3; //Atacando.
-global.walkBack = 4; // ??</code>
+  <code>scr_general_creation_code();
+scr_init_creation_code();</code>
   <enableViews>0</enableViews>
   <clearViewBackground>-1</clearViewBackground>
   <clearDisplayBuffer>-1</clearDisplayBuffer>

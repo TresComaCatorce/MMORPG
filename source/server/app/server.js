@@ -1,6 +1,6 @@
 /*
     Proyecto: MMORPGServer
-    Fecha: 24/01/2018
+    Fecha: 24/01/2019
     Autor: Cristian Ferrero
 
     Descripcion:
@@ -69,22 +69,56 @@ console.log('Server initialize was complete.'.bold.green);
 
 
 //Creacion del servidor para escuchar por internet.
-net.createServer(function(socket)
-{
-    //Require del archivo 'client.js', objeto 'client' por asi decirlo.
-    var c_inst = new require('./client.js');
-    //Nueva instancia de 'client.js', una para cada conexion al servidor.
-    var thisClient = new c_inst();
-    //Se le asigna a la instancia del cliente su socket especifico.
-    thisClient.socket = socket;
-    thisClient.initiate(); //Ejecuta la funcion 'initiate' de 'client.js'
+let server = net.createServer();
 
+// server.getConnections(function(error, count) {
+//     console.log('Number of concurrent connections to the server : ' + count);
+// });
+
+//Configuracion del servidor
+server.on( 'connection', (socket) => {
+
+    //Informacion de la conexion
+    let rport = socket.remotePort.toString();
+    let raddr = socket.remoteAddress;
+    let rfamily = socket.remoteFamily;
+
+    // console.log( ("Client: ").bgWhite.black, socket );
+
+    console.log( ("Client connected from ip: " + raddr.bold + " | port: " + rport.bold + " | protocol: " + rfamily.bold).bgWhite.black );
+
+    //Nueva instancia de 'client.js', una para cada conexion al servidor.
+    let c_inst = new require('./client.js');
+    let thisClient = new c_inst();
+
+    //--------------------------------------------------------------------------
     //Handler functions
-    //Son referencias a las funciones del cliente, para que cada instancia del cliente las maneje.
+    //--------------------------------------------------------------------------
+    //Manejo de datos enviados desde el cliente delegado al objeto cliente.
     socket.on( 'data', thisClient.data );
+
+    //Manejo de la finalizacion de la conexion delegada al objeto cliente.
     socket.on( 'end', thisClient.end );
+
+    //Manejo del cierre de la conexion delegada al objeto cliente.
+    socket.on( 'close', thisClient.close );
+
+    //
+    socket.on( 'drain', thisClient.drain );
+
+    //Manejo del timeout en la conexion.
+    socket.on( 'timeout', thisClient.timeout );
+
+    //Manejo de error en la conexion
     socket.on( 'error', thisClient.error );
 
-}).listen(config.common.port);
 
-console.log('Server running on port: '.bold.green + config.common.port.bold + '\nEnvironment: '.bold.green + config.common.environment_description.bold );
+    //Inicializacion del cliente
+    thisClient.initiate(socket);
+});
+
+server.on('listening', () => {
+    console.log('Server running on port: '.bold.green + config.common.port.bold + '\nEnvironment: '.bold.green + config.common.environment_description.bold );
+});
+
+server.listen(config.common.port);

@@ -29,8 +29,11 @@
 //Nombre del personaje.
 name = noone;
 
+//ID unico del cliente en el servidor.
+clientId = noone;
+
 //Estado del personaje.
-state = global.idle;
+state = global.playerStateIdle;
 
 //Caja con el nombre del personaje.
 self.nameBox = noone;
@@ -59,6 +62,65 @@ spd = walkSpd;
 
 //Profundidad del sprite del personaje
 depth = -500;
+
+//Envio la nueva posicion al servidor.
+alarm[0]=10
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Envio de update position al servidor si esta quieto.
+if( state == global.playerStateIdle )
+{
+    event_user(0);
+}
+
+alarm[0]=10
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Si se esta moviendo se envia update al servidor.
+if( state != global.playerStateIdle )
+{
+    event_user(0);
+}
 </string>
           </argument>
         </arguments>
@@ -85,19 +147,19 @@ depth = -500;
 var dist_obj_mouse = point_distance( self.x, self.y, mouse_x, mouse_y );
 
 //Se checkea que el personaje no este atacando.
-if( self.state != global.attack )
+if( self.state != global.playerStateAttacking )
 {
     //Se checkea que el mouse este lejos del personaje.
     if( dist_obj_mouse &gt; 25 )
     {
         //Set to walking state and speed    
-        self.state = global.walking;
+        self.state = global.playerStateWalking;
         self.spd = self.walkSpd 
         
         //Shift is pressed so alter those speeds and states
         if keyboard_check(vk_shift)
         {
-            self.state = global.running;
+            self.state = global.playerStateRunning;
             self.spd = self.runSpd;
         }
         
@@ -115,7 +177,7 @@ if( self.state != global.attack )
     {
         //Se settea la velocidad en 0 y la animacion en idle;
         self.speed = 0;
-        self.state = global.idle;
+        self.state = global.playerStateIdle;
     }
 }
 </string>
@@ -141,9 +203,9 @@ if( self.state != global.attack )
           <argument>
             <kind>1</kind>
             <string>//Se checkea que el personaje este quieto para atacar.
-if( self.state == global.idle )
+if( self.state == global.playerStateIdle )
 {
-    self.state = global.attack // Left mouse to attack
+    self.state = global.playerStateAttacking // Left mouse to attack
 }
 </string>
           </argument>
@@ -167,7 +229,8 @@ if( self.state == global.idle )
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//-----------------------------------------------------------------------------
+            <string>///Send update package to server
+//-----------------------------------------------------------------------------
 // Evento custom que envia el update al servidor de los siguientes atributos:
 // @header [String] Accion a informar, en este caso "POS_UPDATE".
 // @posX [intS32] Nueva posicion X del personaje.
@@ -184,7 +247,7 @@ var pos_packet = buffer_create(1, buffer_grow, 1);
 
 //Se escribe el header (accion para identificar en el servidor) en el buffer a enviar.
 //Un string indicando la accion informada.
-buffer_write(pos_packet, buffer_string, "POS_UPDATE");
+buffer_write(pos_packet, buffer_string, "C_UPDATE");
 
 //Se escriben los datos en el buffer a enviar.
 //Dos enteros signed 32, uno para la posicion X y otro para la posicion Y.
@@ -249,25 +312,25 @@ gui_name_box_draw( self );
 //---------------------------------------------------------------------------------------------
 // Set de los frames del sprite correspondientes para los diferentes estados del personaje.
 //---------------------------------------------------------------------------------------------
-if( state = global.idle )
+if( state = global.playerStateIdle )
 {
     startFrm = 26;
     endFrm = 39;
     rate = 0.25;
 }
-else if( state = global.walking )
+else if( state = global.playerStateWalking )
 {
     startFrm = 0;
     endFrm = 14;
     rate = 0.5;
 }
-else if( state = global.running )
+else if( state = global.playerStateRunning )
 {
     startFrm = 15;
     endFrm = 25;
     rate = 0.5;
 }
-else if( state = global.attack )
+else if( state = global.playerStateAttacking )
 {
     startFrm = 40; 
     endFrm = 56;
@@ -285,9 +348,9 @@ if( rate &gt; 0 ) // sort animation cycle
     if( frm &gt; endFrm )
     {
         frm = startFrm;
-        if( self.state = global.attack )
+        if( self.state = global.playerStateAttacking )
         {
-            state = global.idle;
+            state = global.playerStateIdle;
         } // at the end of an attack go back to idle
     }
     if( frm &lt; startFrm )
@@ -313,7 +376,7 @@ draw_sprite( spr_Player, frm+(57*(360-dir)), x, y );
 
 
 //Envio la nueva posicion al servidor.
-event_user(0);
+//event_user(0);
 </string>
           </argument>
         </arguments>
@@ -362,15 +425,12 @@ instance_create( x+200, y+200, obj_spider );
           <argument>
             <kind>1</kind>
             <string>//El personaje vuelve a idle.
-self.state = global.idle;
+self.state = global.playerStateIdle;
 
 //La velocidad vuelve a 0.
 self.speed = 0;
 
 self.direction = self.dir;
-
-//Envio la nueva posicion al servidor.
-event_user(0);
 </string>
           </argument>
         </arguments>

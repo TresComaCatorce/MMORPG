@@ -59,7 +59,7 @@ if( string_length(txt_Username.text) &gt; 0
     var login_packet = buffer_create( 1, buffer_grow, 1 );
     
     //Escribo los valores en el paquete.
-    buffer_write( login_packet, buffer_string, "LOGIN" );
+    buffer_write( login_packet, buffer_string, "C_LOGIN" );
     buffer_write( login_packet, buffer_string, txt_Username.text );
     buffer_write( login_packet, buffer_string, txt_Password.text );
     

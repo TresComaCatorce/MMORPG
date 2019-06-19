@@ -16,36 +16,39 @@ switch(command)
     //-------------------------
     //Conexion con el servidor.
     //-------------------------
-    case "HELLO":
+    case "S_HELLO":
+    {
         server_time = buffer_read( argument0 , buffer_string );
         room_goto(rom_login);
         show_debug_message( "Server welcomes you @ " + server_time );
         break;
+    }
+    
     //-------------------
     //Intento de loggeo.
     //-------------------
-    case "LOGIN":
+    case "S_LOGIN":
+    {
         status = buffer_read(argument0, buffer_string);
         //Si el loggeo fue exitoso.
         if( status == "TRUE" )
         {
-            //Room donde se va a introducir el personaje.
-            target_room = buffer_read(argument0, buffer_string);
-            
-            //Posicion X e Y del personaje en el mapa.
-            target_x = buffer_read(argument0, buffer_u16);
-            target_y = buffer_read(argument0, buffer_u16);
-            name = buffer_read(argument0, buffer_string);
+            //Lectura de datos que devuelve el servidor
+            clientId = buffer_read(argument0, buffer_string); //ID Unico del cliente
+            target_room = buffer_read(argument0, buffer_string); //Room donde se va a introducir el personaje.
+            target_x = buffer_read(argument0, buffer_u16); //Posicion X del personaje en el mapa.
+            target_y = buffer_read(argument0, buffer_u16); //Posicion Y del personaje en el mapa.
+            name = buffer_read(argument0, buffer_string); //Nombre del personaje.
             
             //Se mueve al room correspondiente.
             room_togo = asset_get_index(target_room);
             room_goto(room_togo);
             
-            //Se crea una instancia del jugador en el room
-            //Proximamente con los atributos provenientes del servidor.
+            //Se crea una instancia del "obj_Player" en el room.
+            //TODO Agregar los atributos provenientes del servidor.
             with( instance_create( target_x, target_y, obj_Player) )
             {
-                //show_message( x);
+                clientId = other.clientId;
                 name = other.name;
             }
         }
@@ -55,11 +58,13 @@ switch(command)
             show_message("Login Failed: Username or password incorrect.");
         }
         break;
+    }
     
     //---------------------
     // Intento de registro.
     //---------------------
-    case "REGISTER":
+    case "S_REGISTER":
+    {
         status = buffer_read(argument0, buffer_string);
         if( status == "TRUE" )
         {
@@ -70,11 +75,13 @@ switch(command)
             show_message("Register Failed: Username already taken.");
         }
         break;
-        
+    }
+    
     //---------------------
     // Update de posicion.
     //---------------------
-    case "POS_UPDATE":
+    case "S_UPDATE":
+    {
         username = buffer_read(argument0, buffer_string);
         target_x = buffer_read(argument0, buffer_u16);
         target_y = buffer_read(argument0, buffer_u16);
@@ -118,6 +125,7 @@ switch(command)
             }
         }
         break;
+    }
     
     /*case "CREATE_ENEMY":
         type = buffer_read(argument0, buffer_string);

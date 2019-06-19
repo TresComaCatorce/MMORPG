@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>273</y>
+      <w>329</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;status&gt;&lt;id&gt;&lt;room&gt;&lt;pos_x&gt;&lt;pos_y&gt;&lt;usename&gt;*
+
+status: Boolean que indica si el login fue exitoso o no.
+
+id: ID unico del usuario.
+
+room: Nombre del room donde se encuentra el usuario.
+
+pos_x &amp; pos_y: Coordenadas X e Y del usuario.
+
+username: Usuario ingresado por el usuario.
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>161</y>
+      <w>105</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"S_LOGIN"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>42</y>
+      <w>105</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>"S_HELLO"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>455</y>
+      <w>105</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"S_REGISTER"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1155</x>
+      <y>42</y>
+      <w>105</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>"C_HELLO"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1155</x>
+      <y>161</y>
+      <w>105</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>
+
+"C_LOGIN"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1155</x>
+      <y>455</y>
+      <w>105</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>
+
+
+
+
+"C_REGISTER"
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>49</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>98</y>
+      <w>532</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;740.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>189</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1071</x>
+      <y>189</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1064</x>
+      <y>518</y>
+      <w>105</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>336</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>749</x>
+      <y>161</y>
+      <w>329</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;usename&gt;&lt;password&gt;*
+
+username: Usuario ingresado por el usuario.
+
+password: Password ingresado por el usuario.
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>350</x>
+      <y>28</y>
+      <w>161</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Todos los paquetes envian como
+primer atributo el nombre del
+paquete, indicado como &lt;CMD&gt;.
+
+No se especifica en todos los
+paquetes ya que es redundante.
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>0</y>
+      <w>133</w>
+      <h>1477</h>
+    </coordinates>
+    <panel_attributes>*/SERVIDOR/*
+
+bg=blue
+fg=white
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1141</x>
+      <y>0</y>
+      <w>133</w>
+      <h>1463</h>
+    </coordinates>
+    <panel_attributes>*/CLIENTE/*
+
+bg=blue
+fg=white
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>959</x>
+      <y>35</y>
+      <w>119</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>Se debe implementar
+handshake seguro
+entre cliente y servidor.
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1064</x>
+      <y>336</y>
+      <w>105</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>455</y>
+      <w>329</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;usename&gt;&lt;password&gt;&lt;password_verif*&gt;&lt;email*&gt;*
+*&lt;name*&gt;&lt;lastName*&gt;&lt;country*&gt;*
+
+username: Usuario ingresado por el usuario.
+
+password: Password ingresado por el usuario.
+
+password_verif: Verificación del la contraseña ingresada por el usuario
+
+email, name, lastName &amp; country: Datos ingresados por el usuario.
+
+*(*)Aún no implementado.*
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>518</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>651</y>
+      <w>329</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;status&gt;*
+
+status: Boolean que indica si el registro fue exitoso o no.
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>672</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1064</x>
+      <y>672</y>
+      <w>105</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>133</y>
+      <w>910</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;1280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>427</y>
+      <w>910</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;1280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>721</y>
+      <w>910</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;1280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>749</x>
+      <y>35</y>
+      <w>210</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;now_time&gt;*
+
+now_time: Timestamp NOW del servidor.
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1071</x>
+      <y>49</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>749</y>
+      <w>329</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>*&lt;CMD&gt;&lt;status&gt;*
+
+status: Boolean que indica si el registro fue exitoso o no.
+
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1155</x>
+      <y>749</y>
+      <w>105</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>"C_UPDATE"
+
+bg=white
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>749</y>
+      <w>105</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>"S_UPDATE"
+
+bg=white
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

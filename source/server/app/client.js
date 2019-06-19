@@ -1,6 +1,6 @@
 /*
     Proyecto: MMORPGServer
-    Fecha: 25/01/2018
+    Fecha: 25/01/2019
     Autor: Cristian Ferrero
 
     Descripcion:
@@ -12,48 +12,40 @@
 let now = require('performance-now');
 let _ = require('underscore');
 
-module.exports = function()
-{
+module.exports = function() {
     let client = this;
-    //Estos objetos seran agregados en tiempo de ejecucion de la siguiente manera:
-    //this.socket = {...}
-    //this.user = {...}
+    let socket;
+    let id;
 
-    /**************************************************/
-    /**** FUNCIONES DE INICIALIZACION DEL SERVIDOR ****/
-    /**************************************************/
-    //Handshake con el cliente.
-    //Se le envia data al cliente (GameMaker).
-    this.initiate = function()
-    {
-        //Envio del packete de handshake al servidor.
-        client.socket.write(packet.build(["HELLO", now().toString()]));
+    //Inicializacion del cliente
+    // @param "socket": Socket asignado al cliente, se utiliza para enviarle informacion al cliente.
+    client.initiate = (socket) => {
+        client.socket = socket;
 
-        console.log("Client initialized.");
+        //Envio del packete de handshake al servidor. //TODO
+        client.socket.write(packet.build(["S_HELLO", now().toString()]));
     }
-    /******************************************************/
-    /**** FIN FUNCIONES DE INICIALIZACION DEL SERVIDOR ****/
-    /******************************************************/
-
 
 
     /*******************************/
     /**** FUNCIONES DEL CLIENTE ****/
     /*******************************/
-    this.enterroom = function(selected_room)
-    {
-        maps[selected_room].clients.forEach( function(otherClient)
-        {
-            otherClient.socket.write(packet.build(["ENTER", client.user.username, client.user.pos_x, client.user.pos_y]))
-        })
+    //Agrega el cliente al room recibido por parametro.
+    client.enterRoom = (selected_room) => {
+        maps[selected_room].addClientToRoom(client);
+    }
 
-        maps[selected_room].clients.push(client);
+    //Quita el cliente del room actual.
+    client.exitRoom = () => {
+        maps[client.user.current_room].removeClientFromRoom(client);
     }
 
     // Funcion que envia un update a todos los clientes
     // que se encuentran en el room.
-    this.broadcastroom = function( packetData )
-    {
+    client.broadcastRoom = ( username, new_x, new_y, direction, state ) => {
+
+        let packetData = packet.build(["S_UPDATE", username, new_x, new_y, direction, state]);
+
         //Se recorre el array que contiene todos los clientes en ese room.
         //Y se ejecuta la funcion por cada uno de ellos.
         maps[client.user.current_room].clients.forEach(function( otherClient )
@@ -75,22 +67,42 @@ module.exports = function()
     /****************************************/
     /**** FUNCIONES DE MANEJO DE SOCKETS ****/
     /****************************************/
-    //Funcion de "Data handler", comunicacion cliente-servidor.
-    this.data = function(data)
-    {
+    //Callback que maneja los paquetes de datos recibidos.
+    client.data = (data) => {
         packet.parse( client, data );
     }
 
-    //Funcion que se ejecuta cuando se desconecta un cliente.
-    this.end = function()
-    {
-        console.log( "Client closed:", this.toString() )
+    //Callback ejecutado cuando se finaliza la conexion con el cliente.
+    client.end = () => {
+        client.exitRoom();
+        client.socket.end();
     }
 
-    //Funcion de error del cliente.
-    this.error = function(err)
-    {
-        console.log( "Client error:", err.toString() );
+    //Callback ejecutado al cerrar la conexion con el cliente.
+    client.close = (data) => {
+        let logMsg = data ? "Client closed with transmission error".bgYellow.black : "Client closed correctly".bgWhite.black;
+        client.exitRoom();
+        console.log( logMsg );
+    }
+
+    //Callback de error en la conexion del cliente.
+    client.error = (error) => {
+        console.log( "Client error: ".red, error.toString() );
+        client.exitRoom();
+        client.socket.destroy(error);
+    }
+
+    //Callback por timeout con el cliente.
+    client.timeout = () => {
+        console.log( "Socket timed out.".red );
+        client.exitRoom();
+        client.socket.end();
+    }
+
+    //
+    client.drain = () => {
+        console.log('Write buffer is empty now.');
+        socket.resume();
     }
     /**** FIN FUNCIONES DE MANEJO DE SOCKETS ****/
     /********************************************/
