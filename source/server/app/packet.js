@@ -10,7 +10,7 @@
     @function "interpret":
 */
 
-var zeroBuffer = new Buffer('00', 'hex');
+var zeroBuffer = new Buffer.from('00', 'hex');
 
 module.exports = packet =
 {
@@ -27,12 +27,12 @@ module.exports = packet =
 
             if( typeof param === 'string' )
             {
-                buffer = new Buffer( param, 'utf8');
+                buffer = new Buffer.from( param, 'utf8');
                 buffer = Buffer.concat( [buffer, zeroBuffer] , buffer.length + 1);
             }
             else if( typeof param === 'number' )
             {
-                buffer = new Buffer( 2 );
+                buffer = new Buffer.alloc( 2 );
                 buffer.writeUInt16LE( param, 0 );//Original
             }
             else
@@ -46,7 +46,7 @@ module.exports = packet =
 
         var dataBuffer = Buffer.concat( packetParts, packetSize );
 
-        var size = new Buffer( 1 );
+        var size = new Buffer.alloc( 1 );
         size.writeUInt8( dataBuffer.length + 1 , 0 );
 
         //Creacion del packete final. Ej: 4HOLA2ME5LLAMO
@@ -62,7 +62,7 @@ module.exports = packet =
         while( idx < data.length )
         {
             let packetSize = data.readUInt8( idx );
-            let extractedPacket = new Buffer( packetSize );
+            let extractedPacket = new Buffer.alloc( packetSize );
             data.copy( extractedPacket, 0, idx, idx+packetSize );
 
             this.interpret( cliente, extractedPacket );

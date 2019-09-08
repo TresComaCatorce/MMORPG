@@ -2,18 +2,18 @@
     "test":
     {
         "ip": "127.0.0.1",
-        "name": "Ragnum_TEST"
+        "name": "MMORPG_TEST"
     },
 
     "stage":
     {
         "ip": "127.0.0.1",
-        "name": "Ragnum_STAGE"
+        "name": "MMORPG_STAGE"
     },
 
     "prod":
     {
         "ip": "127.0.0.1",
-        "name": "Ragnum_PROD"
+        "name": "MMORPG_PROD"
     }
 }
