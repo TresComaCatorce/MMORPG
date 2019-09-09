@@ -38,6 +38,9 @@ state = global.playerStateIdle;
 //Caja con el nombre del personaje.
 self.nameBox = noone;
 
+//GUI Manager instance
+self.guiManagerInstance = noone;
+
 //Rangos de los frames de la animacion.
 startFrm = 0;
 endFrm = 1;
@@ -65,6 +68,59 @@ depth = -500;
 
 //Envio la nueva posicion al servidor.
 alarm[0]=10
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Instanciación de objetos asociados
+
+//GUI Manager
+self.guiManagerInstance = instance_create( -1000, -1000, obj_GUI_Manager );
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Destrucción de las instancias asociadas
+
+//GUI Manager
+if( instance_exists(self.guiManagerInstance) )
+{
+    instance_destroy(self.guiManagerInstance);
+}
 </string>
           </argument>
         </arguments>

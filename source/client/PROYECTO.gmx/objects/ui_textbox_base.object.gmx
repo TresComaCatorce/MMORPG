@@ -27,13 +27,14 @@
             <kind>1</kind>
             <string>event_inherited();
 
-text = "";
+self.text = "";
+self.placeholder = "";
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -50,20 +51,19 @@ text = "";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
+            <string>///Se dibuja el textBox
 
-if(focused)
-{
-    draw_rectangle( x, y, x + (16*image_xscale), y + (16*image_yscale), 2);
-}
+event_inherited();
 
-if( string_length(text) &gt; 0 || focused )
+draw_self();
+
+if( string_length(self.text) &gt; 0 || self.focused )
 {
-    draw_text( x+3, y+8, string(text));
+    draw_text( x+3, y+8, string(self.text));
 }
 else
 {
-    draw_text( x+3, y+8, string(placeholder));
+    draw_text( x+3, y+8, string(self.placeholder));
 }
 </string>
           </argument>

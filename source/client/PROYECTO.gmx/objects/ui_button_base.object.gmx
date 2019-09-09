@@ -78,7 +78,7 @@ hover = false;
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -95,7 +95,9 @@ hover = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Si el mouse esta sobre el boton, cambio el color del boton (dejo lo demas como esta, posicion, color, angulo, etc).
+            <string>///Se dibuja el button
+
+//Si el mouse esta sobre el boton, cambio el color del boton (dejo lo demas como esta, posicion, color, angulo, etc).
 if(hover)
 {
     draw_sprite_ext( sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_gray, 1.0 );

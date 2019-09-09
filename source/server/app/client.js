@@ -80,7 +80,7 @@ module.exports = function() {
 
     //Callback ejecutado al cerrar la conexion con el cliente.
     client.close = (data) => {
-        let logMsg = data ? "Client closed with transmission error".bgYellow.black : "Client closed correctly".bgWhite.black;
+        let logMsg = data ? "Client closed with transmission error".bgYellow.black : "Client closed correctly";
         client.exitRoom();
         console.log( logMsg );
     }

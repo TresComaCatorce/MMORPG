@@ -79,6 +79,13 @@
         </sprites>
       </sprites>
     </sprites>
+    <sprites name="Internal">
+      <sprite>sprites\spr_Network</sprite>
+      <sprite>sprites\spr_GUI_Manager</sprite>
+    </sprites>
+    <sprites name="GUI">
+      <sprite>sprites\spr_Chat_Input</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_connecting</background>
@@ -153,6 +160,8 @@
     </objects>
     <objects name="GUI">
       <object>objects\obj_Player_Name_Box</object>
+      <object>objects\obj_GUI_Manager</object>
+      <object>objects\obj_Chat_Input</object>
     </objects>
     <objects name="Enemys">
       <object>objects\obj_spider</object>
