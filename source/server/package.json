@@ -11,5 +11,8 @@
         "mongoose": "*",
         "underscore": "*",
         "colors": "*"
-    }
+	},
+	"scripts": {
+		"start": "node .\\app\\server.js"
+	}
 }

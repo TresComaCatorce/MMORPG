@@ -60,7 +60,7 @@ if(self.showChatInput)
     if( !instance_exists(self.instanceChatInput) )
     {
         //self.instanceChatInput = instance_create( 32, view_hview[view_current]-64, obj_Chat_Input );
-        self.instanceChatInput = instance_create( 0, 0, obj_Chat_Input );
+        self.instanceChatInput = instance_create( 100, 100, obj_Chat_Input );
     }
 }
 else
