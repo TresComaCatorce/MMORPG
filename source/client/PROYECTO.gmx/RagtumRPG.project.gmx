@@ -82,10 +82,17 @@
     <sprites name="Internal">
       <sprite>sprites\spr_Network</sprite>
       <sprite>sprites\spr_GUI_Manager</sprite>
+      <sprite>sprites\spr_Chat_Input</sprite>
+      <sprite>sprites\spr_Player_Name_Box</sprite>
     </sprites>
     <sprites name="GUI">
-      <sprite>sprites\spr_Chat_Input</sprite>
+      <sprite>sprites\spr_chat_text_input</sprite>
+      <sprite>sprites\spr_username_text_input</sprite>
+      <sprite>sprites\spr_password_text_input</sprite>
+      <sprite>sprites\spr_login_button</sprite>
+      <sprite>sprites\spr_register_button</sprite>
     </sprites>
+    <sprite>sprites\spr_point</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_connecting</background>
@@ -166,6 +173,7 @@
     <objects name="Enemys">
       <object>objects\obj_spider</object>
     </objects>
+    <object>objects\obj_point</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rom_init</room>

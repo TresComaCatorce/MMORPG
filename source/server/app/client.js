@@ -37,7 +37,10 @@ module.exports = function() {
 
     //Quita el cliente del room actual.
     client.exitRoom = () => {
-        maps[client.user.current_room].removeClientFromRoom(client);
+		if(client.user)
+		{
+        	maps[client.user.current_room].removeClientFromRoom(client);
+		}
     }
 
     // Funcion que envia un update a todos los clientes

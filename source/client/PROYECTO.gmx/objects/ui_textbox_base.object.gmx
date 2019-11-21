@@ -25,10 +25,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
+            <string>///Inicializacion de variables
+
+event_inherited();
 
 self.text = "";
 self.placeholder = "";
+
+self.textOffsetX = 3;
+self.textOffsetY = 8;
 </string>
           </argument>
         </arguments>
@@ -55,13 +60,13 @@ self.placeholder = "";
 
 event_inherited();
 
-if( string_length(self.text) &gt; 0 || self.focused )
+if( string_length(text) &gt; 0 || focused )
 {
-    draw_text( x+3, y+8, string(self.text));
+    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(text));
 }
 else
 {
-    draw_text( x+3, y+8, string(self.placeholder));
+    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(placeholder));
 }
 </string>
           </argument>
@@ -85,7 +90,11 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(focused)
+            <string>///Se lee input del teclado
+
+event_inherited();
+
+if( focused &amp;&amp; keyboard_key != vk_enter )
 {
     if(keyboard_key == vk_backspace)
     {
