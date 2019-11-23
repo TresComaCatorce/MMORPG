@@ -150,9 +150,6 @@ module.exports = packet =
                 //Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
                 var data = PacketModels.position_update.parse(datapacket);
 
-                //console.log('X: '+data.new_x); //Valor X de la posicion obtenido del cliente que actualizo.
-                //console.log('Y: '+data.new_y); //Valor Y de la posicion obtenido del cliente que actualizo.
-
                 //TODO Checkear que las nuevas coordenadas no sean incoherentes.
 
                 //Se actualizan los valores de la posicion del objeto personaje
@@ -167,10 +164,23 @@ module.exports = packet =
                 //el dato actualizado por otro cliente.
                 cliente.broadcastRoom( cliente.user.username, data.new_x, data.new_y, data.direction, data.state );
 
-                // console.log(data);
+                break;
+			}
+			
+			//------------------------------------------------------
+            // Caso de actualizacion en la posicion de un personaje.
+            //------------------------------------------------------
+            case "C_CHAT_MSG":
+            {
+                //Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
+				var data = PacketModels.chat_message.parse(datapacket);
+				
+				//Se envia la respuesta al cliente
+				var packetToSend = packet.build( ["S_CHAT_MSG", "TRUE", data.message] );
+				cliente.broadcastSelf(packetToSend);
 
                 break;
-            }
+			}
         }
     }
 }

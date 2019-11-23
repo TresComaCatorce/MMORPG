@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion
+            <string>///Inicializacion de variables
 //Nombre del personaje.
 name = noone;
 
@@ -313,10 +313,6 @@ buffer_write(pos_packet, buffer_s32, self.y);
 buffer_write(pos_packet, buffer_s32, self.dir);
 //Un string para el 'state' del personaje (Para las animaciones).
 buffer_write(pos_packet, buffer_s32, self.state);
-
-
-//show_debug_message( "X: " + string(self.x) );
-//show_debug_message( "Y: " + string(self.y) );
 
 
 //Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.

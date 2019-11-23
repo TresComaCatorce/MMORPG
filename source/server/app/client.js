@@ -41,7 +41,15 @@ module.exports = function() {
 		{
         	maps[client.user.current_room].removeClientFromRoom(client);
 		}
-    }
+	}
+	
+	//Funcion que envia un mensaje para el propio cliente.
+	client.broadcastSelf = ( packetToSend ) =>
+	{
+		client.socket.write(packetToSend);
+	}
+	
+
 
     // Funcion que envia un update a todos los clientes
     // que se encuentran en el room.

@@ -127,6 +127,17 @@ switch(command)
         break;
     }
     
+    //-----------------------------------
+    //Respuesta a mensaje de chat enviado
+    //-----------------------------------
+    case "S_CHAT_MSG":
+    {
+        message_accepted = buffer_read( argument0 , buffer_string );
+        message_text = buffer_read( argument0 , buffer_string );
+        show_debug_message( "chat: @ " + message_accepted + message_text);
+        break;
+    }
+    
     /*case "CREATE_ENEMY":
         type = buffer_read(argument0, buffer_string);
         target_room = buffer_read(argument0, buffer_string);

@@ -29,22 +29,116 @@
 
 event_inherited();
 
-show_debug_message("View heigth: " + string(view_hview[view_current]) )
-show_debug_message("View width: " + string(view_wview[view_current]) )
-
-show_debug_message("View pos x: " + string(view_wview[view_current]*.01) )
-show_debug_message("View pos y: " + string(view_hview[view_current]*.99 - sprite_get_height(self.sprite)) )
-
 //Se settea el sprite del text-box
 self.sprite = spr_chat_text_input;
 
 //Se crea abajo a la izquierda
 self.originPoint_x = view_wview[view_current]*.01;
 self.originPoint_y = (view_hview[view_current]*.99 - sprite_get_height(self.sprite));
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Creación de variables
+
+//Alto del historial de chat (Porcentaje)
+self.historyChatHeight = .5;
 
 self.text = "";
 
 self.focused = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Se envia el mensaje al servidor
+
+if( is_string(text) &amp;&amp; string_length(text)&gt;0 )
+{
+    event_user(0);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Se envía el mensaje de chat al servidor
+//-----------------------------------------------------------------------------
+// Evento custom que envia el mensaje de chat con los siguientes atributos:
+// @header [String] Accion a informar, en este caso "C_CHAT_MSG".
+// @pj_name [String] Nombre del personaje que envia el mensaje.
+// @message [String] Mensaje enviado.
+//
+// Se llama en:
+//      -Evento "Instance destruction".
+//-----------------------------------------------------------------------------
+
+//Se crea el buffer a enviar
+var chat_packet = buffer_create(1, buffer_grow, 1);
+
+//Se escribe el header (accion para identificar en el servidor) en el buffer a enviar.
+//Un string indicando la accion informada.
+buffer_write(chat_packet, buffer_string, "C_CHAT_MSG");
+
+//Se escriben los datos en el buffer a enviar.
+//Dos enteros signed 32, uno para la posicion X y otro para la posicion Y.
+buffer_write(chat_packet, buffer_string, obj_Player.name);
+buffer_write(chat_packet, buffer_string, self.text);
+
+//Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.
+network_write(Network.socket, chat_packet);
+
 </string>
           </argument>
         </arguments>
@@ -66,6 +160,36 @@ self.focused = true;
         <isnot>0</isnot>
       </action>
     </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Se dibuja el fondo del historial de chat
+
+event_inherited();
+
+draw_set_colour(c_black); //Color.
+draw_set_alpha(.4); //Opacidad.
+draw_rectangle( originPoint_x, originPoint_y*.99, originPoint_x+sprite_get_width(self.sprite), view_wview[view_current]*historyChatHeight, false);
+draw_set_alpha(1);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -84,6 +208,36 @@ self.focused = true;
           <argument>
             <kind>1</kind>
             <string>///Nothing here
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="116">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Se cambia el porcentaje de altura del historial de chat
+
+switch(historyChatHeight)
+{
+    case .5: historyChatHeight = .29; break;
+    case .29: historyChatHeight = .09; break;
+    case .09: historyChatHeight = .5; break;
+}
 </string>
           </argument>
         </arguments>
