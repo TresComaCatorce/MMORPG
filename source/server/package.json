@@ -1,16 +1,15 @@
 {
-    "name": "MMORPG_Server",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies":
-    {
-        "minimist": "*",
-        "extend": "*",
-        "binary-parser": "*",
-        "performance-now": "*",
-        "mongoose": "*",
-        "underscore": "*",
-        "colors": "*"
+	"name": "MMORPG_Server",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"binary-parser": "^1.5.0",
+		"colors": "^1.4.0",
+		"extend": "^3.0.2",
+		"minimist": "*",
+		"mongoose": "*",
+		"performance-now": "*",
+		"underscore": "^1.9.1"
 	},
 	"scripts": {
 		"start": "node .\\app\\server.js"

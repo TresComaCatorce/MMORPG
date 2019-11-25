@@ -1,0 +1,9 @@
+# ignore all files starting with . or ~
+#.*
+~*
+
+# Database folder
+/[Dd]atabase/
+
+# Node modules from server
+/source/server/node_modules/
