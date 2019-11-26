@@ -84,6 +84,7 @@
       <sprite>sprites\spr_GUI_Manager</sprite>
       <sprite>sprites\spr_Chat_Input</sprite>
       <sprite>sprites\spr_Player_Name_Box</sprite>
+      <sprite>sprites\spr_Chat_Msg_Ingame</sprite>
     </sprites>
     <sprites name="GUI">
       <sprite>sprites\spr_chat_text_input</sprite>
@@ -169,6 +170,7 @@
       <object>objects\obj_Player_Name_Box</object>
       <object>objects\obj_GUI_Manager</object>
       <object>objects\obj_Chat_Input</object>
+      <object>objects\obj_Chat_Msg_Ingame</object>
     </objects>
     <objects name="Enemys">
       <object>objects\obj_spider</object>

@@ -46,7 +46,8 @@ switch(command)
             
             //Se crea una instancia del "obj_Player" en el room.
             //TODO Agregar los atributos provenientes del servidor.
-            with( instance_create( target_x, target_y, obj_Player) )
+            global.playerInstance = instance_create( target_x, target_y, obj_Player );
+            with( global.playerInstance )
             {
                 clientId = other.clientId;
                 name = other.name;
@@ -135,6 +136,23 @@ switch(command)
         message_accepted = buffer_read( argument0 , buffer_string );
         message_text = buffer_read( argument0 , buffer_string );
         show_debug_message( "chat: @ " + message_accepted + message_text);
+        
+        if( message_accepted == "TRUE" )
+        {
+            //Se utiliza la instancia del objeto "obj_Chat_Msg_Ingame" asociada al player.
+            with( global.playerInstance.chatMsgsIngame )
+            {
+                if( !ds_exists(queueMessages, ds_type_queue) )
+                {
+                    queueMessages = ds_queue_create();
+                }
+                
+                ds_queue_enqueue( queueMessages, other.message_text );
+                
+                event_user(0);
+            }
+        }
+        
         break;
     }
     

@@ -127,18 +127,6 @@ if( state != direction)
 //----------------------------------//
 //Si no existe creo una instancia.
 gui_name_box_draw( self );
-/*if( !instance_exists(self.nameBoxNP) )
-{
-    show_debug_message("Network step textbox.");
-
-    self.nameBoxNP = instance_create( self.x, self.y, obj_Player_Name_Box );
-    
-    //Guardo la referencia al jugador en el objeto de la caja del nombre.
-    with( self.nameBoxNP )
-    {
-        padre = other;
-    }
-}*/
 
 
 frm += rate; // increase sprite frame

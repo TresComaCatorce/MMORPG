@@ -26,9 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///Creacion de variables.
-padre = noone;
 
-show_debug_message("Text box create event.");
+nameBackgroundColor = c_green;
 
 depth = -505;
 </string>
@@ -56,9 +55,9 @@ depth = -505;
             <string>///Actualizacion del texto y posicion del objeto.
 
 //Obtengo los datos del player.
-var nombre = self.padre.name; //Nombre del personaje.
-var pos_x = self.padre.x; //Posicion X del player.
-var pos_y = self.padre.y; //Posicion Y del player.
+var nombre = global.playerInstance.name; //Nombre del personaje.
+var pos_x = global.playerInstance.x; //Posicion X del player.
+var pos_y = global.playerInstance.y; //Posicion Y del player.
 var txt_pos_x = ( pos_x - (string_width(nombre)) / 2 ); //Posicion X en la que debe aparecer el nombre.
 var txt_pos_y = ( pos_y - 90 ); //Posicion Y en la que debe aparecer el nombre.
 var rec_pos_x1 = txt_pos_x - 5;
@@ -68,12 +67,12 @@ var rec_pos_y2 = txt_pos_y + string_height(nombre);
 
 
 //Se dibuja el TextBox con los datos del usuario.
-if( instance_exists(self.padre) )
+if( instance_exists(global.playerInstance) )
 {
     //Dibujo el rectangulo de fondo.
-    draw_set_colour(c_black); //Color.
-    draw_set_alpha(.3); //Opacidad.
-    draw_rectangle( rec_pos_x1, rec_pos_y1, rec_pos_x2, rec_pos_y2, false); //Posicion outline false.
+    draw_set_colour(nameBackgroundColor); //Color.
+    draw_set_alpha(.4); //Opacidad.
+    draw_rectangle( rec_pos_x1, rec_pos_y1, rec_pos_x2, rec_pos_y2, false); //Posicion, outline false.
     
     //Dibujo el texto.
     draw_set_alpha(1);
@@ -83,7 +82,7 @@ if( instance_exists(self.padre) )
 }
 else
 {
-    show_debug_message("Box draw NO." + string(self.padre));
+    show_debug_message("Box draw NO." + string(global.playerInstance));
 }
 </string>
           </argument>
