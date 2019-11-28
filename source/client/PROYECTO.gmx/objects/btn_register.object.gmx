@@ -42,7 +42,7 @@ self.text = "Register";
         </arguments>
       </action>
     </event>
-    <event eventtype="6" enumb="7">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -59,26 +59,33 @@ self.text = "Register";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Lo que hace el boton de "Register" al clickearlo.
+            <string>///Acción del boton
+
 event_inherited();
 
-
-if( string_length(txt_Username.text) &gt; 0 
-    &amp;&amp;  string_length( txt_Password.text ) &gt; 0 )
+if( mouse_check_button_pressed(mb_left) )
 {
-    //Creo el paquete de register para enviar al servidor.
-    var register_packet = buffer_create( 1, buffer_grow, 1 );
-    
-    //Escribo los valores en el paquete.
-    buffer_write( register_packet, buffer_string, "C_REGISTER" );
-    buffer_write( register_packet, buffer_string, txt_Username.text );
-    buffer_write( register_packet, buffer_string, txt_Password.text );
-    
-    network_write( Network.socket, register_packet );
-}
-else
-{
-    show_message( "Error: Username or password can't be empty." );
+    //Si tiene hover se ejecuta la accion
+    if( self.hover )
+    {
+        if( string_length(txt_Username.text) &gt; 0
+        &amp;&amp;  string_length( txt_Password.text ) &gt; 0 )
+        {
+            //Creo el paquete de register para enviar al servidor.
+            var register_packet = buffer_create( 1, buffer_grow, 1 );
+            
+            //Escribo los valores en el paquete.
+            buffer_write( register_packet, buffer_string, "C_REGISTER" );
+            buffer_write( register_packet, buffer_string, txt_Username.text );
+            buffer_write( register_packet, buffer_string, txt_Password.text );
+            
+            network_write( Network.socket, register_packet );
+        }
+        else
+        {
+            show_message( "Error: Username or password can't be empty." );
+        }
+    }
 }
 </string>
           </argument>

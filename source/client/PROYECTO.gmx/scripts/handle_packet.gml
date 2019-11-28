@@ -151,6 +151,13 @@ switch(command)
                 
                 event_user(0);
             }
+            
+            //Se utiliza la instancia del objeto "obj_Chat_History".
+            with( global.playerInstance.guiManagerInstance.chatHistory )
+            {
+                //messages
+                ds_list_add( messages, global.playerInstance.name + ": " + other.message_text );
+            }
         }
         
         break;

@@ -85,9 +85,13 @@
       <sprite>sprites\spr_Chat_Input</sprite>
       <sprite>sprites\spr_Player_Name_Box</sprite>
       <sprite>sprites\spr_Chat_Msg_Ingame</sprite>
+      <sprite>sprites\spr_Chat_History</sprite>
     </sprites>
     <sprites name="GUI">
       <sprite>sprites\spr_chat_text_input</sprite>
+      <sprite>sprites\spr_chat_button</sprite>
+      <sprite>sprites\spr_global_button</sprite>
+      <sprite>sprites\spr_whisper_button</sprite>
       <sprite>sprites\spr_username_text_input</sprite>
       <sprite>sprites\spr_password_text_input</sprite>
       <sprite>sprites\spr_login_button</sprite>
@@ -122,6 +126,10 @@
     </scripts>
     <scripts name="Player">
       <script>scripts\gui_name_box_draw.gml</script>
+      <script>scripts\scr_getTypeMsgCode.gml</script>
+    </scripts>
+    <scripts name="Utils">
+      <script>scripts\scr_isCharacterKey.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -171,6 +179,8 @@
       <object>objects\obj_GUI_Manager</object>
       <object>objects\obj_Chat_Input</object>
       <object>objects\obj_Chat_Msg_Ingame</object>
+      <object>objects\obj_Chat_History</object>
+      <object>objects\obj_Chat_Type_Button</object>
     </objects>
     <objects name="Enemys">
       <object>objects\obj_spider</object>

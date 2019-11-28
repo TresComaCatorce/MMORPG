@@ -25,16 +25,32 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicialización del input de texto
+            <string>///Creación de variables
 
 event_inherited();
 
-//Se settea el sprite del text-box
-self.sprite = spr_chat_text_input;
+//Sprite
+self.sprite = noone;
 
-//Se crea abajo a la izquierda
-self.originPoint_x = view_wview[view_current]*.01;
-self.originPoint_y = (view_hview[view_current]*.99 - sprite_get_height(self.sprite));
+//Punto de origen
+self.originPoint_x = 0;
+self.originPoint_y = 0;
+
+//Texto
+self.text = "";
+
+//Con focus
+self.focused = true;
+
+//Tipo de mensaje a enviar ["CHAT", "GLOBAL", "WHISPER"]
+self.typeMsg = global.lastTypeMsgSended;
+
+//Boton chat tipo "Chat" asociado
+self.chatChatTypeButtonObject = noone;
+//Boton chat tipo "Global" asociado
+self.chatGlobalTypeButtonObject = noone;
+//Boton chat tipo "Whisper" asociado
+self.chatWhisperTypeButtonObject = noone;
 </string>
           </argument>
         </arguments>
@@ -55,14 +71,107 @@ self.originPoint_y = (view_hview[view_current]*.99 - sprite_get_height(self.spri
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Creación de variables
+            <string>///Inicialización del input de texto
 
-//Alto del historial de chat (Porcentaje)
-self.historyChatHeight = .5;
+//Se settea el sprite del text-box
+self.sprite = spr_chat_text_input;
 
-self.text = "";
+//Se crea abajo a la izquierda
+self.originPoint_x = view_wview[view_current]*.01;
+self.originPoint_y = (view_hview[view_current]*.99 - sprite_get_height(self.sprite) - sprite_get_height(spr_chat_button));
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Creación del boton "CHAT"
 
-self.focused = true;
+chatChatTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+
+with(chatChatTypeButtonObject)
+{
+    sprite = spr_chat_button;
+    tipo = "CHAT";
+    originPoint_x = other.originPoint_x;
+    originPoint_y = other.originPoint_y + sprite_get_height(sprite) + 1;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Creación del boton "GLOBAL"
+
+chatGlobalTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+
+with(chatGlobalTypeButtonObject)
+{
+    sprite = spr_global_button;
+    tipo = "GLOBAL";
+    originPoint_x = other.originPoint_x + sprite_get_width(other.chatChatTypeButtonObject.sprite);
+    originPoint_y = other.originPoint_y + sprite_get_height(other.sprite) + 1;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Creación del boton "WHISPER"
+
+chatWhisperTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+
+with(chatWhisperTypeButtonObject)
+{
+    sprite = spr_whisper_button;
+    tipo = "GLOBAL";
+    originPoint_x = other.originPoint_x + sprite_get_width(other.chatChatTypeButtonObject.sprite) + sprite_get_width(other.chatGlobalTypeButtonObject.sprite);
+    originPoint_y = other.originPoint_y + sprite_get_height(other.sprite) + 1;
+}
 </string>
           </argument>
         </arguments>
@@ -87,10 +196,37 @@ self.focused = true;
             <kind>1</kind>
             <string>///Se envia el mensaje al servidor
 
+event_inherited();
+
 if( is_string(text) &amp;&amp; string_length(text)&gt;0 )
 {
     event_user(0);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Destrucción instancias botones "CHAT", "GLOBAL" y "WHISPER"
+
+instance_destroy(chatChatTypeButtonObject);
+instance_destroy(chatGlobalTypeButtonObject);
+instance_destroy(chatWhisperTypeButtonObject);
 </string>
           </argument>
         </arguments>
@@ -119,6 +255,8 @@ if( is_string(text) &amp;&amp; string_length(text)&gt;0 )
 // @header [String] Accion a informar, en este caso "C_CHAT_MSG".
 // @pj_name [String] Nombre del personaje que envia el mensaje.
 // @message [String] Mensaje enviado.
+// @messageType [String] Tipo de mensaje ["CHAT","GLOBAL","WHISPER"]
+// TODO @destino [String] El nombre del personaje destino. Solo si el mensaje es de tipo "WHISPER".
 //
 // Se llama en:
 //      -Evento "Instance destruction".
@@ -132,9 +270,12 @@ var chat_packet = buffer_create(1, buffer_grow, 1);
 buffer_write(chat_packet, buffer_string, "C_CHAT_MSG");
 
 //Se escriben los datos en el buffer a enviar.
-//Dos enteros signed 32, uno para la posicion X y otro para la posicion Y.
-buffer_write(chat_packet, buffer_string, obj_Player.name);
-buffer_write(chat_packet, buffer_string, self.text);
+//Nombre del personaje.
+buffer_write(chat_packet, buffer_string, global.playerInstance.name);
+//Texto del mensaje.
+buffer_write(chat_packet, buffer_string, text);
+//Tipo del mensaje.
+buffer_write(chat_packet, buffer_s32, scr_getTypeMsgCode(typeMsg));
 
 //Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.
 network_write(Network.socket, chat_packet);
@@ -160,36 +301,6 @@ network_write(Network.socket, chat_packet);
         <isnot>0</isnot>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se dibuja el fondo del historial de chat
-
-event_inherited();
-
-draw_set_colour(c_black); //Color.
-draw_set_alpha(.4); //Opacidad.
-draw_rectangle( originPoint_x, originPoint_y*.99, originPoint_x+sprite_get_width(self.sprite), view_wview[view_current]*historyChatHeight, false);
-draw_set_alpha(1);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -208,36 +319,6 @@ draw_set_alpha(1);
           <argument>
             <kind>1</kind>
             <string>///Nothing here
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="116">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se cambia el porcentaje de altura del historial de chat
-
-switch(historyChatHeight)
-{
-    case .5: historyChatHeight = .29; break;
-    case .29: historyChatHeight = .09; break;
-    case .09: historyChatHeight = .5; break;
-}
 </string>
           </argument>
         </arguments>

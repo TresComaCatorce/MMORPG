@@ -2,10 +2,10 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>0</visible>
+  <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>ui_focus_base</parentName>
+  <parentName>ui_button_base</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,21 +25,21 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion de variables
+            <string>///Inicialización del input de texto
 
 event_inherited();
 
-self.text = "";
-self.placeholder = "";
+//Se settea el sprite del text-box
+self.sprite = noone;
 
-self.textOffsetX = 3;
-self.textOffsetY = 8;
+//Tipo de boton ["CHAT", "GLOBAL", "WHISPER"]
+self.tipo = "CHAT";
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -56,55 +56,7 @@ self.textOffsetY = 8;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se dibuja el textBox
-
-event_inherited();
-
-if( string_length(text) &gt; 0 || focused )
-{
-    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(text));
-}
-else
-{
-    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(placeholder));
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se lee input del teclado
-
-event_inherited();
-
-if( focused &amp;&amp; keyboard_key != vk_enter )
-{
-    if(keyboard_key == vk_backspace)
-    {
-        text = string_copy( text, 0, string_length(text) - 1 );
-    }
-    else if( scr_isCharacterKey(keyboard_key) )
-    {
-        text += keyboard_lastchar;
-    }
-}
+            <string>///Nothing here
 </string>
           </argument>
         </arguments>

@@ -71,7 +71,7 @@ if( instance_exists(global.playerInstance) )
 {
     //Dibujo el rectangulo de fondo.
     draw_set_colour(nameBackgroundColor); //Color.
-    draw_set_alpha(.4); //Opacidad.
+    draw_set_alpha(.7); //Opacidad.
     draw_rectangle( rec_pos_x1, rec_pos_y1, rec_pos_x2, rec_pos_y2, false); //Posicion, outline false.
     
     //Dibujo el texto.

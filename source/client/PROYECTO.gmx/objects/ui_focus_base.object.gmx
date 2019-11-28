@@ -30,6 +30,8 @@
 event_inherited();
 
 self.focused = false;
+
+self.focusBorderColor = c_white;
 </string>
           </argument>
         </arguments>
@@ -116,7 +118,9 @@ event_inherited();
 
 if(focused)
 {
+    draw_set_colour(focusBorderColor);
     draw_rectangle( originPoint_x, originPoint_y, originPoint_x+sprite_get_width(sprite), originPoint_y+sprite_get_height(sprite), 2);
+    draw_set_colour(c_white);
 }
 </string>
           </argument>
