@@ -18,7 +18,7 @@ let conf = {"environment": environment};
 
 
 //Se lee el archivo "common.json".
-let rawdata = fs.readFileSync('config\\common.json');
+let rawdata = fs.readFileSync( appRoot + '\\config\\common.json');
 let json_common = JSON.parse(rawdata);
 let common =
 {
@@ -36,7 +36,7 @@ let common =
 }
 
 //Se lee el archivo "data_base.json".
-rawdata = fs.readFileSync('config\\data_base.json');
+rawdata = fs.readFileSync(appRoot + '\\config\\data_base.json');
 let json_database = JSON.parse(rawdata);
 let data_base =
 {

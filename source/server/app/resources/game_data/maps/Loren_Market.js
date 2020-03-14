@@ -4,10 +4,12 @@
     Autor: Cristian Ferrero
 */
 
-exports.name = "Loren Market";
-exports.room = "rm_loren_market";
-
-exports.start_x = 125;
-exports.start_y = 125;
-
-exports.clients = [];
+module.exports = {
+	name: "Loren Market",
+	room: "rm_loren_market",
+	
+	start_x: 125,
+	start_y: 125,
+	
+	clients: []
+};

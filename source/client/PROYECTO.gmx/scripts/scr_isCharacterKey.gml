@@ -1,6 +1,8 @@
 
 var keyToEvaluate = argument0;
 
+//show_debug_message("Key code: " + string(keyToEvaluate));
+
 if( keyToEvaluate != vk_left &&
     keyToEvaluate != vk_right &&
     keyToEvaluate != vk_up &&
@@ -39,7 +41,7 @@ if( keyToEvaluate != vk_left &&
     keyToEvaluate != 162 && //Left Control
     keyToEvaluate != 163 && //Right Control
     keyToEvaluate != 164 && //Left Alt
-    keyToEvaluate != 145    //Right Alt
+    keyToEvaluate != 165    //Right Alt
     )
 {
     return true;

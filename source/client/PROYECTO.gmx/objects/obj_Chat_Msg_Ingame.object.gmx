@@ -155,7 +155,9 @@ if( ds_exists(queueMessages, ds_type_queue) )
         draw_rectangle( rec1_pos_x1, rec1_pos_y1, rec1_pos_x2, rec1_pos_y2, false); //Posicion, outline false.
         
         //Se dibuja el texto
+        depth = -510;
         draw_text_colour( txt1_pos_x, txt1_pos_y, ds_queue_tail(queueMessages), c_white, c_white, c_white, c_white, 1 );
+        depth = -505;
         
         if( ds_queue_size(queueMessages)==2 )
         {
@@ -170,7 +172,9 @@ if( ds_exists(queueMessages, ds_type_queue) )
             draw_rectangle( rec2_pos_x1, rec2_pos_y1, rec2_pos_x2, rec2_pos_y2, false); //Posicion, outline false.
             
             //Se dibuja el texto
+            depth = -510;
             draw_text_colour( txt2_pos_x, txt2_pos_y, ds_queue_head(queueMessages), c_white, c_white, c_white, c_white, 1 ); //Posicion y texto.
+            depth = -505;
         }
         
         draw_set_colour(c_white); //Color.
