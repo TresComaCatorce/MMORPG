@@ -110,8 +110,11 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Networking">
-      <script>scripts\network_write.gml</script>
-      <script>scripts\handle_packet.gml</script>
+      <script>scripts\scr_networkWrite.gml</script>
+      <script>scripts\scr_handlePacket.gml</script>
+      <scripts name="packets_handlers">
+        <script>scripts\scr_packetHandlerLogin.gml</script>
+      </scripts>
     </scripts>
     <scripts name="Constants">
       <script>scripts\scr_constants_definition.gml</script>

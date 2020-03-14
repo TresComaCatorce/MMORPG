@@ -77,7 +77,7 @@ if( mouse_check_button_pressed(mb_left) )
             buffer_write( login_packet, buffer_string, txt_Username.text );
             buffer_write( login_packet, buffer_string, txt_Password.text );
             
-            network_write( Network.socket, login_packet );
+            scr_networkWrite( Network.socket, login_packet );
         }
         else
         {

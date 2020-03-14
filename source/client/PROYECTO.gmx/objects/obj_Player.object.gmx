@@ -305,24 +305,24 @@ if( self.state == global.playerStateIdle )
 //-----------------------------------------------------------------------------
 
 //Se crea el buffer a enviar
-var pos_packet = buffer_create(1, buffer_grow, 1);
+var pos_packet = buffer_create( 1, buffer_grow, 1 );
 
 //Se escribe el header (accion para identificar en el servidor) en el buffer a enviar.
 //Un string indicando la accion informada.
-buffer_write(pos_packet, buffer_string, "C_UPDATE");
+buffer_write( pos_packet, buffer_string, "C_UPDATE" );
 
 //Se escriben los datos en el buffer a enviar.
 //Dos enteros signed 32, uno para la posicion X y otro para la posicion Y.
-buffer_write(pos_packet, buffer_s32, self.x);
-buffer_write(pos_packet, buffer_s32, self.y);
+buffer_write( pos_packet, buffer_s32, self.x );
+buffer_write( pos_packet, buffer_s32, self.y );
 //Un entero signed 32 para la direccion del personaje.
-buffer_write(pos_packet, buffer_s32, self.dir);
+buffer_write( pos_packet, buffer_s32, self.dir );
 //Un string para el 'state' del personaje (Para las animaciones).
-buffer_write(pos_packet, buffer_s32, self.state);
+buffer_write( pos_packet, buffer_s32, self.state );
 
 
 //Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.
-network_write(Network.socket, pos_packet);
+scr_networkWrite( Network.socket, pos_packet );
 
 </string>
           </argument>
