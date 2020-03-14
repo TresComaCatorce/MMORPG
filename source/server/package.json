@@ -12,6 +12,7 @@
 		"underscore": "^1.9.1"
 	},
 	"scripts": {
-		"start": "node .\\app\\server.js"
+		"start": "node .\\app\\server.js",
+		"test": "nodemon .\\app\\server.js"
 	}
 }

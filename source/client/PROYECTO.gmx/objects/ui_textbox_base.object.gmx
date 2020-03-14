@@ -31,6 +31,7 @@ event_inherited();
 
 self.text = "";
 self.placeholder = "";
+self.charsLimit = 256;
 
 self.textOffsetX = 3;
 self.textOffsetY = 8;
@@ -94,7 +95,7 @@ else
 
 event_inherited();
 
-if( focused &amp;&amp; keyboard_key != vk_enter )
+if( focused &amp;&amp; keyboard_key != vk_enter &amp;&amp; string_length(text)&lt;charsLimit )
 {
     if(keyboard_key == vk_backspace)
     {

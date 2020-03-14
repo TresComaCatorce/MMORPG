@@ -55,7 +55,7 @@ module.exports = packet =
         return finalPacket;
     },
 
-    //Parse de un paquete para ser manejado por el cliente.
+    // Parse de un paquete recibido desde el cliente.
     parse: function( cliente, data )
     {
         let idx = 0;

@@ -39,6 +39,9 @@ self.originPoint_y = 0;
 //Texto
 self.text = "";
 
+//Largo
+self.charsLimit = 64;
+
 //Con focus
 self.focused = true;
 
