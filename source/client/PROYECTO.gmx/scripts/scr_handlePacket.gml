@@ -1,3 +1,5 @@
+///scr_handlePacket( dataFromServer );
+
 //---------------------------------------------------------------
 // Aqui se manejan los paquetes que se reciben desde el servidor.
 //---------------------------------------------------------------
@@ -13,59 +15,24 @@ var command = buffer_read( argument0 , buffer_string );
 //Se evalua y se decide que hacer con el paquete recibido.
 switch(command)
 {
-    //-------------------------
     //Conexion con el servidor.
-    //-------------------------
-    case "S_HELLO":
-    {
+    case "S_HELLO": {
         server_time = buffer_read( argument0 , buffer_string );
         room_goto(rom_login);
         show_debug_message( "Server welcomes you @ " + server_time );
         break;
     }
     
-    //-------------------
     //Intento de loggeo.
-    //-------------------
-    case "S_LOGIN":
-    {
-        status = buffer_read(argument0, buffer_string);
-        //Si el loggeo fue exitoso.
-        if( status == "TRUE" )
-        {
-            //Lectura de datos que devuelve el servidor
-            clientId = buffer_read(argument0, buffer_string); //ID Unico del cliente
-            target_room = buffer_read(argument0, buffer_string); //Room donde se va a introducir el personaje.
-            target_x = buffer_read(argument0, buffer_u16); //Posicion X del personaje en el mapa.
-            target_y = buffer_read(argument0, buffer_u16); //Posicion Y del personaje en el mapa.
-            name = buffer_read(argument0, buffer_string); //Nombre del personaje.
-            
-            //Se mueve al room correspondiente.
-            room_togo = asset_get_index(target_room);
-            room_goto(room_togo);
-            
-            //Se crea una instancia del "obj_Player" en el room.
-            //TODO Agregar los atributos provenientes del servidor.
-            global.playerInstance = instance_create( target_x, target_y, obj_Player );
-            with( global.playerInstance )
-            {
-                clientId = other.clientId;
-                name = other.name;
-            }
-        }
-        //Si el loggeo fue erroneo.
-        else
-        {
-            show_message("Login Failed: Username or password incorrect.");
-        }
+    case "S_LOGIN": {
+        scr_packetHandlerLogin( argument0 );
         break;
     }
     
     //---------------------
     // Intento de registro.
     //---------------------
-    case "S_REGISTER":
-    {
+    case "S_REGISTER": {
         status = buffer_read(argument0, buffer_string);
         if( status == "TRUE" )
         {

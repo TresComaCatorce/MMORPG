@@ -1,3 +1,5 @@
+/// scr_networkWrite( socket, bufferDataToSend );
+
 //argument 0: socket.
 //argument 1: buffer de datos a enviar.
 

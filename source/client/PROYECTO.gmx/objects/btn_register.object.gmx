@@ -79,7 +79,7 @@ if( mouse_check_button_pressed(mb_left) )
             buffer_write( register_packet, buffer_string, txt_Username.text );
             buffer_write( register_packet, buffer_string, txt_Password.text );
             
-            network_write( Network.socket, register_packet );
+            scr_networkWrite( Network.socket, register_packet );
         }
         else
         {

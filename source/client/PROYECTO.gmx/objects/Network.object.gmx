@@ -73,7 +73,7 @@ network_connect_raw( socket, "127.0.0.1", 8083 );
                 buffer_copy( savedbuffer , reading , size , cutbuffer, 0 );
                 buffer_seek( cutbuffer , 0 , 1 );
                 
-                handle_packet( cutbuffer );
+                scr_handlePacket( cutbuffer );
                 
                 if( buffer_get_size(savedbuffer) != reading+size )
                 {
