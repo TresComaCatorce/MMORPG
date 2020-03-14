@@ -2,6 +2,9 @@
 #.*
 ~*
 
+# Binaries folder
+/[Bb]inaries/
+
 # Database folder
 /[Dd]atabase/
 
