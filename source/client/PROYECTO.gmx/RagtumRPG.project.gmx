@@ -114,6 +114,10 @@
       <script>scripts\scr_handlePacket.gml</script>
       <scripts name="packets_handlers">
         <script>scripts\scr_packetHandlerLogin.gml</script>
+        <script>scripts\scr_packetHandlerHello.gml</script>
+        <script>scripts\scr_packetHandlerRegister.gml</script>
+        <script>scripts\scr_packetHandlerUpdate.gml</script>
+        <script>scripts\scr_packetHandlerChatMsg.gml</script>
       </scripts>
     </scripts>
     <scripts name="Constants">
