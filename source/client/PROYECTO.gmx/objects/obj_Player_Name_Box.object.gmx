@@ -78,7 +78,6 @@ if( instance_exists(global.playerInstance) )
     //Dibujo el texto.
     draw_set_alpha(1);
     draw_set_colour(c_white); //Color.
-    draw_set_font(fnt_Ragtum); //Set de la fuente.
     draw_text( txt_pos_x, txt_pos_y, nombre ); //Posicion y texto.
     depth= -505;
 }

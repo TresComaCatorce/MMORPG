@@ -31,7 +31,7 @@ module.exports = PacketModels =
         .int32le( "new_x", StringOptions )
         .int32le( "new_y", StringOptions )
         .int32le( "direction", StringOptions )
-        .int32le( "state", StringOptions ),
+        .string( "state", StringOptions ),
 		//.floatbe()
 	
 	chat_message: new Parser().skip(1)

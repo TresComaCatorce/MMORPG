@@ -304,26 +304,16 @@ if( self.state == global.playerStateIdle )
 //      -Al presionar la W para mover el personaje.
 //-----------------------------------------------------------------------------
 
-//Se crea el buffer a enviar
-var pos_packet = buffer_create( 1, buffer_grow, 1 );
+var packetName = "C_UPDATE";
+var attributes = ds_list_create();
 
-//Se escribe el header (accion para identificar en el servidor) en el buffer a enviar.
-//Un string indicando la accion informada.
-buffer_write( pos_packet, buffer_string, "C_UPDATE" );
+ds_list_add(    attributes,
+                self.x,
+                self.y,
+                self.dir,
+                self.state );
 
-//Se escriben los datos en el buffer a enviar.
-//Dos enteros signed 32, uno para la posicion X y otro para la posicion Y.
-buffer_write( pos_packet, buffer_s32, self.x );
-buffer_write( pos_packet, buffer_s32, self.y );
-//Un entero signed 32 para la direccion del personaje.
-buffer_write( pos_packet, buffer_s32, self.dir );
-//Un string para el 'state' del personaje (Para las animaciones).
-buffer_write( pos_packet, buffer_s32, self.state );
-
-
-//Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.
-scr_networkWrite( Network.socket, pos_packet );
-
+scr_sendPacket( packetName, attributes );
 </string>
           </argument>
         </arguments>

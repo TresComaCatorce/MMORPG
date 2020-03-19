@@ -111,13 +111,18 @@
   <scripts name="scripts">
     <scripts name="Networking">
       <script>scripts\scr_networkWrite.gml</script>
-      <script>scripts\scr_handlePacket.gml</script>
-      <scripts name="packets_handlers">
-        <script>scripts\scr_packetHandlerLogin.gml</script>
-        <script>scripts\scr_packetHandlerHello.gml</script>
-        <script>scripts\scr_packetHandlerRegister.gml</script>
-        <script>scripts\scr_packetHandlerUpdate.gml</script>
-        <script>scripts\scr_packetHandlerChatMsg.gml</script>
+      <scripts name="receiving">
+        <scripts name="packets_handlers">
+          <script>scripts\scr_packetHandlerLogin.gml</script>
+          <script>scripts\scr_packetHandlerHello.gml</script>
+          <script>scripts\scr_packetHandlerRegister.gml</script>
+          <script>scripts\scr_packetHandlerUpdate.gml</script>
+          <script>scripts\scr_packetHandlerChatMsg.gml</script>
+        </scripts>
+        <script>scripts\scr_handlePacket.gml</script>
+      </scripts>
+      <scripts name="sending">
+        <script>scripts\scr_sendPacket.gml</script>
       </scripts>
     </scripts>
     <scripts name="Constants">

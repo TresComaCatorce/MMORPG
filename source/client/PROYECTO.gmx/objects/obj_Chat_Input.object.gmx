@@ -171,7 +171,7 @@ chatWhisperTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj
 with(chatWhisperTypeButtonObject)
 {
     sprite = spr_whisper_button;
-    tipo = "GLOBAL";
+    tipo = "WHISPER";
     originPoint_x = other.originPoint_x + sprite_get_width(other.chatChatTypeButtonObject.sprite) + sprite_get_width(other.chatGlobalTypeButtonObject.sprite);
     originPoint_y = other.originPoint_y + sprite_get_height(other.sprite) + 1;
 }
@@ -252,7 +252,7 @@ instance_destroy(chatWhisperTypeButtonObject);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se envía el mensaje de chat al servidor
+            <string>/// Se envía el mensaje de chat al servidor
 //-----------------------------------------------------------------------------
 // Evento custom que envia el mensaje de chat con los siguientes atributos:
 // @header [String] Accion a informar, en este caso "C_CHAT_MSG".
@@ -264,25 +264,15 @@ instance_destroy(chatWhisperTypeButtonObject);
 // Se llama en:
 //      -Evento "Instance destruction".
 //-----------------------------------------------------------------------------
+var packetName = "C_CHAT_MSG";
+var attributes = ds_list_create();
 
-//Se crea el buffer a enviar
-var chat_packet = buffer_create( 1, buffer_grow, 1 );
+ds_list_add(    attributes,
+                global.playerInstance.name,
+                text,
+                scr_getTypeMsgCode(typeMsg) );
 
-//Se escribe el header (accion para identificar en el servidor) en el buffer a enviar.
-//Un string indicando la accion informada.
-buffer_write( chat_packet, buffer_string, "C_CHAT_MSG" );
-
-//Se escriben los datos en el buffer a enviar.
-//Nombre del personaje.
-buffer_write( chat_packet, buffer_string, global.playerInstance.name );
-//Texto del mensaje.
-buffer_write( chat_packet, buffer_string, text );
-//Tipo del mensaje.
-buffer_write( chat_packet, buffer_s32, scr_getTypeMsgCode(typeMsg));
-
-//Se escribe el socket creado en el "Network.socket" para que lo maneje y envie al servidor.
-scr_networkWrite( Network.socket, chat_packet );
-
+scr_sendPacket( packetName, attributes );
 </string>
           </argument>
         </arguments>

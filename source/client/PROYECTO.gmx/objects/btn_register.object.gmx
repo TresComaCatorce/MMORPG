@@ -71,15 +71,14 @@ if( mouse_check_button_pressed(mb_left) )
         if( string_length(txt_Username.text) &gt; 0
         &amp;&amp;  string_length( txt_Password.text ) &gt; 0 )
         {
-            //Creo el paquete de register para enviar al servidor.
-            var register_packet = buffer_create( 1, buffer_grow, 1 );
+            var packetName = "C_REGISTER";
+            var attributes = ds_list_create();
             
-            //Escribo los valores en el paquete.
-            buffer_write( register_packet, buffer_string, "C_REGISTER" );
-            buffer_write( register_packet, buffer_string, txt_Username.text );
-            buffer_write( register_packet, buffer_string, txt_Password.text );
+            ds_list_add(    attributes,
+                            txt_Username.text,
+                            txt_Password.text );
             
-            scr_networkWrite( Network.socket, register_packet );
+            scr_sendPacket( packetName, attributes );
         }
         else
         {

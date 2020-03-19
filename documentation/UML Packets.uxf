@@ -606,4 +606,31 @@ layer=1
 fontsize=20</panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>1029</y>
+      <w>105</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>
+
+
+
+
+
+
+
+
+
+
+
+"S_CHAT_MSG"
+
+bg=white
+layer=1
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>

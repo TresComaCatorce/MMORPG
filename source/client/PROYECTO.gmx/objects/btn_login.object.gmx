@@ -57,7 +57,7 @@ self.text = "Login";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Acción del boton
+            <string>/// Acción del boton
 
 event_inherited();
 
@@ -69,15 +69,14 @@ if( mouse_check_button_pressed(mb_left) )
         if( string_length(txt_Username.text) &gt; 0 
         &amp;&amp;  string_length( txt_Password.text ) &gt; 0 )
         {
-            //Creo el paquete de login para enviar al servidor.
-            var login_packet = buffer_create( 1, buffer_grow, 1 );
+            var packetName = "C_LOGIN";
+            var attributes = ds_list_create();
             
-            //Escribo los valores en el paquete.
-            buffer_write( login_packet, buffer_string, "C_LOGIN" );
-            buffer_write( login_packet, buffer_string, txt_Username.text );
-            buffer_write( login_packet, buffer_string, txt_Password.text );
+            ds_list_add(    attributes,
+                            txt_Username.text,
+                            txt_Password.text );
             
-            scr_networkWrite( Network.socket, login_packet );
+            scr_sendPacket( packetName, attributes );
         }
         else
         {

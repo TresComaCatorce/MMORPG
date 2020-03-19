@@ -1,5 +1,5 @@
-// Recibe el tipo de chat en string y retorna el código del tipo
-// de mensaje entre
+/// scr_getTypeMsgCode( stringMsgCode );
+// Recibe el tipo de chat en string y retorna el código del tipo de mensaje de chat.
 
 var typeMsgStringCode = argument0;
 

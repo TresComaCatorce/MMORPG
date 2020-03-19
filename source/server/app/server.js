@@ -9,10 +9,10 @@
 */
 
 //Imports de las librerias. ----->
+module.exports = fs = require('fs'); //File system library.
 var colors = require('colors'); //Console messages in colors.
-var fs = require('fs'); //File system library.
 var net = require('net'); //Network library.
-require('./packet.js'); //Convertidor: JS Object -> Buffer
+require('./packets/packet.js'); //Convertidor: JS Object -> Buffer
 //Fin imports librerias. ----->
 
 //Se guarda una referencia global al path de la aplicacion.
@@ -21,12 +21,12 @@ global.appRoot = __dirname;
 //------------------------------------------------------------------------------
 //Carga de los inicializadores.
 //------------------------------------------------------------------------------
-var init_files = fs.readdirSync( __dirname + "/initializers" );
-console.log('\nLoading initializers...'.bold.cyan);
+var init_files = fs.readdirSync( `${__dirname}/initializers` );
+console.log( '\nLoading initializers...'.bold.cyan);
 init_files.forEach(function(initFile, index) //Por cada uno de los inicializadores del directorio 'initializers'.
 {
-    console.log( ('- ' + initFile).magenta );
-    require( __dirname + '/initializers/' + initFile);
+    console.log( (`- ${initFile}`).magenta );
+    require( `${__dirname}/initializers/${initFile}` );
 });
 //------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ init_files.forEach(function(initFile, index) //Por cada uno de los inicializador
 //Carga de los modelos.
 //------------------------------------------------------------------------------
 var model_files = fs.readdirSync( __dirname + "/models" );
-console.log('Loading models...'.bold.cyan);
+console.log( '\nLoading models...'.bold.cyan);
 model_files.forEach(function(modelFile) //Por cada uno de los modelos del directorio 'models'.
 {
     console.log( ('- ' + modelFile).magenta );
@@ -65,7 +65,7 @@ model_files.forEach(function(modelFile) //Por cada uno de los modelos del direct
 
 
 //Mensaje de inicializacion completa
-console.log('Server initialize was complete.'.bold.green);
+console.log( '\nServer initialize was complete.'.bold.green );
 
 
 //Creacion del servidor para escuchar por internet.
