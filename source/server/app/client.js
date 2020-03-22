@@ -23,7 +23,7 @@ module.exports = function() {
         client.socket = socket;
 
         //Envio del packete de handshake al servidor. //TODO
-        client.socket.write(packet.build(["S_HELLO", now().toString()]));
+        client.socket.write(packetManager.build(["S_HELLO", now().toString()]));
     }
 
 
@@ -55,7 +55,7 @@ module.exports = function() {
     // que se encuentran en el room.
     client.broadcastRoom = ( username, new_x, new_y, direction, state ) => {
 
-        let packetData = packet.build(["S_UPDATE", username, new_x, new_y, direction, state]);
+        let packetData = packetManager.build(["S_UPDATE", username, new_x, new_y, direction, state]);
 
         //Se recorre el array que contiene todos los clientes en ese room.
         //Y se ejecuta la funcion por cada uno de ellos.
@@ -80,7 +80,7 @@ module.exports = function() {
     /****************************************/
     //Callback que maneja los paquetes de datos recibidos.
     client.data = (data) => {
-        packet.parse( client, data );
+        packetManager.parse( client, data );
     }
 
     //Callback ejecutado cuando se finaliza la conexion con el cliente.

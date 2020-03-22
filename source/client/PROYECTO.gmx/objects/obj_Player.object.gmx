@@ -155,7 +155,7 @@ if( state == global.playerStateIdle )
     event_user(0);
 }
 
-alarm[0]=10
+alarm[0]=10;
 </string>
           </argument>
         </arguments>

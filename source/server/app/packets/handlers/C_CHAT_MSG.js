@@ -9,12 +9,12 @@
 */
 
 module.exports = packet_C_CHAT_MSG = {
-	process: ( cliente, packetData ) => {
+	process: ( cliente, datapacket ) => {
 		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		var data = PacketModels.chat_message.parse(datapacket);
 				
 		//Se envia la respuesta al cliente
-		var packetToSend = packet.build( ["S_CHAT_MSG", "TRUE", data.message] );
+		var packetToSend = packetManager.build( ["S_CHAT_MSG", "TRUE", data.message] );
 		cliente.broadcastSelf(packetToSend);
 	}
 }

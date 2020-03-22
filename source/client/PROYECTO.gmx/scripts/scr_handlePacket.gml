@@ -21,6 +21,11 @@ switch(command)
         break;
     }
     
+    case "S_CON_CHECK": {
+        scr_packetHandlerConCheck( argument0 );
+        break;
+    }
+    
     //Intento de loggeo.
     case "S_LOGIN": {
         scr_packetHandlerLogin( argument0 );

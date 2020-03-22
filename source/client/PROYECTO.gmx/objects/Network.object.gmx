@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Inicio de la conexion
+            <string>///Inicio de la conexion
 
 //Instanciacion de variables
 savedbuffer = buffer_create( 1, buffer_grow, 1 );
@@ -35,6 +35,102 @@ cutbuffer = buffer_create( 1, buffer_grow, 1 );
 //Inicializacion del socket
 socket = network_create_socket( network_socket_tcp );
 network_connect_raw( socket, "127.0.0.1", 8083 );
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Inicio de las alarmas
+
+lostPackages = 0;
+
+//Inicia el envio de paquete de verificación de conexión
+alarm[0] = 1;
+
+//Inicia el check de paquetes perdidos
+alarm[1] = 90;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Check lost package quantity
+
+show_debug_message("Check lost pack: " + string(lostPackages));
+
+if( lostPackages&gt;3 ) {
+    scr_disconnectClient( "foo" );  
+}
+
+lostPackages += 1;
+
+alarm[1] = 180;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Send "C_CON_CHECK"
+
+show_debug_message("Send 'C_CON_CHECK'");
+
+var packetName = "C_CON_CHECK";
+var attributes = ds_list_create();
+
+ds_list_add( attributes, "foo_KEY_VALUE" );
+
+scr_sendPacket( packetName, attributes );
+
+alarm[0] = 180;
 </string>
           </argument>
         </arguments>
@@ -94,6 +190,29 @@ network_connect_raw( socket, "127.0.0.1", 8083 );
         
         break;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 
 </string>
           </argument>
         </arguments>

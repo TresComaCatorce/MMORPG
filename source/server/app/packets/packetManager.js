@@ -12,9 +12,11 @@
 
 var zeroBuffer = new Buffer.from('00', 'hex');
 
-module.exports = packet =
+module.exports = packetManager =
 {
-	//Carga todos los handlers de los paquetes de entrada
+	// Inicializa el packet manager.
+	// Carga todos los handlers de los paquetes de entrada
+	//
 	init: function() {
 		var handlersFiles = fs.readdirSync( __dirname + "/handlers" );
 		handlersFiles.forEach( (handlerFile, index) => {
@@ -24,17 +26,21 @@ module.exports = packet =
 
 
 
-    //La variable 'params' es un array de objetos javascript que deben ser
-    //convertidos en buffers, y asi poder enviarlo al cliente (GameMaker).
+	// Construye un buffer a partir de diferentes datos.
+	//
+	// @param <[Object]> 'params': Array de valores a convertir.
+	//
+	// @return <Buffer>: Buffer construido a partir de 'params'.
+	//
     build: function(params) {
-        var packetParts = [];
+		var packetParts = [];
 		var packetSize = 0;
-
+		
         params.forEach(function(param)
         {
             var buffer;
 
-			switch( param ) {
+			switch( typeof param ) {
 				case 'string': {
 					buffer = new Buffer.from( param, 'utf8');
 					buffer = Buffer.concat( [buffer, zeroBuffer] , buffer.length + 1);
@@ -46,7 +52,7 @@ module.exports = packet =
 					break;
 				}
 				default: {
-					console.log("WARNING: Unknown data type in packet builder.", params[0], typeof param, param);
+					console.warn("WARNING: Unknown data type in packet builder.", params[0], typeof param, param);
 					break;
 				}
 			}
@@ -68,7 +74,12 @@ module.exports = packet =
 	
 
 
-    // Parse de un paquete recibido desde el cliente.
+	// Parsea a Buffer de datos un paquete recibido desde el cliente.
+	// Luego lo envía a la funcion "interpret" para que interprete el paquete recibido.
+	//
+	// @param <Client> 'cliente': Cliente que envia el paquete.
+	// @param <DataStream> 'data': Datos "raw" recibidos desde el cliente.
+	//
     parse: function( cliente, data ) {
         let idx = 0;
         while( idx < data.length )
@@ -85,8 +96,12 @@ module.exports = packet =
 
 
 	
-	// Interprete de los paquetes recibidos desde el cliente.
+	// Interpreta los paquetes recibidos desde el cliente.
 	// Desde aquí se llama al handler correspondiente ubicado en la carpeta "handlers".
+	//
+	// @param <Client> 'cliente': Cliente que envia el paquete.
+	// @param <Buffer> 'datapacket': Buffer de datos recibidos desde el cliente.
+	//
     interpret: function( cliente, datapacket ) {
 		var header = PacketModels.header.parse(datapacket);
 		var command =  header.command.toUpperCase();

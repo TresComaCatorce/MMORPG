@@ -35,11 +35,11 @@ module.exports = packet_C_LOGIN = {
 				//Informa el ingreso a los demas clientes.
 				cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
 		
-				is_kernel_buffer_full = cliente.socket.write( packet.build(["S_LOGIN", "TRUE", cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
+				is_kernel_buffer_full = cliente.socket.write( packetManager.build(["S_LOGIN", "TRUE", cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
 			}
 			else //Si los datos de login son incorrectos.
 			{
-				is_kernel_buffer_full = cliente.socket.write( packet.build(["S_LOGIN", "FALSE"]) );
+				is_kernel_buffer_full = cliente.socket.write( packetManager.build(["S_LOGIN", "FALSE"]) );
 			}
 		
 			if(!is_kernel_buffer_full)

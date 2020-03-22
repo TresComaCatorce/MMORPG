@@ -15,11 +15,11 @@ for( var i=0 ; i<ds_list_size(attributes); i++ ) {
     var att = ds_list_find_value( attributes, i );
     
     if( is_string(att) ) {
-        show_debug_message( "String Att: " + att )
+        //show_debug_message( "String Att: " + att )
         buffer_write( packetToSend, buffer_string, att );
     }
     else if( is_real(att) ) {
-        show_debug_message( "Real Att: " + string(att) )
+        //show_debug_message( "Real Att: " + string(att) )
         buffer_write( packetToSend, buffer_s32, att);
     }
 }

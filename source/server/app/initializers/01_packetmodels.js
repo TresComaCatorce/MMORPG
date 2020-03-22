@@ -13,8 +13,12 @@ var StringOptions = { length: 99, zeroTerminated: true };
 
 module.exports = PacketModels =
 {
+	connection_check: new Parser().skip(1)
+		.string( "command", StringOptions )
+		.string( "key", StringOptions ),
+
     header: new Parser().skip(1)
-        .string( "command", StringOptions),
+        .string( "command", StringOptions ),
 
     login: new Parser().skip(1)
         .string( "command", StringOptions )
@@ -38,4 +42,6 @@ module.exports = PacketModels =
 		.string( "command", StringOptions)
 		.string( "pj_name", StringOptions)
 		.string( "message", StringOptions)
+
+	
 }

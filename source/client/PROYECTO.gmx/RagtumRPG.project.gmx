@@ -118,6 +118,7 @@
           <script>scripts\scr_packetHandlerRegister.gml</script>
           <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerChatMsg.gml</script>
+          <script>scripts\scr_packetHandlerConCheck.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
       </scripts>
@@ -142,6 +143,7 @@
     </scripts>
     <scripts name="Utils">
       <script>scripts\scr_isCharacterKey.gml</script>
+      <script>scripts\scr_disconnectClient.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
