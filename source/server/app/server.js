@@ -10,14 +10,10 @@
 
 //Imports de las librerias. ----->
 module.exports = fs = require('fs'); //File system library.
-const colors = require('colors'); //Console messages in colors.
-const net = require('net'); //Network library.
-require('./packets/packetManager').init(); //Convertidor: JS Object -> Buffer
-const Entity = require('./classes/Entity');
+var colors = require('colors'); //Console messages in colors.
+var net = require('net'); //Network library.
+require('./packets/packetManager.js').init(); //Convertidor: JS Object -> Buffer
 //Fin imports librerias. ----->
-
-var ett = new Entity( "asdsad" );
-console.log( ett.entityName );
 
 //Se guarda una referencia global al path de la aplicacion.
 global.appRoot = __dirname;
