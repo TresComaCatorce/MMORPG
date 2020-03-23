@@ -18,10 +18,19 @@ module.exports = packetManager =
 	// Carga todos los handlers de los paquetes de entrada
 	//
 	init: function() {
-		var handlersFiles = fs.readdirSync( __dirname + "/handlers" );
-		handlersFiles.forEach( (handlerFile, index) => {
-			require( __dirname + '/handlers/' + handlerFile);
+		['incoming', 'outgoing'].forEach( handlersFolder => {
+			const handlersFiles = fs.readdirSync( `${__dirname}/${handlersFolder}` );
+				handlersFiles.forEach( handlerFile => {
+				require( `${__dirname}/${handlersFolder}/${handlerFile}`);
+			});
 		});
+
+	},
+
+
+
+	sendPacket: ( packetName, data ) => {
+		global[`packet_${packetName}`].process( data );
 	},
 
 
@@ -32,7 +41,7 @@ module.exports = packetManager =
 	//
 	// @return <Buffer>: Buffer construido a partir de 'params'.
 	//
-    build: function(params) {
+    build: (params) => {
 		var packetParts = [];
 		var packetSize = 0;
 		

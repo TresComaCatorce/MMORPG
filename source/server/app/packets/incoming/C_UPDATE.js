@@ -25,6 +25,7 @@ module.exports = packet_C_UPDATE = {
 		
 		// Se le comunica al cliente que debe actualizar en su cliente
 		// el dato actualizado por otro cliente.
-		cliente.broadcastRoom( cliente.user.username, data.new_x, data.new_y, data.direction, data.state );
+		cliente.broadcastRoom( packetManager.build(["S_UPDATE", cliente.user.username, data.new_x, data.new_y, data.direction, data.state]) );
+		//cliente.broadcastRoom( cliente.user.username, data.new_x, data.new_y, data.direction, data.state );
 	}
 }

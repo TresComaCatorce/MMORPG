@@ -33,7 +33,8 @@ module.exports = packet_C_LOGIN = {
 				cliente.enterRoom( cliente.user.current_room );
 		
 				//Informa el ingreso a los demas clientes.
-				cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
+				cliente.broadcastRoom( packetManager.build(["S_UPDATE", cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0]) );
+				//cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
 		
 				is_kernel_buffer_full = cliente.socket.write( packetManager.build(["S_LOGIN", "TRUE", cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
 			}

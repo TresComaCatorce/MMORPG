@@ -12,7 +12,8 @@
 module.exports = fs = require('fs'); //File system library.
 var colors = require('colors'); //Console messages in colors.
 var net = require('net'); //Network library.
-require('./packets/packetManager.js').init(); //Convertidor: JS Object -> Buffer
+require('./classes/Client');
+require('./packets/packetManager').init();
 //Fin imports librerias. ----->
 
 //Se guarda una referencia global al path de la aplicacion.
@@ -88,33 +89,33 @@ server.on( 'connection', (socket) => {
     console.log( ("Client connected from ip: " + raddr.bold + " | port: " + rport.bold + " | protocol: " + rfamily.bold) );
 
     //Nueva instancia de 'client.js', una para cada conexion al servidor.
-    let c_inst = new require('./client.js');
-    let thisClient = new c_inst();
+    //let c_inst = new require('./client.js');
+    let thisClient = new Client( socket );
 
     //--------------------------------------------------------------------------
     //Handler functions
     //--------------------------------------------------------------------------
     //Manejo de datos enviados desde el cliente delegado al objeto cliente.
-    socket.on( 'data', thisClient.data );
+    socket.on( 'data', thisClient.data.bind(thisClient) );
 
     //Manejo de la finalizacion de la conexion delegada al objeto cliente.
-    socket.on( 'end', thisClient.end );
+    socket.on( 'end', thisClient.end.bind(thisClient) );
 
     //Manejo del cierre de la conexion delegada al objeto cliente.
-    socket.on( 'close', thisClient.close );
+    socket.on( 'close', thisClient.close.bind(thisClient) );
 
     //
-    socket.on( 'drain', thisClient.drain );
+    socket.on( 'drain', thisClient.drain.bind(thisClient) );
 
     //Manejo del timeout en la conexion.
-    socket.on( 'timeout', thisClient.timeout );
+    socket.on( 'timeout', thisClient.timeout.bind(thisClient) );
 
     //Manejo de error en la conexion
-    socket.on( 'error', thisClient.error );
+    socket.on( 'error', thisClient.error.bind(thisClient) );
 
 
     //Inicializacion del cliente
-    thisClient.initiate(socket);
+    //thisClient.initiate(socket);
 });
 
 server.on('listening', () => {

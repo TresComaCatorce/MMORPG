@@ -88,8 +88,6 @@ alarm[1] = 90;
             <kind>1</kind>
             <string>/// Check lost package quantity
 
-show_debug_message("Check lost pack: " + string(lostPackages));
-
 if( lostPackages&gt;3 ) {
     scr_disconnectClient( "foo" );  
 }
@@ -120,8 +118,6 @@ alarm[1] = 180;
           <argument>
             <kind>1</kind>
             <string>/// Send "C_CON_CHECK"
-
-show_debug_message("Send 'C_CON_CHECK'");
 
 var packetName = "C_CON_CHECK";
 var attributes = ds_list_create();
@@ -190,29 +186,6 @@ alarm[0] = 180;
         
         break;
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="10">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// 
 </string>
           </argument>
         </arguments>
