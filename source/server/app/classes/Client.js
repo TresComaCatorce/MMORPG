@@ -20,12 +20,13 @@ module.exports = Client = class Client {
 	}
 
 
+	//Envio del packete de handshake al servidor.
 	handshakeServer() {
-		//Envio del packete de handshake al servidor. //TODO
-        this.socket.write(packetManager.build(["S_HELLO", now().toString()]));
-		// packetManager.sendPacket( 'S_HELLO', {
-		// 	timestamp: now().toString()
-		// });
+		//TODO integrity check
+		packetManager.sendPacket( this, [
+			'S_HELLO',
+			now().toString()
+		]);
 	}
 
 
@@ -44,26 +45,22 @@ module.exports = Client = class Client {
 
 
 	// Funcion que envia un mensaje para el propio cliente.
-	broadcastSelf( packetToSend ) {
-		this.socket.write(packetToSend);
+	broadcastSelf( data ) {
+		return packetManager.sendPacket( this, data );
 	}
 
 
 	// Funcion que envia un update a todos los clientes
     // que se encuentran en el room.
-	broadcastRoom( packetData ) {
-
-        //let packetData = packetManager.build(["S_UPDATE", username, new_x, new_y, direction, state]);
-
+	broadcastRoom( data ) {
         //Se recorre el array que contiene todos los clientes en ese room.
         //Y se ejecuta la funcion por cada uno de ellos.
         maps[this.user.current_room].clients.forEach( ( otherClient ) => {
             //Si el usuario actual NO es el usuario del array.
-            //(No le queremos mandar esta info al mismo cliente, el produjo el cambio,
-            //por lo tanto no debe ser updateado del mismo)
+            //(No le queremos mandar esta info al mismo cliente)
             if( otherClient.user.username != this.user.username )
             {
-                otherClient.socket.write( packetData ); //Se manda la info con el update.
+				otherClient.broadcastSelf( data );
             };
         })
 	}

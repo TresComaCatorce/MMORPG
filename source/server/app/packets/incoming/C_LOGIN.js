@@ -12,8 +12,8 @@ module.exports = packet_C_LOGIN = {
 
 	process: ( cliente, datapacket ) => {
 
-		//Se leen los datos enviados.
-		var data = PacketModels.login.parse( datapacket );
+		//Se leen los datos recibidos.
+		const data = PacketModels.login.parse( datapacket );
 		
 		//Se busca el usuario en la DB.
 		User.login( data.username, data.password, function( result, user )
@@ -33,14 +33,14 @@ module.exports = packet_C_LOGIN = {
 				cliente.enterRoom( cliente.user.current_room );
 		
 				//Informa el ingreso a los demas clientes.
-				cliente.broadcastRoom( packetManager.build(["S_UPDATE", cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0]) );
+				cliente.broadcastRoom( ['S_UPDATE', cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0] );
 				//cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
 		
-				is_kernel_buffer_full = cliente.socket.write( packetManager.build(["S_LOGIN", "TRUE", cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username]) );
+				is_kernel_buffer_full = cliente.broadcastSelf( ['S_LOGIN', true, cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username] );
 			}
 			else //Si los datos de login son incorrectos.
 			{
-				is_kernel_buffer_full = cliente.socket.write( packetManager.build(["S_LOGIN", "FALSE"]) );
+				is_kernel_buffer_full = cliente.broadcastSelf( ['S_LOGIN', false] );
 			}
 		
 			if(!is_kernel_buffer_full)

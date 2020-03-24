@@ -118,8 +118,15 @@ server.on( 'connection', (socket) => {
     //thisClient.initiate(socket);
 });
 
-server.on('listening', () => {
+server.on( 'listening', () => {
     console.log('Server running on port: '.bold.green + config.common.port.bold + '\nEnvironment: '.bold.green + config.common.environment_description.bold );
+});
+
+server.on( 'close', () => {
+	maps.closeAllConnections();
+	clearInterval(persistenceInterval);
+	gamedb.close();
+	console.log('Server closed.'.bold.red)
 });
 
 server.listen(config.common.port);

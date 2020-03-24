@@ -41,7 +41,8 @@ let json_database = JSON.parse(rawdata);
 let data_base =
 {
     ip: json_database[environment].ip,
-    url: "mongodb://" + json_database[environment].ip + "/" + json_database[environment].name
+	url: "mongodb://" + json_database[environment].ip + "/" + json_database[environment].name,
+	persist_interval: json_database[environment].persist_interval
 };
 
 

@@ -14,7 +14,10 @@ module.exports = packet_C_CHAT_MSG = {
 		var data = PacketModels.chat_message.parse(datapacket);
 				
 		//Se envia la respuesta al cliente
-		var packetToSend = packetManager.build( ["S_CHAT_MSG", "TRUE", data.message] );
-		cliente.broadcastSelf(packetToSend);
+		cliente.broadcastSelf([
+			'S_CHAT_MSG',
+			true,
+			data.message
+		]);
 	}
 }

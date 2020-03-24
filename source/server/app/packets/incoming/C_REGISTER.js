@@ -15,11 +15,11 @@ module.exports = packet_C_REGISTER = {
 		{
 			if(result)
 			{
-				cliente.socket.write( packet.build( ["S_REGISTER", "TRUE"] ) );
+				cliente.broadcastSelf( ['S_REGISTER', true] );
 			}
 			else
 			{
-				cliente.socket.write( packet.build( ["S_REGISTER", "FALSE"] ) );
+				cliente.broadcastSelf( ['S_REGISTER', false] );
 			}
 		});
 	}

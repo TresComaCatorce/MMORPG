@@ -1,9 +1,10 @@
 ///scr_packetHandlerLogin( dataFromServer );
 
-status = buffer_read(argument0, buffer_string);
+status = buffer_read(argument0, buffer_bool);
 
 //Si el loggeo fue exitoso.
-if( status == "TRUE" )
+if( is_int32(status) &&
+    status == 1 )
 {
     //Lectura de datos que devuelve el servidor
     clientId = buffer_read(argument0, buffer_string); //ID Unico del cliente

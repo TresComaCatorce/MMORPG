@@ -33,7 +33,29 @@ maps_files.forEach( (mapFile) => {
         {
             console.log( "Error removing client from room.".red );
         }
-    }
+	}
+
+	// Quita a todos los clientes del room.
+	objMaps[map.room].removeAllClientsFromRoom = () => {
+		objMaps[map.room].clients.forEach( client => {
+			objMaps[map.room].removeClientFromRoom(client);
+		});
+	}
+
+	objMaps.forEachRoom = ( callBack ) => {
+		for( room in objMaps ) {
+			if( room.startsWith('rm_') ) {
+				callBack(objMaps[room]);
+			}
+		}
+	}
+	
+	// Quita a todos clientes de todos los rooms.
+	objMaps.closeAllConnections = () => {
+		objMaps.forEachRoom( room => {
+			room.removeClientFromRoom();
+		});
+	}
 });
 
 //En la variable 'maps' van a estar disponibles los atributos de los mapas

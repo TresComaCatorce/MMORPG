@@ -2,18 +2,21 @@
     "test":
     {
         "ip": "127.0.0.1",
-        "name": "MMORPG_TEST"
+		"name": "MMORPG_TEST",
+		"persist_interval": 5000
     },
 
     "stage":
     {
         "ip": "127.0.0.1",
-        "name": "MMORPG_STAGE"
+		"name": "MMORPG_STAGE",
+		"persist_interval": 5000
     },
 
     "prod":
     {
         "ip": "127.0.0.1",
-        "name": "MMORPG_PROD"
+		"name": "MMORPG_PROD",
+		"persist_interval": 5000
     }
 }

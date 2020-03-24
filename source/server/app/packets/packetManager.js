@@ -17,20 +17,17 @@ module.exports = packetManager =
 	// Inicializa el packet manager.
 	// Carga todos los handlers de los paquetes de entrada
 	//
-	init: function() {
-		['incoming', 'outgoing'].forEach( handlersFolder => {
-			const handlersFiles = fs.readdirSync( `${__dirname}/${handlersFolder}` );
-				handlersFiles.forEach( handlerFile => {
-				require( `${__dirname}/${handlersFolder}/${handlerFile}`);
-			});
+	init: function() {	
+		const handlersFiles = fs.readdirSync( `${__dirname}/incoming` );
+		handlersFiles.forEach( handlerFile => {
+			require( `${__dirname}/incoming/${handlerFile}`);
 		});
-
 	},
 
 
 
-	sendPacket: ( packetName, data ) => {
-		global[`packet_${packetName}`].process( data );
+	sendPacket: ( cliente, data ) => {
+		return cliente.socket.write( packetManager.build(data) );
 	},
 
 
@@ -58,6 +55,11 @@ module.exports = packetManager =
 				case 'number': {
 					buffer = new Buffer.alloc( 2 );
 					buffer.writeUInt16LE( param, 0 );//Original
+					break;
+				}
+				case 'boolean': {
+					buffer = new Buffer.alloc( 1 );
+					buffer.writeIntLE( param, 0, 1 );
 					break;
 				}
 				default: {
