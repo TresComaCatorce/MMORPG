@@ -25,10 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se instancian los objetos asociados
+            <string>/// Se instancian los objetos asociados
 
-//Historial de chat
+// Historial de chat
 self.chatHistory = instance_create( 0, 0, obj_Chat_History );
+
+// Coordenadas
+show_debug_message("Create coords");
+self.coords = instance_create( 0, 0, obj_Coords );
 </string>
           </argument>
         </arguments>

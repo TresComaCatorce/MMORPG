@@ -53,23 +53,30 @@ module.exports = Client = class Client {
 	// Funcion que envia un update a todos los clientes
     // que se encuentran en el room.
 	broadcastRoom( data ) {
-        //Se recorre el array que contiene todos los clientes en ese room.
-        //Y se ejecuta la funcion por cada uno de ellos.
-        maps[this.user.current_room].clients.forEach( ( otherClient ) => {
-            //Si el usuario actual NO es el usuario del array.
-            //(No le queremos mandar esta info al mismo cliente)
-            if( otherClient.user.username != this.user.username )
-            {
+		//Se recorre el array que contiene todos los clientes en ese room.
+		//Y se ejecuta la funcion por cada uno de ellos.
+		maps[this.user.current_room].clients.forEach( ( otherClient ) => {
+			//Si el usuario actual NO es el usuario del array.
+			//(No le queremos mandar esta info al mismo cliente)
+			if( otherClient.user.username != this.user.username ) {
 				otherClient.broadcastSelf( data );
-            };
-        })
+			};
+		})
 	}
 
 
 	// Funcion que envia un update a todos los clientes
 	// que se encuentran "cerca" del jugador.
 	broadcastNearby() {
-
+		//Se recorre el array que contiene todos los clientes en ese room.
+		//Y se ejecuta la funcion por cada uno de ellos.
+		// maps[this.user.current_room].clients.forEach( ( otherClient ) => {
+		// 	//Si el usuario actual NO es el usuario del array.
+		// 	//(No le queremos mandar esta info al mismo cliente)
+		// 	if( otherClient.user.username != this.user.username ) {
+		// 		otherClient.broadcastSelf( data );
+		// 	};
+		// })
 	}
 
 

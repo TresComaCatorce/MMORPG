@@ -86,6 +86,7 @@
       <sprite>sprites\spr_Player_Name_Box</sprite>
       <sprite>sprites\spr_Chat_Msg_Ingame</sprite>
       <sprite>sprites\spr_Chat_History</sprite>
+      <sprite>sprites\spr_Coords</sprite>
     </sprites>
     <sprites name="GUI">
       <sprite>sprites\spr_chat_text_input</sprite>
@@ -191,10 +192,13 @@
     <objects name="GUI">
       <object>objects\obj_Player_Name_Box</object>
       <object>objects\obj_GUI_Manager</object>
-      <object>objects\obj_Chat_Input</object>
-      <object>objects\obj_Chat_Msg_Ingame</object>
-      <object>objects\obj_Chat_History</object>
-      <object>objects\obj_Chat_Type_Button</object>
+      <object>objects\obj_Coords</object>
+      <objects name="Chat">
+        <object>objects\obj_Chat_Input</object>
+        <object>objects\obj_Chat_Msg_Ingame</object>
+        <object>objects\obj_Chat_Type_Button</object>
+        <object>objects\obj_Chat_History</object>
+      </objects>
     </objects>
     <objects name="Enemys">
       <object>objects\obj_spider</object>

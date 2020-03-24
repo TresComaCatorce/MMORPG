@@ -1,7 +1,10 @@
 /*
     Proyecto: MMORPGServer
     Fecha: 23/03/2020
-    Autor: Cristian Ferrero
+	Autor: Cristian Ferrero
+	
+	Responsable of persist client data in DB.
+
 */
 
 const persistData = () => {
