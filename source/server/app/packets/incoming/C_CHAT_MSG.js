@@ -9,15 +9,33 @@
 */
 
 module.exports = packet_C_CHAT_MSG = {
-	process: ( cliente, datapacket ) => {
+	process: (cliente, datapacket) => {
 		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		var data = PacketModels.chat_message.parse(datapacket);
-				
-		//Se envia la respuesta al cliente
-		cliente.broadcastSelf([
-			'S_CHAT_MSG',
-			true,
-			data.message
-		]);
+
+		console.log("CBF C_CHAR_MSG: ", data);
+
+		//Se envia la respuesta a los clientes que correspondan
+		switch (data.type) {
+			case Constants.CHAT.CHAT_MSG_TYPES.CHAT: {
+				cliente.broadcastNearby([
+					Constants.PACKETS.S_CHAT_MSG,
+					true,
+					data.pj_name,
+					data.message,
+					data.type
+				], true);
+				break;
+			}
+			case Constants.CHAT.CHAT_MSG_TYPES.GLOBAL: {
+				break;
+			}
+			case Constants.CHAT.CHAT_MSG_TYPES.WHISPER: {
+				break;
+			}
+			default: {
+
+			}
+		}
 	}
 }

@@ -758,11 +758,11 @@ layer=1</panel_attributes>
       <w>329</w>
       <h>91</h>
     </coordinates>
-    <panel_attributes>*&lt;CMD&gt;&lt;playerName&gt;&lt;text&gt;&lt;messageType&gt;*
+    <panel_attributes>*&lt;CMD&gt;&lt;playerName&gt;&lt;messageText&gt;&lt;messageType&gt;*
 
 playerName: Nombre del personaje.
 
-text: Texto del mensaje
+messageText: Texto del mensaje
 
 messageType: Tipo del mensaje (CHAT, GLOBAL o WHISPER)
 
@@ -784,7 +784,7 @@ bg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>609</x>
-      <y>1365</y>
+      <y>1351</y>
       <w>119</w>
       <h>21</h>
     </coordinates>
@@ -795,15 +795,17 @@ bg=gray</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>714</x>
-      <y>1330</y>
+      <y>1309</y>
       <w>329</w>
-      <h>91</h>
+      <h>112</h>
     </coordinates>
-    <panel_attributes>*&lt;CMD&gt;&lt;accepted&gt;&lt;messageType&gt;*
+    <panel_attributes>*&lt;CMD&gt;&lt;accepted&gt;&lt;playerName&gt;&lt;messageText&gt;&lt;messageType&gt;*
+
+accepted: Flag que indica si el mensaje fue aceptado.
 
 playerName: Nombre del personaje.
 
-text: Texto del mensaje
+messageText: Texto del mensaje
 
 messageType: Tipo del mensaje (CHAT, GLOBAL o WHISPER)
 
@@ -814,7 +816,7 @@ bg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1036</x>
-      <y>1365</y>
+      <y>1351</y>
       <w>105</w>
       <h>21</h>
     </coordinates>

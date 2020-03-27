@@ -16,8 +16,7 @@ module.exports = packet_C_LOGIN = {
 		const data = PacketModels.login.parse( datapacket );
 		
 		//Se busca el usuario en la DB.
-		User.login( data.username, data.password, function( result, user )
-		{
+		User.login( data.username, data.password, ( result, user ) => {
 			let is_kernel_buffer_full;
 		
 			//Si los datos de login son correctos.
@@ -33,14 +32,13 @@ module.exports = packet_C_LOGIN = {
 				cliente.enterRoom( cliente.user.current_room );
 		
 				//Informa el ingreso a los demas clientes.
-				cliente.broadcastRoom( ['S_UPDATE', cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0] );
-				//cliente.broadcastRoom( cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0 ) //direccion y status = 0
+				cliente.broadcastRoom( [Constants.PACKETS.S_UPDATE, cliente.user.username, cliente.user.pos_x, cliente.user.pos_y, 0, 0], false);
 		
-				is_kernel_buffer_full = cliente.broadcastSelf( ['S_LOGIN', true, cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username] );
+				is_kernel_buffer_full = cliente.broadcastSelf( [Constants.PACKETS.S_LOGIN, true, cliente.id, cliente.user.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username] );
 			}
 			else //Si los datos de login son incorrectos.
 			{
-				is_kernel_buffer_full = cliente.broadcastSelf( ['S_LOGIN', false] );
+				is_kernel_buffer_full = cliente.broadcastSelf( [Constants.PACKETS.S_LOGIN, false] );
 			}
 		
 			if(!is_kernel_buffer_full)

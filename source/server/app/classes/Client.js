@@ -3,8 +3,7 @@
     Fecha: 25/01/2019
     Autor: Cristian Ferrero
 
-    Descripcion:
-
+    Descripcion: Client objects represents all connected clients to the server, even the non-autenticated users.
 
 */
 
@@ -52,13 +51,13 @@ module.exports = Client = class Client {
 
 	// Funcion que envia un update a todos los clientes
     // que se encuentran en el room.
-	broadcastRoom( data ) {
+	broadcastRoom( data, sendToSelf = false ) {
 		//Se recorre el array que contiene todos los clientes en ese room.
 		//Y se ejecuta la funcion por cada uno de ellos.
 		maps[this.user.current_room].clients.forEach( ( otherClient ) => {
 			//Si el usuario actual NO es el usuario del array.
 			//(No le queremos mandar esta info al mismo cliente)
-			if( otherClient.user.username != this.user.username ) {
+			if( otherClient.user.username != this.user.username || sendToSelf ) {
 				otherClient.broadcastSelf( data );
 			};
 		})
@@ -67,16 +66,17 @@ module.exports = Client = class Client {
 
 	// Funcion que envia un update a todos los clientes
 	// que se encuentran "cerca" del jugador.
-	broadcastNearby() {
-		//Se recorre el array que contiene todos los clientes en ese room.
-		//Y se ejecuta la funcion por cada uno de ellos.
-		// maps[this.user.current_room].clients.forEach( ( otherClient ) => {
-		// 	//Si el usuario actual NO es el usuario del array.
-		// 	//(No le queremos mandar esta info al mismo cliente)
-		// 	if( otherClient.user.username != this.user.username ) {
-		// 		otherClient.broadcastSelf( data );
-		// 	};
-		// })
+	broadcastNearby( data, sendToSelf = false ) {
+		maps[this.user.current_room].clients.forEach( ( otherClient ) => {
+			const distX = Math.abs( otherClient.user.pos_x - this.user.pos_x );
+			const distY = Math.abs( otherClient.user.pos_y - this.user.pos_y );
+
+			if( ( otherClient.user.username != this.user.username || sendToSelf ) &&
+				distX<config.common.render_distance &&
+				distY<config.common.render_distance ) {
+				otherClient.broadcastSelf( data );
+			};
+		})
 	}
 
 

@@ -14,6 +14,6 @@ module.exports = packet_C_CON_CHECK = {
 		var data = PacketModels.connection_check.parse(datapacket);
 				
 		//Se envia la respuesta al cliente
-		cliente.broadcastSelf( ['S_CON_CHECK', data.key] );
+		cliente.broadcastSelf( [Constants.PACKETS.S_CON_CHECK, data.key] );
 	}
 }

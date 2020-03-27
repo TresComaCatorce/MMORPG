@@ -7,9 +7,9 @@
 */
 
 //Require de la libreria JS mongoose.
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema
+const userSchema = new mongoose.Schema
 ({
     username : {type: String, unique: true},
     password: String,
@@ -51,23 +51,17 @@ userSchema.statics.register = function( username, password, cb)
 };
 
 //Login de usuario ya existente.
-userSchema.statics.login = function( username, password, cb)
-{
-    User.findOne({username: username}, function( err, useData )
-    {
-        if( !err && useData )
-        {
-            if( useData.password == password )
-            {
+userSchema.statics.login = async ( username, password, cb) => {
+    User.findOne({username: username}, ( err, useData ) => {
+        if( !err && useData ) {
+            if( useData.password == password ) {
                 cb( true, useData );
             }
-            else
-            {
+            else {
                 cb( false, null );
             }
         }
-        else
-        {
+        else {
             cb( false, null );
         }
     });

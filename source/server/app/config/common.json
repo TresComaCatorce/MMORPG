@@ -9,7 +9,8 @@
             "maps": "maps"
         },
         "starting_zone": "rm_lorencia",
-        "port": "8083"
+		"port": "8083",
+		"render_distance": 1000
     },
 
     "stage": {
@@ -22,7 +23,8 @@
             "maps": "maps"
         },
         "starting_zone": "rm_lorencia",
-        "port": "8082"
+        "port": "8082",
+		"render_distance": 1000
     },
 
     "prod": {
@@ -35,6 +37,7 @@
             "maps": "maps"
         },
         "starting_zone": "rm_lorencia",
-        "port": "8081"
+        "port": "8081",
+		"render_distance": 1000
     }
 }

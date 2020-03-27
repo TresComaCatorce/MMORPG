@@ -29,6 +29,8 @@
 
 nameBackgroundColor = c_green;
 
+playerOwner = noone;
+
 depth = -505;
 </string>
           </argument>
@@ -55,9 +57,9 @@ depth = -505;
             <string>///Actualizacion del texto y posicion del objeto.
 
 //Obtengo los datos del player.
-var nombre = global.playerInstance.name; //Nombre del personaje.
-var pos_x = global.playerInstance.x; //Posicion X del player.
-var pos_y = global.playerInstance.y; //Posicion Y del player.
+var nombre = playerOwner.name; //Nombre del personaje.
+var pos_x = playerOwner.x; //Posicion X del player.
+var pos_y = playerOwner.y; //Posicion Y del player.
 var txt_pos_x = ( pos_x - (string_width(nombre)) / 2 ); //Posicion X en la que debe aparecer el nombre.
 var txt_pos_y = ( pos_y - 90 ); //Posicion Y en la que debe aparecer el nombre.
 var rec_pos_x1 = txt_pos_x - 5;
@@ -67,7 +69,7 @@ var rec_pos_y2 = txt_pos_y + string_height(nombre);
 
 
 //Se dibuja el TextBox con los datos del usuario.
-if( instance_exists(global.playerInstance) )
+if( instance_exists(playerOwner) )
 {
     //Dibujo el rectangulo de fondo.
     draw_set_colour(nameBackgroundColor); //Color.
@@ -83,7 +85,7 @@ if( instance_exists(global.playerInstance) )
 }
 else
 {
-    show_debug_message("Box draw NO." + string(global.playerInstance));
+    show_debug_message("Box draw NO." + string(playerOwner));
 }
 </string>
           </argument>

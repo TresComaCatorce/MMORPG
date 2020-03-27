@@ -17,17 +17,17 @@ module.exports = packetManager =
 	// Inicializa el packet manager.
 	// Carga todos los handlers de los paquetes de entrada
 	//
-	init: function() {	
-		const handlersFiles = fs.readdirSync( `${__dirname}/incoming` );
-		handlersFiles.forEach( handlerFile => {
-			require( `${__dirname}/incoming/${handlerFile}`);
+	init: function () {
+		const handlersFiles = fs.readdirSync(`${__dirname}/incoming`);
+		handlersFiles.forEach(handlerFile => {
+			require(`${__dirname}/incoming/${handlerFile}`);
 		});
 	},
 
 
 
-	sendPacket: ( cliente, data ) => {
-		return cliente.socket.write( packetManager.build(data) );
+	sendPacket: (cliente, data) => {
+		return cliente.socket.write(packetManager.build(data));
 	},
 
 
@@ -38,28 +38,27 @@ module.exports = packetManager =
 	//
 	// @return <Buffer>: Buffer construido a partir de 'params'.
 	//
-    build: (params) => {
+	build: (params) => {
 		var packetParts = [];
 		var packetSize = 0;
-		
-        params.forEach(function(param)
-        {
-            var buffer;
 
-			switch( typeof param ) {
+		params.forEach(function (param) {
+			var buffer;
+
+			switch (typeof param) {
 				case 'string': {
-					buffer = new Buffer.from( param, 'utf8');
-					buffer = Buffer.concat( [buffer, zeroBuffer] , buffer.length + 1);
+					buffer = new Buffer.from(param, 'utf8');
+					buffer = Buffer.concat([buffer, zeroBuffer], buffer.length + 1);
 					break;
 				}
 				case 'number': {
-					buffer = new Buffer.alloc( 2 );
-					buffer.writeUInt16LE( param, 0 );//Original
+					buffer = new Buffer.alloc(2);
+					buffer.writeUInt16LE(param, 0);//Original
 					break;
 				}
 				case 'boolean': {
-					buffer = new Buffer.alloc( 1 );
-					buffer.writeIntLE( param, 0, 1 );
+					buffer = new Buffer.alloc(1);
+					buffer.writeIntLE(param, 0, 1);
 					break;
 				}
 				default: {
@@ -68,21 +67,21 @@ module.exports = packetManager =
 				}
 			}
 
-            packetSize += buffer.length;
-            packetParts.push( buffer );
-        });
+			packetSize += buffer.length;
+			packetParts.push(buffer);
+		});
 
-        var dataBuffer = Buffer.concat( packetParts, packetSize );
+		var dataBuffer = Buffer.concat(packetParts, packetSize);
 
-        var size = new Buffer.alloc( 1 );
-        size.writeUInt8( dataBuffer.length + 1 , 0 );
+		var size = new Buffer.alloc(1);
+		size.writeUInt8(dataBuffer.length + 1, 0);
 
-        //Creacion del packete final. Ej: 4HOLA2ME5LLAMO
-        var finalPacket = Buffer.concat( [size, dataBuffer], size.length + dataBuffer.length );
+		//Creacion del packete final. Ej: 4HOLA2ME5LLAMO
+		var finalPacket = Buffer.concat([size, dataBuffer], size.length + dataBuffer.length);
 
-        return finalPacket;
+		return finalPacket;
 	},
-	
+
 
 
 	// Parsea a Buffer de datos un paquete recibido desde el cliente.
@@ -91,32 +90,31 @@ module.exports = packetManager =
 	// @param <Client> 'cliente': Cliente que envia el paquete.
 	// @param <DataStream> 'data': Datos "raw" recibidos desde el cliente.
 	//
-    parse: function( cliente, data ) {
-        let idx = 0;
-        while( idx < data.length )
-        {
-            let packetSize = data.readUInt8( idx );
-            let extractedPacket = new Buffer.alloc( packetSize );
-            data.copy( extractedPacket, 0, idx, idx+packetSize );
+	parse: function (cliente, data) {
+		let idx = 0;
+		while (idx < data.length) {
+			let packetSize = data.readUInt8(idx);
+			let extractedPacket = new Buffer.alloc(packetSize);
+			data.copy(extractedPacket, 0, idx, idx + packetSize);
 
-            this.interpret( cliente, extractedPacket );
+			this.interpret(cliente, extractedPacket);
 
-            idx += packetSize;
-        }
-    },
+			idx += packetSize;
+		}
+	},
 
 
-	
+
 	// Interpreta los paquetes recibidos desde el cliente.
 	// Desde aquí se llama al handler correspondiente ubicado en la carpeta "handlers".
 	//
 	// @param <Client> 'cliente': Cliente que envia el paquete.
 	// @param <Buffer> 'datapacket': Buffer de datos recibidos desde el cliente.
 	//
-    interpret: function( cliente, datapacket ) {
+	interpret: function (cliente, datapacket) {
 		var header = PacketModels.header.parse(datapacket);
-		var command =  header.command.toUpperCase();
+		var command = header.command.toUpperCase();
 
-		global[`packet_${command}`].process( cliente, datapacket );
-    }
+		global[`packet_${command}`].process(cliente, datapacket);
+	}
 }

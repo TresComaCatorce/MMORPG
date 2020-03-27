@@ -14,34 +14,35 @@ var StringOptions = { length: 99, zeroTerminated: true };
 module.exports = PacketModels =
 {
 	connection_check: new Parser().skip(1)
-		.string( "command", StringOptions )
-		.string( "key", StringOptions ),
+		.string( 'command', StringOptions )
+		.string( 'key', StringOptions ),
 
     header: new Parser().skip(1)
-        .string( "command", StringOptions ),
+        .string( 'command', StringOptions ),
 
     login: new Parser().skip(1)
-        .string( "command", StringOptions )
-        .string( "username", StringOptions )
-        .string( "password", StringOptions ),
+        .string( 'command', StringOptions )
+        .string( 'username', StringOptions )
+        .string( 'password', StringOptions ),
 
     register: new Parser().skip(1)
-        .string( "command", StringOptions )
-        .string( "username", StringOptions )
-        .string( "password", StringOptions ),
+        .string( 'command', StringOptions )
+        .string( 'username', StringOptions )
+        .string( 'password', StringOptions ),
 
     position_update: new Parser().skip(1)
-        .string( "command", StringOptions )
-        .int32le( "new_x", StringOptions )
-        .int32le( "new_y", StringOptions )
-        .int32le( "direction", StringOptions )
-        .string( "state", StringOptions ),
+        .string( 'command', StringOptions )
+        .int32le( 'new_x', StringOptions )
+        .int32le( 'new_y', StringOptions )
+        .int32le( 'direction', StringOptions )
+        .string( 'state', StringOptions ),
 		//.floatbe()
 	
 	chat_message: new Parser().skip(1)
-		.string( "command", StringOptions)
-		.string( "pj_name", StringOptions)
-		.string( "message", StringOptions)
+		.string( 'command', StringOptions)
+		.string( 'pj_name', StringOptions)
+		.string( 'message', StringOptions)
+		.int32le( 'type', StringOptions)
 
 	
 }

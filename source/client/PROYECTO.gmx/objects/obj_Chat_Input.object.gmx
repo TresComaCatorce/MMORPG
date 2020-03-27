@@ -266,11 +266,14 @@ instance_destroy(chatWhisperTypeButtonObject);
 //-----------------------------------------------------------------------------
 var packetName = "C_CHAT_MSG";
 var attributes = ds_list_create();
+var msgTypeCode = scr_getTypeMsgCode(typeMsg);
+
+show_debug_message("y:: "+string(msgTypeCode));
 
 ds_list_add(    attributes,
                 global.playerInstance.name,
                 text,
-                scr_getTypeMsgCode(typeMsg) );
+                msgTypeCode );
 
 scr_sendPacket( packetName, attributes );
 </string>

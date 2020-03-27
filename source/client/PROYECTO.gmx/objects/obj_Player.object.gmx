@@ -339,7 +339,6 @@ scr_sendPacket( packetName, attributes );
             <string>//----------------------------------//
 //Caja con el nombre del personaje. //
 //----------------------------------//
-//Si no existe creo una instancia.
 gui_name_box_draw( self );
 // FIN Caja con el nombre del personaje
 //-------------------------------------//

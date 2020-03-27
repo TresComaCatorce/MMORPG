@@ -32,7 +32,8 @@ let common =
         maps: appRoot + "\\resources\\game_data\\" + json_common[environment].data_paths.maps + "\\"
     },
     starting_zone: json_common[environment].starting_zone,
-    port: json_common[environment].port
+	port: json_common[environment].port,
+	render_distance: json_common[environment].render_distance
 }
 
 //Se lee el archivo "data_base.json".
