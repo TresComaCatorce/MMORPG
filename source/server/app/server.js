@@ -86,7 +86,7 @@ server.on( 'connection', (socket) => {
 
     // console.log( ("Client: ").bgWhite.black, socket );
 
-    console.log( ("Client connected from ip: " + raddr.bold + " | port: " + rport.bold + " | protocol: " + rfamily.bold) );
+    console.log( ('Client connected from ip: ' + raddr.bold + ' | port: ' + rport.bold + ' | protocol: ' + rfamily.bold) );
 
     //Nueva instancia de 'client.js', una para cada conexion al servidor.
     //let c_inst = new require('./client.js');

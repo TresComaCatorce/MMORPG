@@ -190,7 +190,7 @@ alarm[0]=10;
             <string>///Si se esta moviendo se envia update al servidor.
 if( state != global.playerStateIdle )
 {
-    event_user(0);
+    //event_user(0);
 }
 </string>
           </argument>

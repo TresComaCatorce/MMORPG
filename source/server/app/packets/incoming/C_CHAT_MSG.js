@@ -13,7 +13,7 @@ module.exports = packet_C_CHAT_MSG = {
 		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		var data = PacketModels.chat_message.parse(datapacket);
 
-		console.log("CBF C_CHAR_MSG: ", data);
+		//console.log("CBF C_CHAR_MSG: ", data);
 
 		//Se envia la respuesta a los clientes que correspondan
 		switch (data.type) {
