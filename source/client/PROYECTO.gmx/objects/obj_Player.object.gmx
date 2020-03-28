@@ -95,6 +95,9 @@ alarm[0]=10
 
 //Objeto que muestra los mensajes de chat ingame
 self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
+with( self.chatMsgsIngame ) {
+    self.playerOwner = other;
+}
 
 //GUI Manager
 self.guiManagerInstance = instance_create( -1000, -1000, obj_GUI_Manager );
@@ -123,10 +126,16 @@ self.guiManagerInstance = instance_create( -1000, -1000, obj_GUI_Manager );
             <string>///Destrucción de las instancias asociadas
 
 //GUI Manager
-if( instance_exists(self.guiManagerInstance) )
-{
+if( instance_exists(self.guiManagerInstance) ) {
     instance_destroy(self.guiManagerInstance);
 }
+
+//Chat MSGS ingame
+if( instance_exists(self.chatMsgsIngame) ) {
+    instance_destroy( self.chatMsgsIngame );
+}
+
+
 </string>
           </argument>
         </arguments>
@@ -339,7 +348,7 @@ scr_sendPacket( packetName, attributes );
             <string>//----------------------------------//
 //Caja con el nombre del personaje. //
 //----------------------------------//
-gui_name_box_draw( self );
+scr_nameBoxDraw( self );
 // FIN Caja con el nombre del personaje
 //-------------------------------------//
 

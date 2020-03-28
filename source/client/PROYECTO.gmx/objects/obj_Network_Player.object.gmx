@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Nombre del personaje.
+            <string>/// Creación de variables
+
+//Nombre del personaje.
 self.name = noone;
 
 //Estado del personaje.
@@ -33,6 +35,9 @@ self.state = global.playerStateIdle;
 
 //Caja con el nombre del personaje.
 self.nameBox = noone;
+
+//Objeto que muestra los mensajes de chat ingame
+self.chatMsgsIngame = noone;
 
 //Rangos de los frames de la animacion.
 startFrm = 0; // ranges
@@ -62,6 +67,67 @@ depth = -500;
 
 new_x = x;
 new_y = y;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Objetos asociados
+
+//Objeto que muestra los mensajes de chat ingame
+self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
+with( self.chatMsgsIngame ) {
+    self.playerOwner = other;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Destrucción de las instancias asociadas
+
+//GUI Manager
+if( instance_exists(self.nameBox) ) {
+    instance_destroy(self.nameBox);
+}
+
+//Chat MSGS ingame
+if( instance_exists(self.chatMsgsIngame) ) {
+    instance_destroy( self.chatMsgsIngame );
+}
+
 </string>
           </argument>
         </arguments>
@@ -126,7 +192,7 @@ if( state != direction)
 //Caja con el nombre del personaje. //
 //----------------------------------//
 //Si no existe creo una instancia.
-gui_name_box_draw( self );
+scr_nameBoxDraw( self );
 
 
 frm += rate; // increase sprite frame

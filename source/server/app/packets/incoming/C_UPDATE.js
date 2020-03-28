@@ -20,8 +20,7 @@ module.exports = packet_C_UPDATE = {
 		cliente.user.pos_x = data.new_x;
 		cliente.user.pos_y = data.new_y;
 		
-		// Se le comunica al cliente que debe actualizar en su cliente
-		// el dato actualizado por otro cliente.
-		cliente.broadcastRoom( [Constants.PACKETS.S_UPDATE, cliente.user.username, data.new_x, data.new_y, data.direction, data.state] );
+		// Se le comunica al cliente que debe actualizar en su cliente el dato actualizado por otro cliente.
+		cliente.broadcastNearby( [Constants.PACKETS.S_UPDATE, cliente.user.username, data.new_x, data.new_y, data.direction, data.state], false);
 	}
 }

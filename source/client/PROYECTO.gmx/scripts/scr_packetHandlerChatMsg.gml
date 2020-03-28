@@ -26,6 +26,26 @@ if( is_int32(message_accepted) &&
             event_user(0);
         }
     }
+    else {
+        with(obj_Network_Player)
+        {
+            tempMessageText = other.message_text;
+            if( name == other.player_name )
+            {
+                with( self.chatMsgsIngame ) {
+                    if( !ds_exists(queueMessages, ds_type_queue) )
+                    {
+                        queueMessages = ds_queue_create();
+                    }
+                    
+                    ds_queue_enqueue( queueMessages, other.tempMessageText );
+                    
+                    event_user(0);
+                }
+                break;
+            }
+        }
+    }
     
     
     //Se utiliza la instancia del objeto "obj_Chat_History".

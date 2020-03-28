@@ -1,3 +1,5 @@
+/// scr_nameBoxDraw( parentObject )
+
 //----------------------------------//
 //Caja con el nombre del personaje. //
 //----------------------------------//

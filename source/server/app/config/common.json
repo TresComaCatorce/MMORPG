@@ -10,7 +10,7 @@
         },
         "starting_zone": "rm_lorencia",
 		"port": "8083",
-		"render_distance": 1000
+		"render_distance": 500
     },
 
     "stage": {
@@ -24,7 +24,7 @@
         },
         "starting_zone": "rm_lorencia",
         "port": "8082",
-		"render_distance": 1000
+		"render_distance": 500
     },
 
     "prod": {
@@ -38,6 +38,6 @@
         },
         "starting_zone": "rm_lorencia",
         "port": "8081",
-		"render_distance": 1000
+		"render_distance": 500
     }
 }
