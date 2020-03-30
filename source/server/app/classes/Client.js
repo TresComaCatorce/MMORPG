@@ -1,9 +1,9 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 25/01/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 25/01/2019
+    Author: Cristian Ferrero
 
-    Descripcion: Client objects represents all connected clients to the server, even the non-autenticated users.
+    Description: Client objects represents all connected clients to the server, even the non-autenticated users.
 
 */
 
@@ -13,8 +13,7 @@ module.exports = Client = class Client {
 
 	constructor( _socket ) {
 		this.socket = _socket;
-		this.id = undefined;
-		this.user = undefined;
+		this.account = undefined;
 		this.handshakeServer();
 	}
 
@@ -22,16 +21,10 @@ module.exports = Client = class Client {
 	//Envio del packete de handshake al servidor.
 	handshakeServer() {
 		//TODO integrity check
-		packetManager.sendPacket( this, [
+		PacketManager.sendPacket( this, [
 			'S_HELLO',
 			now().toString()
 		]);
-	}
-
-
-	// Agrega el cliente al room recibido por parametro.
-    enterRoom( selected_room ) {
-        maps[selected_room].addClientToRoom(this);
 	}
 	
 
@@ -45,7 +38,7 @@ module.exports = Client = class Client {
 
 	// Funcion que envia un mensaje para el propio cliente.
 	broadcastSelf( data ) {
-		return packetManager.sendPacket( this, data );
+		return PacketManager.sendPacket( this, data );
 	}
 
 
@@ -72,8 +65,8 @@ module.exports = Client = class Client {
 			const distY = Math.abs( otherClient.user.pos_y - this.user.pos_y );
 
 			if( ( otherClient.user.username != this.user.username || sendToSelf ) &&
-				distX<config.common.render_distance &&
-				distY<config.common.render_distance ) {
+				distX<Config.common.render_distance &&
+				distY<Config.common.render_distance ) {
 				otherClient.broadcastSelf( data );
 			};
 		})
@@ -82,7 +75,7 @@ module.exports = Client = class Client {
 
 	//Callback que maneja los paquetes de datos recibidos.
     data(data) {
-        packetManager.parse( this, data );
+        PacketManager.parse( this, data );
     }
 
     //Callback ejecutado cuando se finaliza la conexion con el cliente.

@@ -1,7 +1,7 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 24/01/2018
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 24/01/2018
+    Author: Cristian Ferrero
 */
 
 module.exports = {

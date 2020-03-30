@@ -1,7 +1,7 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 31/01/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 31/01/2019
+    Author: Cristian Ferrero
 
     Esquema de la coleccion <user> de la base de datos.n
 */

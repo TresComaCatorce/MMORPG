@@ -1,9 +1,9 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 09/06/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 09/06/2019
+    Author: Cristian Ferrero
 
-    Descripcion: Administrador de paquetes hexadecimales recibidos/enviados al servidor.
+    Description: Administrador de paquetes hexadecimales recibidos/enviados al servidor.
 
     @function "build":
     @function "parse":
@@ -12,35 +12,34 @@
 
 var zeroBuffer = new Buffer.from('00', 'hex');
 
-module.exports = packetManager =
-{
-	// Inicializa el packet manager.
-	// Carga todos los handlers de los paquetes de entrada
-	//
-	init: function () {
+module.exports = PacketManager = class PacketManager {
+
+	constructor() {
+		this.init()
+	}
+
+	// Init the packet manager.
+	// Load all the handlers of incoming packages.
+	init() {
 		const handlersFiles = fs.readdirSync(`${__dirname}/incoming`);
 		handlersFiles.forEach(handlerFile => {
 			require(`${__dirname}/incoming/${handlerFile}`);
 		});
-	},
+	}
 
+	// Send a packet to the client
+	// @param <Client> 'cliente': Client instance.
+	// @param <[]> 'data': All data to send.
+	sendPacket( cliente, data ) {
+		return cliente.socket.write( this.build(data) );
+	}
 
-
-	sendPacket: (cliente, data) => {
-		return cliente.socket.write(packetManager.build(data));
-	},
-
-
-
-	// Construye un buffer a partir de diferentes datos.
-	//
-	// @param <[Object]> 'params': Array de valores a convertir.
-	//
+	// Build a buffer from a differents type of data.
+	// @param <[]> 'params': Array de valores a convertir.
 	// @return <Buffer>: Buffer construido a partir de 'params'.
-	//
-	build: (params) => {
-		var packetParts = [];
-		var packetSize = 0;
+	build( params ) {
+		const packetParts = [];
+		let packetSize = 0;
 
 		params.forEach(function (param) {
 			var buffer;
@@ -62,7 +61,7 @@ module.exports = packetManager =
 					break;
 				}
 				default: {
-					console.warn("WARNING: Unknown data type in packet builder.", params[0], typeof param, param);
+					console.warn( `WARNING: Unknown data type in packet builder. \nPacket: ${params[0]} \nType: ${typeof param} \nValue: ${param}`);
 					break;
 				}
 			}
@@ -71,16 +70,16 @@ module.exports = packetManager =
 			packetParts.push(buffer);
 		});
 
-		var dataBuffer = Buffer.concat(packetParts, packetSize);
+		const dataBuffer = Buffer.concat(packetParts, packetSize);
 
-		var size = new Buffer.alloc(1);
+		const size = new Buffer.alloc(1);
 		size.writeUInt8(dataBuffer.length + 1, 0);
 
 		//Creacion del packete final. Ej: 4HOLA2ME5LLAMO
-		var finalPacket = Buffer.concat([size, dataBuffer], size.length + dataBuffer.length);
+		const finalPacket = Buffer.concat([size, dataBuffer], size.length + dataBuffer.length);
 
 		return finalPacket;
-	},
+	}
 
 
 
@@ -90,18 +89,18 @@ module.exports = packetManager =
 	// @param <Client> 'cliente': Cliente que envia el paquete.
 	// @param <DataStream> 'data': Datos "raw" recibidos desde el cliente.
 	//
-	parse: function (cliente, data) {
+	parse( cliente, data ) {
 		let idx = 0;
 		while (idx < data.length) {
-			let packetSize = data.readUInt8(idx);
-			let extractedPacket = new Buffer.alloc(packetSize);
+			const packetSize = data.readUInt8(idx);
+			const extractedPacket = new Buffer.alloc(packetSize);
 			data.copy(extractedPacket, 0, idx, idx + packetSize);
 
 			this.interpret(cliente, extractedPacket);
 
 			idx += packetSize;
 		}
-	},
+	}
 
 
 
@@ -111,7 +110,7 @@ module.exports = packetManager =
 	// @param <Client> 'cliente': Cliente que envia el paquete.
 	// @param <Buffer> 'datapacket': Buffer de datos recibidos desde el cliente.
 	//
-	interpret: function (cliente, datapacket) {
+	interpret(cliente, datapacket) {
 		var header = PacketModels.header.parse(datapacket);
 		var command = header.command.toUpperCase();
 

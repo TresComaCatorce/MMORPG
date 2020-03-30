@@ -1,9 +1,9 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 18/03/2020
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 18/03/2020
+    Author: Cristian Ferrero
 
-	Descripcion: Handler que maneja la recepción del paquete "C_CHAT_MSG" enviado por el cliente.
+	Description: Handler que maneja la recepción del paquete "C_CHAT_MSG" enviado por el cliente.
 	Este paquete contiene un mensaje de chat.
 
 */

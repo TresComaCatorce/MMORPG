@@ -1,7 +1,7 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 23/03/2020
-	Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 23/03/2020
+	Author: Cristian Ferrero
 	
 	Responsable of persist client data in DB.
 
@@ -15,4 +15,4 @@ const persistData = () => {
 	});
 }
 
-module.exports = persistenceInterval = setInterval( persistData, config.data_base.persist_interval );
+module.exports = persistenceInterval = setInterval( persistData, Config.data_base.persist_interval );

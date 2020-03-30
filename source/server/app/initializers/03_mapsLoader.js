@@ -1,20 +1,22 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 09/06/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 09/06/2019
+    Author: Cristian Ferrero
 */
 
-var fs = require('fs'); //File system library.
+const fs = require('fs'); //File system library.
+const World = require('../classes/World');
 
 //Objeto global que contiene la informacion de los mapas.
 let objMaps = {};
+let worldInstance = new World();
 
 //Archivos de mapa
-let maps_files = fs.readdirSync( config.common.data_paths.maps );
+let maps_files = fs.readdirSync( Config.common.data_paths.maps );
 
 //Por cada uno de los inicializadores del directorio de los mapas.
 maps_files.forEach( (mapFile) => {
-    let map = require( config.common.data_paths.maps + mapFile);
+    let map = require( Config.common.data_paths.maps + mapFile);
     objMaps[map.room] = map;
 
     //Agrega un cliente al array de clientes del room actual.
@@ -42,13 +44,13 @@ maps_files.forEach( (mapFile) => {
 		});
 	}
 
-	objMaps.forEachRoom = ( callBack ) => {
-		for( room in objMaps ) {
-			if( room.startsWith('rm_') ) {
-				callBack(objMaps[room]);
-			}
-		}
-	}
+	// objMaps.forEachRoom = ( callBack ) => {
+	// 	for( room in objMaps ) {
+	// 		if( room.startsWith('rm_') ) {
+	// 			callBack(objMaps[room]);
+	// 		}
+	// 	}
+	// }
 	
 	// Quita a todos clientes de todos los rooms.
 	objMaps.closeAllConnections = () => {

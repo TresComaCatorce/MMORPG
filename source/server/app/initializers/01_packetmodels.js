@@ -1,7 +1,7 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 24/01/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 24/01/2019
+    Author: Cristian Ferrero
 
     Definición del formato de los paquetes recibidos desde el cliente.
 */
@@ -22,11 +22,12 @@ module.exports = PacketModels =
 
     login: new Parser().skip(1)
         .string( 'command', StringOptions )
-        .string( 'username', StringOptions )
+        .string( 'input', StringOptions )
         .string( 'password', StringOptions ),
 
     register: new Parser().skip(1)
-        .string( 'command', StringOptions )
+		.string( 'command', StringOptions )
+		.string( 'email', StringOptions )
         .string( 'username', StringOptions )
         .string( 'password', StringOptions ),
 

@@ -1,7 +1,7 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 24/01/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 24/01/2019
+    Author: Cristian Ferrero
 */
 
 const fs = require('fs'); //Manejo de file system.
@@ -20,6 +20,7 @@ let conf = {"environment": environment};
 //Se lee el archivo "common.json".
 let rawdata = fs.readFileSync( appRoot + '\\config\\common.json');
 let json_common = JSON.parse(rawdata);
+
 let common =
 {
     name: json_common[environment].name,
@@ -33,7 +34,8 @@ let common =
     },
     starting_zone: json_common[environment].starting_zone,
 	port: json_common[environment].port,
-	render_distance: json_common[environment].render_distance
+	render_distance: json_common[environment].render_distance,
+	validations: json_common[environment].validations
 }
 
 //Se lee el archivo "data_base.json".
@@ -53,4 +55,4 @@ extend(false, conf, {"common":common} );
 extend(false, conf, {"data_base": data_base} );
 
 //En la variable 'config' van a estar disponibles los atributos especificos del ambiente (variable 'conf').
-module.exports = config = conf;
+module.exports = Config = conf;

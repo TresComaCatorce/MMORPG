@@ -1,9 +1,9 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 24/01/2019
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 24/01/2019
+    Author: Cristian Ferrero
 
-    Descripcion:
+    Description:
 
 
 */
@@ -13,7 +13,6 @@ module.exports = fs = require('fs'); //File system library.
 var colors = require('colors'); //Console messages in colors.
 var net = require('net'); //Network library.
 require('./classes/Client');
-require('./packets/packetManager').init();
 //Fin imports librerias. ----->
 
 //Se guarda una referencia global al path de la aplicacion.
@@ -46,25 +45,6 @@ model_files.forEach(function(modelFile) //Por cada uno de los modelos del direct
 //------------------------------------------------------------------------------
 
 
-
-//------------------------------------------------------------------------------
-//Carga de los mapas.
-//------------------------------------------------------------------------------
-// let maps = {}; //Objeto global que contiene la informacion de los mapas.
-// console.log("CBF maps: ", config.common.data_paths, config.common.data_paths.maps);
-// let maps_files = fs.readdirSync( config.common.data_paths.maps );
-// console.log('Loading maps...'.bold.cyan);
-// //Por cada uno de los inicializadores del directorio de los mapas.
-// maps_files.forEach(function(mapFile)
-// {
-//     console.log( ('- ' + mapFile).magenta );
-//     let map = require( config.common.data_paths.maps + mapFile);
-//     maps[map.room] = map;
-// });
-//------------------------------------------------------------------------------
-
-
-
 //Mensaje de inicializacion completa
 console.log( '\nServer initialize was complete.'.bold.green );
 
@@ -83,8 +63,6 @@ server.on( 'connection', (socket) => {
     let rport = socket.remotePort.toString();
     let raddr = socket.remoteAddress;
     let rfamily = socket.remoteFamily;
-
-    // console.log( ("Client: ").bgWhite.black, socket );
 
     console.log( ('Client connected from ip: ' + raddr.bold + ' | port: ' + rport.bold + ' | protocol: ' + rfamily.bold) );
 
@@ -119,7 +97,7 @@ server.on( 'connection', (socket) => {
 });
 
 server.on( 'listening', () => {
-    console.log('Server running on port: '.bold.green + config.common.port.bold + '\nEnvironment: '.bold.green + config.common.environment_description.bold );
+    console.log('Server running on port: '.bold.green + Config.common.port.bold + '\nEnvironment: '.bold.green + Config.common.environment_description.bold );
 });
 
 server.on( 'close', () => {
@@ -129,4 +107,4 @@ server.on( 'close', () => {
 	console.log('Server closed.'.bold.red)
 });
 
-server.listen(config.common.port);
+server.listen(Config.common.port);

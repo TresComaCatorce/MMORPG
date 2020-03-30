@@ -1,9 +1,9 @@
 /*
-    Proyecto: MMORPGServer
-    Fecha: 28/03/2020
-    Autor: Cristian Ferrero
+    Project: MMORPGServer
+    Date: 28/03/2020
+    Author: Cristian Ferrero
 
-    Descripcion: World object, contains all maps in it and players connected.
+    Description: World object, contains all maps in it and players connected.
 
 */
 
