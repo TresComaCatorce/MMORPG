@@ -85,6 +85,36 @@ const characterSchema = new mongoose.Schema
 		max: Config.character.max_stat_dexterity,
 		default: Config.character.default_stat_dexterity,
 	},
+	statVitality: {
+		type: Number,
+		min: Config.character.default_stat_vitality,
+		max: Config.character.max_stat_vitality,
+		default: Config.character.default_stat_vitality,
+	},
+	statEnergy: {
+		type: Number,
+		min: Config.character.default_stat_energy,
+		max: Config.character.max_stat_energy,
+		default: Config.character.default_stat_energy,
+	},
+	statIntelligence: {
+		type: Number,
+		min: Config.character.default_stat_intelligence,
+		max: Config.character.max_stat_intelligence,
+		default: Config.character.default_stat_intelligence,
+	},
+	statSpirit: {
+		type: Number,
+		min: Config.character.default_stat_spirit,
+		max: Config.character.max_stat_spirit,
+		default: Config.character.default_stat_spirit,
+	},
+	statWildness: {
+		type: Number,
+		min: Config.character.default_stat_wildness,
+		max: Config.character.max_stat_wildness,
+		default: Config.character.default_stat_wildness,
+	},
 	current_room: {
 		type: Number,
 		min: 1,
