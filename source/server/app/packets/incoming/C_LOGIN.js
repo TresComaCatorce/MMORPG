@@ -10,35 +10,28 @@
 
 module.exports = packet_C_LOGIN = {
 
-	process: ( cliente, datapacket ) => {
-
-		//Se leen los datos recibidos.
+	process: async ( client, datapacket ) => {
+		
+		// Read incoming data, packet model defined in <01_packetmodels.js>.
 		const data = PacketModels.login.parse( datapacket );
 		
-		//Se busca el usuario en la DB.
-		AccountModel.login( data.nickname, data.password, ( _result, _account ) => {
-			let is_kernel_buffer_full;
-		
-			//Si los datos de login son correctos.
-			if( _result )
-			{
-				//Se guarda el objecto user en el cliente (se utiliza para persistir los datos).
-				cliente.account = _account;
-		
-				//Ingresa al room de selección de personaje.
-				cliente.enterRoom( Constants.ROOMS.SELECT_CHARACTER );
-		
-				is_kernel_buffer_full = cliente.broadcastSelf( [Constants.PACKETS.S_LOGIN, true, cliente.account.id, cliente.account.current_room, cliente.user.pos_x, cliente.user.pos_y, cliente.user.username] );
-			}
-			else //Si los datos de login son incorrectos.
-			{
-				is_kernel_buffer_full = cliente.broadcastSelf( [Constants.PACKETS.S_LOGIN, false] );
-			}
-		
-			if(!is_kernel_buffer_full)
-			{
-				socket.pause();
-			}
-		});
+		// Determined if was received an email or nickname 
+		const dataToLogin = {};
+		if( Utils.isEmail(data.input) ) {
+			dataToLogin.email = data.input;
+		}
+		else {
+			dataToLogin.nickname = data.input;
+		}
+
+		dataToLogin.password = data.password;
+
+		try {
+			const accountData = await AccountModel.login( dataToLogin );
+			client.loginAccount(accountData);
+		} catch (error) {
+			console.log( `C_LOGIN ERROR: ${error}` );
+			client.loginFail(error);
+		}
 	}
 };

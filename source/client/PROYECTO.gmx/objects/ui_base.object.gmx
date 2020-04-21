@@ -27,10 +27,16 @@
             <kind>1</kind>
             <string>///Inicializacion de variables
 
-self.originPoint_x = 0;
-self.originPoint_y = 0;
+self.originPoint_x = x;
+self.originPoint_y = y;
+
+self.disabled = false;
 
 self.sprite = noone;
+self.spriteDisabled = noone;
+
+self.spriteScaleX = 1;
+self.spriteScaleY = 1;
 </string>
           </argument>
         </arguments>
@@ -55,7 +61,22 @@ self.sprite = noone;
             <kind>1</kind>
             <string>///Se dibuja el sprite
 
-draw_sprite(sprite, 0, originPoint_x, originPoint_y);
+var spriteToDraw;
+
+//show_debug_message("CBF button draw: " + string(self.sprite) + " | " + string(self.spriteDisabled) );
+
+if( !is_undefined(self.sprite) &amp;&amp; !self.disabled ) {
+    //show_debug_message("CBF if 1");
+    spriteToDraw = self.sprite;
+}
+else if( !is_undefined(self.spriteDisabled) &amp;&amp; self.disabled ) {
+    //show_debug_message("CBF if 2");
+    spriteToDraw = self.spriteDisabled;
+}
+
+if( !is_undefined(spriteToDraw) ) {
+    draw_sprite_ext( spriteToDraw, 0, originPoint_x, originPoint_y, spriteScaleX, spriteScaleY, 0, noone, 1 );
+}
 </string>
           </argument>
         </arguments>

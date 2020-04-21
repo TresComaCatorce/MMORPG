@@ -39,8 +39,11 @@ self.alarmExecuting = false;
 // Time interval con el que se ejecuta la alarma
 self.alarmTimeInterval = 180
 
-//M aximo de mensajes a mostrar al mismo tiempo
+// Maximo de mensajes a mostrar al mismo tiempo
 self.maxMessagesToShow = 2;
+
+// Separation between message lines.
+self.separationBetweenLines = 2;
 
 depth = -505;
 </string>
@@ -148,7 +151,7 @@ if( ds_exists(queueMessages, ds_type_queue) )
         draw_set_alpha(.2); //Opacidad.
         
         var txt1_pos_x = self.playerOwner.x-(string_width(ds_queue_tail(queueMessages))/2);//Posicion X en la que debe aparecer el mensaje.
-        var txt1_pos_y = ( self.playerOwner.y - 115 ); //Posicion Y en la que debe aparecer el mensaje.
+        var txt1_pos_y = ( self.playerOwner.y - string_height(ds_queue_tail(queueMessages)) - 99 - separationBetweenLines); //Posicion Y en la que debe aparecer el mensaje.
         
         //Dibujo el rectangulo de fondo.
         var rec1_pos_x1 = txt1_pos_x - 5;
@@ -165,7 +168,7 @@ if( ds_exists(queueMessages, ds_type_queue) )
         if( ds_queue_size(queueMessages)==2 )
         {
             var txt2_pos_x = self.playerOwner.x-(string_width(ds_queue_head(queueMessages))/2);
-            var txt2_pos_y = txt1_pos_y-(string_height(ds_queue_head(queueMessages)))
+            var txt2_pos_y = txt1_pos_y - (string_height(ds_queue_head(queueMessages))) - separationBetweenLines;
             
             //Dibujo el rectangulo de fondo.
             var rec2_pos_x1 = txt2_pos_x - 5;

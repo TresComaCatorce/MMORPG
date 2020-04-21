@@ -3,28 +3,39 @@
 status = buffer_read(argument0, buffer_bool);
 
 //Si el loggeo fue exitoso.
-if( is_int32(status) &&
-    status == 1 )
+if( isBoolTrue(status) )
 {
+
     //Lectura de datos que devuelve el servidor
-    clientId = buffer_read(argument0, buffer_string); //ID Unico del cliente
-    target_room = buffer_read(argument0, buffer_string); //Room donde se va a introducir el personaje.
-    target_x = buffer_read(argument0, buffer_u16); //Posicion X del personaje en el mapa.
-    target_y = buffer_read(argument0, buffer_u16); //Posicion Y del personaje en el mapa.
-    name = buffer_read(argument0, buffer_string); //Nombre del personaje.
+    email = buffer_read(argument0, buffer_string);
+    nickname = buffer_read(argument0, buffer_string);
+    creation_date = buffer_read(argument0, buffer_string);
+    last_login_date = buffer_read(argument0, buffer_string);
     
-    //Se mueve al room correspondiente.
-    room_togo = asset_get_index(target_room);
-    room_goto(room_togo);
-    
-    //Se crea una instancia del "obj_Player" en el room.
-    //TODO Agregar los atributos provenientes del servidor.
-    global.playerInstance = instance_create( target_x, target_y, obj_Player );
-    with( global.playerInstance )
-    {
-        clientId = other.clientId;
-        name = other.name;
+    characters_created = buffer_read(argument0, buffer_u16);
+
+    // Get all characters of the account.
+    global.accountCharacters = ds_list_create();
+    if( characters_created>0 ) {
+        for( var i = characters_created ; i>0 ; --i ) {
+            var character_name = buffer_read(argument0, buffer_string);
+            var character_race = buffer_read(argument0, buffer_u16);
+            var character_level = buffer_read(argument0, buffer_u16);
+            var character_account_slot = buffer_read(argument0, buffer_u16);
+            var character = instance_create( -1000, -1000, obj_characterPreview );
+            
+            with( character ) {
+                self.name = character_name;
+                self.race = character_race;
+                self.level = character_level;
+                self.slotNumber = character_account_slot;
+            }
+            ds_list_add( global.accountCharacters, character );
+        }
     }
+    
+    // Move to the "Character selection" room.
+    room_goto(rom_character_selection);
 }
 //Si el loggeo fue erroneo.
 else

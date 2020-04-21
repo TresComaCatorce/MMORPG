@@ -1,6 +1,6 @@
 /// scr_disconnectClient( message )
 
-var message = "Has sido desconectado del servidor.";
+var message = "You have been disconnected from the server.";
 
 if( argument0 ) {
     message = argument0;
@@ -8,4 +8,4 @@ if( argument0 ) {
 
 show_message(message);
 
-game_end();
+scr_gameEnd();

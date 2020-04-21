@@ -114,26 +114,26 @@ if( ds_exists(messages, ds_type_list) &amp;&amp; ds_list_size(messages)&gt;0 )
         var msgWidth = string_width(message);
     
         //Si supera el alto máximo se dejan de dibujar mensajes
-        if( msgsHeight &gt;= (backgroundChatHeight-msgHeight) )
-        {
+        if( msgsHeight &gt;= (backgroundChatHeight-msgHeight) ) {
             break;
         }
         
-        var textVerticalOffSet = - msgHeight - (msgHeight*-i) + msgHeight - msgHeight*ds_list_size(messages)
+        var textVerticalOffSet = - msgHeight - (msgHeight*-i) + msgHeight - msgHeight*ds_list_size(messages);
                 
         //Se dibuja el rectangulo de fondo de cada mensaje
         var bgr_x1 = rectangle_x1;
         var bgr_y1 = rectangle_y1 + textVerticalOffSet;
         var bgr_x2 = bgr_x1 + msgWidth + 10;
         var bgr_y2 = bgr_y1 + msgHeight;
-        draw_set_colour(c_black); //Color.
-        draw_set_alpha(.4); //Opacidad.
-        draw_rectangle( bgr_x1, bgr_y1, bgr_x2, bgr_y2, false);
-        draw_set_alpha(1);
+        if( !showBackground ) {
+            draw_set_alpha(.4); //Opacidad.
+            draw_rectangle_colour( bgr_x1, bgr_y1, bgr_x2, bgr_y2, c_black, c_black, c_black, c_black, false );
+            draw_set_alpha(1);
+        }
         
         //Se dibuja el texto
         var text_x = bgr_x1 + 5;
-        var text_y = bgr_y1;
+        var text_y = bgr_y1 + 2;
         draw_text_colour( text_x, text_y, message, c_white, c_white, c_white, c_white, 1 );
         
         msgsHeight += msgHeight;
@@ -185,12 +185,13 @@ if( ds_exists(messages, ds_type_list) &amp;&amp; ds_list_size(messages)&gt;0 )
           <argument>
             <kind>1</kind>
             <string>///Se cambia el porcentaje de altura del historial de chat
-
-switch(historyChatHeight)
-{
-    case .5: historyChatHeight = .29; break;
-    case .29: historyChatHeight = .09; break;
-    case .09: historyChatHeight = .5; break;
+if( showBackground ) {
+    switch(historyChatHeight)
+    {
+        case .5: historyChatHeight = .29; break;
+        case .29: historyChatHeight = .09; break;
+        case .09: historyChatHeight = .5; break;
+    }
 }
 </string>
           </argument>

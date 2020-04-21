@@ -9,7 +9,7 @@
 */
 
 module.exports = packet_C_UPDATE = {
-	process: ( cliente, datapacket ) => {
+	process: ( client, datapacket ) => {
 		// Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		var data = PacketModels.position_update.parse(datapacket);
 		
@@ -17,10 +17,10 @@ module.exports = packet_C_UPDATE = {
 		
 		// Se actualizan los valores de la posicion del objeto personaje
 		// con los valores recibidos. X e Y.
-		cliente.user.pos_x = data.new_x;
-		cliente.user.pos_y = data.new_y;
+		client.account.characterOnline.pos_x = data.new_x;
+		client.account.characterOnline.pos_y = data.new_y;
 		
 		// Se le comunica al cliente que debe actualizar en su cliente el dato actualizado por otro cliente.
-		cliente.broadcastNearby( [Constants.PACKETS.S_UPDATE, cliente.user.username, data.new_x, data.new_y, data.direction, data.state], false);
+		client.account.characterOnline.broadcastNearby( [Constants.PACKETS.S_UPDATE, client.account.characterOnline.name, data.new_x, data.new_y, data.direction, data.state], false);
 	}
 }

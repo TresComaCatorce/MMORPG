@@ -1,0 +1,98 @@
+{
+	"test": {
+		"max_level": 1000,
+		"points_per_level": 5,
+
+		"default_race": 0,
+
+		"default_room": 1,
+		"default_pos_x": 1000,
+		"default_pox_y": 1000,
+
+		"default_hp": 40,
+		"max_hp": 131000,
+
+		"default_mana": 80,
+		"max_mana": 131000,
+
+		"default_stamina": 60,
+		"max_stamina": 131000,
+
+		"default_stat_strength": 10,
+		"max_stat_strength": 50000,
+
+		"default_stat_dexterity": 10,
+		"max_stat_dexterity": 50000,
+		
+		"default_stat_vitality": 10,
+		"max_stat_vitality": 50000,
+
+		"default_stat_energy": 10,
+		"max_stat_energy": 50000,
+
+		"default_stat_intelligence": 10,
+		"max_stat_intelligence": 50000,
+
+		"default_stat_spirit": 10,
+		"max_stat_spirit": 50000,
+		
+		"default_stat_wildness": 10,
+		"max_stat_wildness": 50000
+	},
+	"stage": {
+		"default_race": 0,
+		"default_room": 1,
+		"default_pos_x": 1000,
+		"default_pox_y": 1000,
+		"max_level": 1000,
+		"points_per_level": 5,
+		"default_hp": 40,
+		"max_hp": 131000,
+		"default_mana": 80,
+		"max_mana": 131000,
+		"default_stamina": 60,
+		"max_stamina": 131000,
+		"default_stat_strength": 10,
+		"max_stat_strength": 50000,
+		"default_stat_dexterity": 10,
+		"max_stat_dexterity": 50000,
+		"default_stat_vitality": 10,
+		"max_stat_vitality": 50000,
+		"default_stat_energy": 10,
+		"max_stat_energy": 50000,
+		"default_stat_intelligence": 10,
+		"max_stat_intelligence": 50000,
+		"default_stat_spirit": 10,
+		"max_stat_spirit": 50000,
+		"default_stat_wildness": 10,
+		"max_stat_wildness": 50000
+	},
+	"prod": {
+		"default_race": 0,
+		"default_room": 1,
+		"default_pos_x": 1000,
+		"default_pox_y": 1000,
+		"max_level": 1000,
+		"points_per_level": 5,
+		"default_hp": 40,
+		"max_hp": 131000,
+		"default_mana": 80,
+		"max_mana": 131000,
+		"default_stamina": 60,
+		"max_stamina": 131000,
+		"default_stat_strength": 10,
+		"max_stat_strength": 50000,
+		"default_stat_dexterity": 10,
+		"max_stat_dexterity": 50000,
+		"default_stat_vitality": 10,
+		"max_stat_vitality": 50000,
+		"default_stat_energy": 10,
+		"max_stat_energy": 50000,
+		"default_stat_intelligence": 10,
+		"max_stat_intelligence": 50000,
+		"default_stat_spirit": 10,
+		"max_stat_spirit": 50000,
+		"default_stat_wildness": 10,
+		"max_stat_wildness": 50000
+	}
+}

@@ -22,9 +22,17 @@ module.exports = Constants = {
 		S_CON_CHECK: 'S_CON_CHECK',
 		S_LOGIN: 'S_LOGIN',
 		S_REGISTER: 'S_REGISTER',
-		S_UPDATE: 'S_UPDATE'
+		S_UPDATE: 'S_UPDATE',
+		S_HELLO: 'S_HELLO',
+		S_CLOSE_GAME: 'S_CLOSE_GAME',
+		S_CHARACTER_CONNECT: 'S_CHARACTER_CONNECT'
 	},
 	ROOMS: {
 		SELECT_CHARACTER: 'rm_select_character'
+	},
+	RACES: {
+		WARRIOR: 0,
+		MAGICIAN: 1,
+		ELF: 3
 	}
 };

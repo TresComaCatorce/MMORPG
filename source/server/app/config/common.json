@@ -6,11 +6,13 @@
 		"max_player": "10",
         "data_paths": {
             "items": "items",
-            "maps": "maps"
+            "rooms": "rooms"
         },
-        "starting_zone": "rm_lorencia",
 		"port": "8083",
-		"render_distance": 500,
+		"nearby_distance": {
+			"horizontal": 500,
+			"vertical": 500
+		},
 		"validations": {
 			"account_email": {
 				"regex": "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+",
@@ -21,15 +23,14 @@
 				"message": "Invalid nickname. Length 4 to 12. Valid chars: Only lowercase a-z 0-9 _"
 			},
 			"account_password": {
-				"regex": "^[a-z A-Z 0-9 _ -]{6,16}$",
+				"regex": "^[a-z A-Z 0-9 _ -]{6,12}$",
 				"message": "Invalid password. Length 6 to 16. Valid chars: a-Z 0-9 _ -"
 			},
 			"character_name": {
 				"regex": "^[a-z A-Z 0-9 _ $ -]{4,8}$",
 				"message": "Invalid character name. Length 4 to 8. Valid chars: a-Z 0-9 _"
 			}
-		},
-		"max_level": 1000
+		}
     },
 
     "stage": {
@@ -39,18 +40,20 @@
 		"max_player": "100",
         "data_paths": {
             "items": "items",
-            "maps": "maps"
+            "rooms": "rooms"
         },
-        "starting_zone": "rm_lorencia",
         "port": "8082",
-		"render_distance": 500,
+		"nearby_distance": {
+			"horizontal": 500,
+			"vertical": 500
+		},
 		"validations": {
 			"nickname": {
 				"regex": "^[a-z0-9_]{4,12}$",
 				"message": "Please enter a valid nickname. Length 4 to 12. Valid chars: a-Z 0-9 _"
 			},
 			"password": {
-				"regex": "^[a-z0-9_-]{6,16}$",
+				"regex": "^[a-z0-9_-]{6,12}$",
 				"message": "Please enter a valid password. Length 6 to 16. Valid chars: a-Z 0-9 _ -"
 			}
 		}
@@ -63,18 +66,20 @@
 		"max_player": "300",
         "data_paths": {
             "items": "items",
-            "maps": "maps"
+            "rooms": "rooms"
         },
-        "starting_zone": "rm_lorencia",
         "port": "8081",
-		"render_distance": 500,
+		"nearby_distance": {
+			"horizontal": 500,
+			"vertical": 500
+		},
 		"validations": {
 			"nickname": {
 				"regex": "^[a-z0-9_]{4,12}$",
 				"message": "Please enter a valid nickname. Length 4 to 12. Valid chars: a-Z 0-9 _"
 			},
 			"password": {
-				"regex": "^[a-z0-9_-]{6,16}$",
+				"regex": "^[a-z0-9_-]{6,12}$",
 				"message": "Please enter a valid password. Length 6 to 16. Valid chars: a-Z 0-9 _ -"
 			}
 		}

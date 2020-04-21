@@ -9,11 +9,11 @@
 */
 
 module.exports = packet_C_CON_CHECK = {
-	process: ( cliente, datapacket ) => {
+	process: ( client, datapacket ) => {
 		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		var data = PacketModels.connection_check.parse(datapacket);
 				
 		//Se envia la respuesta al cliente
-		cliente.broadcastSelf( [Constants.PACKETS.S_CON_CHECK, data.key] );
+		client.broadcastSelf( [Constants.PACKETS.S_CON_CHECK, data.key] );
 	}
 }

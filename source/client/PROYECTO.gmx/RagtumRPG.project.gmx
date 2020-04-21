@@ -88,21 +88,58 @@
       <sprite>sprites\spr_Chat_History</sprite>
       <sprite>sprites\spr_Coords</sprite>
     </sprites>
+    <sprites name="Landmarks">
+      <sprite>sprites\spr_landmarkGreen</sprite>
+      <sprite>sprites\spr_landmarkYellow</sprite>
+      <sprite>sprites\spr_landmarkRed</sprite>
+      <sprite>sprites\spr_landmarkLightBlue</sprite>
+    </sprites>
     <sprites name="GUI">
+      <sprites name="Buttons">
+        <sprites name="Login">
+          <sprite>sprites\spr_loginButton</sprite>
+          <sprite>sprites\spr_loginButtonHover</sprite>
+          <sprite>sprites\spr_loginButtonClicked</sprite>
+          <sprite>sprites\spr_loginButtonDisabled</sprite>
+        </sprites>
+        <sprites name="Register">
+          <sprite>sprites\spr_registerButton</sprite>
+          <sprite>sprites\spr_registerButtonHover</sprite>
+          <sprite>sprites\spr_registerButtonClicked</sprite>
+        </sprites>
+        <sprites name="Create Character">
+          <sprite>sprites\spr_createCharacterButton</sprite>
+          <sprite>sprites\spr_createCharacterButtonHover</sprite>
+          <sprite>sprites\spr_createCharacterButtonClicked</sprite>
+        </sprites>
+        <sprites name="Enter Game">
+          <sprite>sprites\spr_enterGameButton</sprite>
+          <sprite>sprites\spr_enterGameButtonHover</sprite>
+          <sprite>sprites\spr_enterGameButtonClicked</sprite>
+          <sprite>sprites\spr_enterGameButtonDisabled</sprite>
+        </sprites>
+      </sprites>
+      <sprites name="Modals">
+        <sprite>sprites\spr_frameLogin</sprite>
+        <sprite>sprites\spr_frameCreateCharacter</sprite>
+      </sprites>
+      <sprites name="Coords">
+        <sprite>sprites\spr_coordsBackground</sprite>
+      </sprites>
       <sprite>sprites\spr_chat_text_input</sprite>
       <sprite>sprites\spr_chat_button</sprite>
       <sprite>sprites\spr_global_button</sprite>
       <sprite>sprites\spr_whisper_button</sprite>
       <sprite>sprites\spr_username_text_input</sprite>
       <sprite>sprites\spr_password_text_input</sprite>
-      <sprite>sprites\spr_login_button</sprite>
-      <sprite>sprites\spr_register_button</sprite>
     </sprites>
     <sprite>sprites\spr_point</sprite>
+    <sprite>sprites\spr_toDelete</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_connecting</background>
     <background>background\bkg_login</background>
+    <background>background\bkg_character_selection</background>
     <backgrounds name="Maps">
       <background>background\bkg_tiled_grassy</background>
       <background>background\bkg_lorencia</background>
@@ -120,6 +157,8 @@
           <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerChatMsg.gml</script>
           <script>scripts\scr_packetHandlerConCheck.gml</script>
+          <script>scripts\scr_packetHandlerCloseGame.gml</script>
+          <script>scripts\scr_packetHandlerCharacterConnect.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
       </scripts>
@@ -137,6 +176,7 @@
       <script>scripts\scr_lorencia_creation_code.gml</script>
       <script>scripts\scr_market_town_creation_code.gml</script>
       <script>scripts\scr_login_creation_code.gml</script>
+      <script>scripts\scr_character_selection_creation_code.gml</script>
     </scripts>
     <scripts name="Player">
       <script>scripts\scr_nameBoxDraw.gml</script>
@@ -145,10 +185,16 @@
     <scripts name="Utils">
       <script>scripts\scr_isCharacterKey.gml</script>
       <script>scripts\scr_disconnectClient.gml</script>
+      <script>scripts\isBoolTrue.gml</script>
+      <script>scripts\scr_gameEnd.gml</script>
+      <script>scripts\scr_getRaceName.gml</script>
+      <script>scripts\scr_getRoomName.gml</script>
+      <script>scripts\scr_destroyAllInstances.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Ragtum</font>
+    <font>fonts\fnt_Scurlock</font>
   </fonts>
   <objects name="objects">
     <objects name="Sockets">
@@ -157,6 +203,7 @@
     <objects name="UI Framework">
       <object>objects\ui_base</object>
       <object>objects\ui_focus_base</object>
+      <object>objects\ui_hover_base</object>
       <object>objects\ui_textbox_base</object>
       <object>objects\ui_button_base</object>
     </objects>
@@ -166,6 +213,7 @@
         <object>objects\txt_Password</object>
         <object>objects\btn_Login</object>
         <object>objects\btn_Register</object>
+        <object>objects\obj_frameLogin</object>
       </objects>
       <objects name="Maps General">
         <object>objects\enum_material_types</object>
@@ -184,9 +232,19 @@
         <object>objects\obj_TorchWallRight</object>
         <object>objects\obj_waterTile</object>
       </objects>
+      <objects name="Character Selection">
+        <objects name="Modal Create Character">
+          <object>objects\obj_modalCreateCharacter</object>
+        </objects>
+        <object>objects\obj_characterSlot</object>
+        <object>objects\btn_closeGame</object>
+        <object>objects\obj_characterPreview</object>
+        <object>objects\btn_createCharacter</object>
+        <object>objects\btn_enterGame</object>
+      </objects>
     </objects>
-    <objects name="Players">
-      <object>objects\obj_Player</object>
+    <objects name="Characters">
+      <object>objects\obj_player</object>
       <object>objects\obj_Network_Player</object>
     </objects>
     <objects name="GUI">
@@ -208,9 +266,10 @@
   <rooms name="rooms">
     <room>rooms\rom_init</room>
     <room>rooms\rom_login</room>
+    <room>rooms\rom_character_selection</room>
     <rooms name="maps">
-      <room>rooms\rm_lorencia</room>
-      <room>rooms\rm_market_town</room>
+      <room>rooms\rom_lorencia</room>
+      <room>rooms\rom_market_town</room>
     </rooms>
   </rooms>
   <help>

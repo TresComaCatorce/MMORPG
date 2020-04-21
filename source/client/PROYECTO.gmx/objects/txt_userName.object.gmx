@@ -29,10 +29,19 @@
 
 event_inherited();
 
+self.textColor = c_orange;
+
 self.originPoint_x = x;
 self.originPoint_y = y;
 
+self.textOffsetX = .07;
+
+self.spriteScaleX = .5;
+self.spriteScaleY = .5;
+
 self.placeholder = "Username";
+
+self.charsLimit = 12;
 
 self.sprite = spr_username_text_input;
 </string>

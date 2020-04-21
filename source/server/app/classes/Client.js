@@ -8,106 +8,103 @@
 */
 
 const now = require('performance-now');
+const Account = require('./Account');
 
 module.exports = Client = class Client {
 
-	constructor( _socket ) {
-		this.socket = _socket;
+	constructor( data ) {
+
+		const { socket, remoteIpAddress, remotePort, remoteProtocol } = data;
+
+		this.remoteIpAddress = remoteIpAddress;
+		this.remotePort = remotePort;
+		this.remoteProtocol = remoteProtocol;
+		this.socket = socket;
 		this.account = undefined;
 		this.handshakeServer();
 	}
 
+	// Indicate if client is logged in with account.
+	// @return <bool>
+	isLoggedIn() {
+		return this.account != undefined;
+	}
 
-	//Envio del packete de handshake al servidor.
+	//
+	loginAccount( accountData ) {
+		this.account = new Account( accountData, this );
+	}
+
+	loginFail(error) {
+		this.broadcastSelf( [Constants.PACKETS.S_LOGIN, false] );
+	}
+
+	// Send handshake packet to client.
 	handshakeServer() {
 		//TODO integrity check
-		PacketManager.sendPacket( this, [
-			'S_HELLO',
+		PacketManager.sendPacket( this.socket, [
+			Constants.PACKETS.S_HELLO,
 			now().toString()
 		]);
 	}
-	
-
-	// Quita el cliente del room actual.
-	exitRoom() {
-		if( this.user ) {
-        	maps[this.user.current_room].removeClientFromRoom(this);
-		}
-	}
-
 
 	// Funcion que envia un mensaje para el propio cliente.
 	broadcastSelf( data ) {
-		return PacketManager.sendPacket( this, data );
+		return PacketManager.sendPacket( this.socket, data );
 	}
-
-
-	// Funcion que envia un update a todos los clientes
-    // que se encuentran en el room.
-	broadcastRoom( data, sendToSelf = false ) {
-		//Se recorre el array que contiene todos los clientes en ese room.
-		//Y se ejecuta la funcion por cada uno de ellos.
-		maps[this.user.current_room].clients.forEach( ( otherClient ) => {
-			//Si el usuario actual NO es el usuario del array.
-			//(No le queremos mandar esta info al mismo cliente)
-			if( otherClient.user.username != this.user.username || sendToSelf ) {
-				otherClient.broadcastSelf( data );
-			};
-		})
-	}
-
-
-	// Funcion que envia un update a todos los clientes
-	// que se encuentran "cerca" del jugador.
-	broadcastNearby( data, sendToSelf = false ) {
-		maps[this.user.current_room].clients.forEach( ( otherClient ) => {
-			const distX = Math.abs( otherClient.user.pos_x - this.user.pos_x );
-			const distY = Math.abs( otherClient.user.pos_y - this.user.pos_y );
-
-			if( ( otherClient.user.username != this.user.username || sendToSelf ) &&
-				distX<Config.common.render_distance &&
-				distY<Config.common.render_distance ) {
-				otherClient.broadcastSelf( data );
-			};
-		})
-	}
-
-
-	//Callback que maneja los paquetes de datos recibidos.
+	
+	// Callback que maneja los paquetes de datos recibidos.
     data(data) {
         PacketManager.parse( this, data );
     }
 
-    //Callback ejecutado cuando se finaliza la conexion con el cliente.
+    // Callback ejecutado cuando se finaliza la conexion con el cliente.
     end() {
-        this.exitRoom();
-        this.socket.end();
+		this.socket.end();
+		this.closeConnection();
     }
 
-    //Callback ejecutado al cerrar la conexion con el cliente.
+    // Callback ejecutado al cerrar la conexion con el cliente.
     close( data ) {
-        let logMsg = data ? "Client closed with transmission error".bgYellow.black : "Client closed correctly";
-        this.exitRoom();
-        console.log( logMsg );
+		const connectionDataString = `from IP: ${this.remoteIpAddress} | Port: ${this.remotePort} | Protocol: ${this.remoteProtocol}`.bold;
+		const errorString = `Client closed with transmission error ${connectionDataString}`.bgYellow.black;
+		const successString = `Client closed correctly ${connectionDataString}`;
+
+		console.log( data ? errorString : successString );
     }
 
-    //Callback de error en la conexion del cliente.
+    // Callback de error en la conexion del cliente.
     error( error ) {
-        console.log( "Client error: ".red, error.toString() );
-        this.exitRoom();
-        this.socket.destroy(error);
+        console.log( 'Client error: '.red, error.toString() );
+		this.socket.destroy(error);
+		this.closeConnection();
     }
 
-    //Callback por timeout con el cliente.
+    // Callback por timeout con el cliente.
     timeout() {
-        console.log( "Socket timed out.".red );
-        this.exitRoom();
-        this.socket.end();
+        console.log( 'Socket timed out.'.red );
+		this.socket.end();
+		this.closeConnection();
     }
 
     //
     drain() {
         console.log('Write buffer is empty now.');
-        socket.resume();
-    }
+        this.socket.resume();
+	}
+
+	closeConnection() {
+		this.account.characterOnline.exitRoom();
+		this.account.characterOnline.socket = undefined;
+		this.account.characterOnline = undefined
+		this.account.socket = undefined;
+		this.account = undefined;
+		this.socket = undefined;
+	}
+	
+	// Sends a disconnect package to the client.
+	closeGame( message ) {
+		const disconnectMessage = message || 'You have been disconnected from the server.';
+		this.broadcastSelf( [Constants.PACKETS.S_CLOSE_GAME, disconnectMessage] );
+	}
 };

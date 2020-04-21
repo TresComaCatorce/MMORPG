@@ -40,10 +40,13 @@ module.exports = PacketModels =
 		//.floatbe()
 	
 	chat_message: new Parser().skip(1)
-		.string( 'command', StringOptions)
-		.string( 'pj_name', StringOptions)
-		.string( 'message', StringOptions)
-		.int32le( 'type', StringOptions)
+		.string( 'command', StringOptions )
+		.string( 'pj_name', StringOptions )
+		.string( 'message', StringOptions )
+		.int32le( 'type', StringOptions ),
 
+	character_connect: new Parser().skip(1)
+		.string( 'command', StringOptions )
+		.string( 'character_name', StringOptions )
 	
 }

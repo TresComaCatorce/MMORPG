@@ -9,8 +9,8 @@
     @function "parse":
     @function "interpret":
 */
-
-var zeroBuffer = new Buffer.from('00', 'hex');
+const fs = require('fs');
+const zeroBuffer = new Buffer.from('00', 'hex');
 
 module.exports = PacketManager = class PacketManager {
 
@@ -27,11 +27,12 @@ module.exports = PacketManager = class PacketManager {
 		});
 	}
 
-	// Send a packet to the client
-	// @param <Client> 'cliente': Client instance.
+	// Send a packet to the client.
+	// @param <Socket> 'socket': Socket instance.
 	// @param <[]> 'data': All data to send.
-	sendPacket( cliente, data ) {
-		return cliente.socket.write( this.build(data) );
+	sendPacket( socket, data ) {
+		console.log("CBF sendpacket: ", data);
+		return socket.write( this.build(data) );
 	}
 
 	// Build a buffer from a differents type of data.
@@ -86,17 +87,17 @@ module.exports = PacketManager = class PacketManager {
 	// Parsea a Buffer de datos un paquete recibido desde el cliente.
 	// Luego lo envía a la funcion "interpret" para que interprete el paquete recibido.
 	//
-	// @param <Client> 'cliente': Cliente que envia el paquete.
+	// @param <Client> 'client': Cliente que envia el paquete.
 	// @param <DataStream> 'data': Datos "raw" recibidos desde el cliente.
 	//
-	parse( cliente, data ) {
+	parse( client, data ) {
 		let idx = 0;
 		while (idx < data.length) {
 			const packetSize = data.readUInt8(idx);
 			const extractedPacket = new Buffer.alloc(packetSize);
 			data.copy(extractedPacket, 0, idx, idx + packetSize);
 
-			this.interpret(cliente, extractedPacket);
+			this.interpret(client, extractedPacket);
 
 			idx += packetSize;
 		}

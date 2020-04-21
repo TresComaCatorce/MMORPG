@@ -60,25 +60,13 @@ event_inherited();
 
 if( mouse_check_button_pressed(mb_left) )
 {
-    /*
-    show_debug_message("CBF gui scale x: " + string(global.gui_scale_x));
-    show_debug_message("CBF gui scale y: " + string(global.gui_scale_y));
-    show_debug_message("CBF mouse x: "+string(mouse_x));
-    show_debug_message("CBF mouse y: "+string(mouse_y));
-
-    show_debug_message("x1: " + string(view_xview[view_current] + (originPoint_x / global.gui_scale_x)));
-    show_debug_message("y1: " + string(view_yview[view_current] + (originPoint_y / global.gui_scale_y)));
-    show_debug_message("x2: " + string(view_xview[view_current] + (originPoint_x / global.gui_scale_x)+(sprite_get_width(sprite)/global.gui_scale_x)));
-    show_debug_message("y2: " + string(view_yview[view_current] + (originPoint_y / global.gui_scale_y)+(sprite_get_height(sprite)/global.gui_scale_y)));
-    */
- 
     if point_in_rectangle(
         mouse_x,
         mouse_y,
         view_xview[view_current] + (originPoint_x / global.gui_scale_x),
         view_yview[view_current] + (originPoint_y / global.gui_scale_y),
-        view_xview[view_current] + (originPoint_x / global.gui_scale_x)+(sprite_get_width(sprite)/global.gui_scale_x),
-        view_yview[view_current] + (originPoint_y / global.gui_scale_y)+(sprite_get_height(sprite)/global.gui_scale_y)
+        view_xview[view_current] + (originPoint_x / global.gui_scale_x)+( (sprite_get_width(sprite)*self.spriteScaleX) / global.gui_scale_x ),
+        view_yview[view_current] + (originPoint_y / global.gui_scale_y)+( (sprite_get_height(sprite)*self.spriteScaleY) / global.gui_scale_y )
     )
     {
         focused = true;   
@@ -88,8 +76,6 @@ if( mouse_check_button_pressed(mb_left) )
         focused = false;
     }
 }
-
-
 </string>
           </argument>
         </arguments>
@@ -118,9 +104,11 @@ event_inherited();
 
 if(focused)
 {
-    draw_set_colour(focusBorderColor);
-    draw_rectangle( originPoint_x, originPoint_y, originPoint_x+sprite_get_width(sprite), originPoint_y+sprite_get_height(sprite), 2);
-    draw_set_colour(c_white);
+    //TODO focus sprite draw    
+
+    //draw_set_colour( self.focusBorderColor );
+    //draw_rectangle( originPoint_x, originPoint_y, originPoint_x+sprite_get_width(sprite), originPoint_y+sprite_get_height(sprite), 2 );
+    //draw_set_colour(c_white);
 }
 </string>
           </argument>
