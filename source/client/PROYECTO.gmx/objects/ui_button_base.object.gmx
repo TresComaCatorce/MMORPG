@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>ui_focus_base</parentName>
+  <parentName>ui_hover_base</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,15 +25,47 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion de variables
+            <string>/// Variables initialization
 
 event_inherited();
 
 self.text = "";
 
-self.hoverable = true;
+self.spriteClicked = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
 
-self.hover = false;
+event_inherited();
+
+if( !self.disabled &amp;&amp; mouse_check_button_released(mb_left) )
+{
+    //Si tiene hover se ejecuta la accion
+    if( self.hover )
+    {
+        event_user(0);
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -56,102 +88,20 @@ self.hover = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se dibuja el button
+            <string>/// Draws text of the button
 
 event_inherited();
 
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se determina si tiene hover o no
-
-if point_in_rectangle(
-        mouse_x,
-        mouse_y,
-        view_xview[view_current] + (originPoint_x / global.gui_scale_x),
-        view_yview[view_current] + (originPoint_y / global.gui_scale_y),
-        view_xview[view_current] + (originPoint_x / global.gui_scale_x)+(sprite_get_width(sprite)/global.gui_scale_x),
-        view_yview[view_current] + (originPoint_y / global.gui_scale_y)+(sprite_get_height(sprite)/global.gui_scale_y)
-    )
-    {
-        hover = true;   
-    }
-    else
-    {
-        hover = false;
-    }
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se dibuja el sprite correspondiente segun hover
-
-//Si el mouse esta sobre el boton, cambia el color del boton (se deja lo demas como esta, posicion, color, angulo, etc).
-if(self.hoverable &amp;&amp; self.hover)
-{
-    draw_sprite_ext( sprite, 0, originPoint_x, originPoint_y, 1, 1, 0, c_gray, 1.0 );
-}
-//Si el mouse no esta sobre el boton dibujo el boton tal cual es.
-else
-{
-    draw_sprite( sprite, 0, originPoint_x, originPoint_y );
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Se dibuja el texto del boton
 draw_text( originPoint_x+3, originPoint_y+8, string(text) );
+
+if( !self.disabled &amp;&amp; mouse_check_button(mb_left) )
+{
+    //Si tiene hover se ejecuta la accion
+    if( spriteClicked &amp;&amp; hover )
+    {
+        draw_sprite_ext( spriteClicked, 0, originPoint_x, originPoint_y, spriteScaleX, spriteScaleY, 0, noone, 1 );
+    }
+}
 </string>
           </argument>
         </arguments>

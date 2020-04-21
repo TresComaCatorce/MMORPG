@@ -2,7 +2,7 @@
     "test":
     {
         "ip": "127.0.0.1",
-		"name": "MMORPG_TEST",
+		"name": "CBF_TEST",
 		"persist_interval": 5000
     },
 

@@ -30,11 +30,15 @@
 event_inherited();
 
 self.text = "";
+self.type = "text";
 self.placeholder = "";
 self.charsLimit = 256;
 
-self.textOffsetX = 3;
-self.textOffsetY = 8;
+
+self.textOffsetX = 0; //Horizontal offset of text in percentage of the input sprite
+self.textOffsetY = 0; //Vertical offset of text in percentage of the input sprite
+
+self.textColor = c_white;
 </string>
           </argument>
         </arguments>
@@ -61,14 +65,33 @@ self.textOffsetY = 8;
 
 event_inherited();
 
-if( string_length(text) &gt; 0 || focused )
-{
-    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(text));
+var spriteHeight = sprite_get_height( self.sprite ) * self.spriteScaleY;
+var spriteWidth = sprite_get_width( self.sprite ) * self.spriteScaleX;
+var textToDraw = "";
+
+
+if( string_length(text) &gt; 0 || focused ) {
+    if( self.type == "password" ) {
+        var stringLength = string_length(text);
+        while( stringLength &gt; 0 ) {
+            textToDraw = textToDraw + "×";
+            stringLength--;
+        }
+    }
+    else {
+        textToDraw = string(text);
+    }
 }
-else
-{
-    draw_text( originPoint_x + textOffsetX, originPoint_y + textOffsetY, string(placeholder));
+else {
+    textToDraw = string(placeholder);
 }
+
+var textHeight = string_height( textToDraw );
+
+var posX = originPoint_x + ( spriteWidth * self.textOffsetX );
+var posY = originPoint_y + ( spriteHeight / 2 ) - ( textHeight / 2 );
+
+draw_text_colour( posX, posY, textToDraw, self.textColor, self.textColor, self.textColor, self.textColor, 1 );
 </string>
           </argument>
         </arguments>
@@ -95,13 +118,13 @@ else
 
 event_inherited();
 
-if( focused &amp;&amp; keyboard_key != vk_enter &amp;&amp; string_length(text)&lt;charsLimit )
+if( focused &amp;&amp; keyboard_key != vk_enter )
 {
     if(keyboard_key == vk_backspace)
     {
         text = string_copy( text, 0, string_length(text) - 1 );
     }
-    else if( scr_isCharacterKey(keyboard_key) )
+    else if( scr_isCharacterKey(keyboard_key) &amp;&amp; string_length(text)&lt;charsLimit )
     {
         text += keyboard_lastchar;
     }

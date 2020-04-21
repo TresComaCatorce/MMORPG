@@ -31,7 +31,6 @@
 self.chatHistory = instance_create( 0, 0, obj_Chat_History );
 
 // Coordenadas
-show_debug_message("Create coords");
 self.coords = instance_create( 0, 0, obj_Coords );
 </string>
           </argument>
@@ -61,10 +60,15 @@ self.coords = instance_create( 0, 0, obj_Coords );
 instance_destroy(chatHistory);
 
 //Input de chat
-if( instance_exists(textInputInstance) )
-{
+if( instance_exists(textInputInstance) ) {
     instance_destroy(textInputInstance);
 }
+
+//Coords
+if( instance_exists( self.coords ) ) {
+    instance_destroy( self.coords );
+}
+
 </string>
           </argument>
         </arguments>
@@ -100,11 +104,6 @@ else
 {
     //Se crea la instancia del input de chat y se corrige el offset del texto.
     textInputInstance = instance_create( 0, 0, obj_Chat_Input );
-    with (textInputInstance)
-    {
-        textOffsetX = 7;
-        textOffsetY = 3;
-    }
     
     //Se muestra el fondo del historial de chat
     chatHistory.showBackground = true;

@@ -21,6 +21,11 @@ switch(command)
         break;
     }
     
+    case "S_CLOSE_GAME": {
+        scr_packetHandlerCloseGame( argument0 );
+        break;
+    }
+    
     case "S_CON_CHECK": {
         scr_packetHandlerConCheck( argument0 );
         break;
@@ -47,6 +52,11 @@ switch(command)
     //Respuesta a mensaje de chat enviado
     case "S_CHAT_MSG": {
         scr_packetHandlerChatMsg( argument0 );
+        break;
+    }
+    
+    case "S_CHARACTER_CONNECT": {
+        scr_packetHandlerCharacterConnect( argument0 );
         break;
     }
     

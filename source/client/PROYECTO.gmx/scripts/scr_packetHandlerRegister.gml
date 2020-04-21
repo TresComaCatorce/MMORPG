@@ -1,8 +1,7 @@
 /// scr_packetHandlerRegister( dataFromServer );
 
 status = buffer_read(argument0, buffer_bool);
-if( is_int32(status) &&
-    status == 1 )
+if( isBoolTrue(status) )
 {
     show_message("Register Success.");
 }

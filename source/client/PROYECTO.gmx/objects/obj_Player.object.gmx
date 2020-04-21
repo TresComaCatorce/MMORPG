@@ -27,13 +27,17 @@
             <kind>1</kind>
             <string>///Inicializacion de variables
 //Nombre del personaje.
-name = noone;
+self.name = noone;
+
+self.race = noone;
+
+self.level = noone;
 
 //ID unico del cliente en el servidor.
-clientId = noone;
+self.clientId = noone;
 
 //Estado del personaje.
-state = global.playerStateIdle;
+self.state = global.playerStateIdle;
 
 //Caja con el nombre del personaje.
 self.nameBox = noone;

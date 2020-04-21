@@ -27,9 +27,20 @@
             <kind>1</kind>
             <string>/// Variables declaration
 
-show_debug_message("Coords create:");
-
 showCoords = true;
+
+sprite = spr_coordsBackground;
+
+spriteOffsetX = 0;
+spriteOffsetY = 0;
+spriteScaleX = 1.2;
+spriteScaleY = 1.2;
+
+textOffsetX = .1;
+textOffsetY = .15;
+textScaleX = .8;
+textScaleY = .8;
+textColor = c_orange;
 </string>
           </argument>
         </arguments>
@@ -52,15 +63,23 @@ showCoords = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Draw X and Y coords
+            <string>/// Draw Sprite and text with X and Y coords
 
 event_inherited();
 
-if( showCoords ) {    
-    //draw_text( view_wview[view_current]*.01, view_hview[view_current]*.01, "X: "+string(obj_Player.x)+" Y: "+string(obj_Player.y) );
-    //draw_text( 5, 5, "X: "+string(obj_Player.x)+" Y: "+string(obj_Player.y) );
-    //draw_text_colour( 15, 15, "X: "+string(obj_Player.x)+" Y: "+string(obj_Player.y), c_white, c_white, c_white, c_white, 1 );
-    draw_text_colour( view_wview[view_current]*.005, view_hview[view_current]*.005, "X: "+string(floor(obj_Player.x))+" Y: "+string(floor(obj_Player.y)), c_white, c_white, c_white, c_white, 1 );
+if( showCoords ) {
+    var spriteX = x + view_wview[view_current] * spriteOffsetX;
+    var spriteY = y + view_hview[view_current] * spriteOffsetY;
+    draw_sprite_ext( sprite, 0, x, y, spriteScaleX, spriteScaleY, 0, noone, 1 );
+    
+    var spriteWidth = sprite_get_width( self.sprite );
+    var spriteHeight = sprite_get_height( self.sprite );
+    var textX = x + spriteWidth * textOffsetX;
+    var textY = y + spriteHeight * textOffsetY;
+    var textValueX = "X: "+string(floor(obj_player.x/100));
+    var textValueY = " Y: "+string(floor(obj_player.y/100));
+    draw_text_transformed_colour( textX, textY, textValueX, textScaleX, textScaleY, 0, textColor, textColor, textColor, textColor, 1 );
+    draw_text_transformed_colour( textX+(spriteWidth * spriteScaleX * .3), textY, textValueY, textScaleX, textScaleY, 0, textColor, textColor, textColor, textColor, 1 );
 }
 
 </string>

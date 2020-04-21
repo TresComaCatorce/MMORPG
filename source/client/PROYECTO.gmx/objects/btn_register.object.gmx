@@ -25,24 +25,25 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicialización del botón de login
+            <string>/// Button initialization
 
 event_inherited();
 
-self.originPoint_x = x;
-self.originPoint_y = y;
+//self.originPoint_x = x;
+//self.originPoint_y = y;
 
-self.hoverable = true;
+self.sprite = spr_registerButton;
+self.spriteHover = spr_registerButtonHover;
+self.spriteClicked = spr_registerButtonClicked;
 
-self.sprite = spr_register_button;
-
-self.text = "Register";
+self.spriteScaleX = .4;
+self.spriteScaleY = .4;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -59,32 +60,20 @@ self.text = "Register";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Acción del boton
+            <string>/// Click action defined
 
-event_inherited();
-
-if( mouse_check_button_pressed(mb_left) )
-{
-    //Si tiene hover se ejecuta la accion
-    if( self.hover )
-    {
-        if( string_length(txt_Username.text) &gt; 0
-        &amp;&amp;  string_length( txt_Password.text ) &gt; 0 )
-        {
-            var packetName = "C_REGISTER";
-            var attributes = ds_list_create();
-            
-            ds_list_add(    attributes,
-                            txt_Username.text,
-                            txt_Password.text );
-            
-            scr_sendPacket( packetName, attributes );
-        }
-        else
-        {
-            show_message( "Error: Username or password can't be empty." );
-        }
-    }
+if( string_length(txt_Username.text) &gt; 0 &amp;&amp;  string_length( txt_Password.text ) &gt; 0 ) {
+    var packetName = "C_REGISTER";
+    var attributes = ds_list_create();
+    
+    ds_list_add(    attributes,
+                    txt_Username.text,
+                    txt_Password.text );
+    
+    scr_sendPacket( packetName, attributes );
+}
+else {
+    show_message( "Error: Username or password can't be empty." );
 }
 </string>
           </argument>
