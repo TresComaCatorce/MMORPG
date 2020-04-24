@@ -92,9 +92,9 @@ const run = async () => {
 
 		//-----------------------------------------------
 		// CREATE CHARACTER
-		const acc = await AccountModel.findOne({nickname: "test"});
+		const acc = await AccountModel.findOne({nickname: "test2"});
 		const char = await CharacterModel.create({
-			name: "KriZ",
+			name: "TresComa",
 			race: 0,
 			level: 300,
 			current_room: 1,
@@ -109,7 +109,7 @@ const run = async () => {
 		// ADD CHARACTER TO ACCOUNT
 		// const char = await CharacterModel.findOne({ name: 'KriztiaN' });
 		const account = await AccountModel.findOneAndUpdate(
-			{nickname: "test"},
+			{nickname: "test2"},
 			{$push:{characters: char._id}}
 		);
 		console.log("CBF acc2: ", account);

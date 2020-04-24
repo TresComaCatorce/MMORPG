@@ -94,12 +94,18 @@ module.exports = Client = class Client {
 	}
 
 	closeConnection() {
-		this.account.characterOnline.exitRoom();
-		this.account.characterOnline.socket = undefined;
-		this.account.characterOnline = undefined
+		this.closeCharacterOnlineConnection();
 		this.account.socket = undefined;
 		this.account = undefined;
 		this.socket = undefined;
+	}
+
+	closeCharacterOnlineConnection() {
+		if( this.account.characterOnline ) {
+			this.account.characterOnline.exitRoom();
+			this.account.characterOnline.socket = undefined;
+			this.account.characterOnline = undefined
+		}
 	}
 	
 	// Sends a disconnect package to the client.

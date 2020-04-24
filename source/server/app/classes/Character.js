@@ -13,17 +13,32 @@ module.exports = Character = class Character extends Entity {
 	
 	constructor( characterData, socket ) {
 		console.log("CBF char constructor: ", characterData );
-		const { _id, name, race, level, hp, maxHp, mana, maxMana, current_room, pos_x, pos_y, account_slot } = characterData
+		const { _id, name, race, level, current_room, pos_x, pos_y, account_slot,
+			currentExp, nextLevelExp, currentHp, maxHp, currentMana, maxMana, currentStamina, maxStamina,
+			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness,
+			} = characterData;
+			
 		super( _id, name, current_room, pos_x, pos_y );
 		this.race = race;
 		this.level = level;
 		this.account_slot = account_slot;
+		this.currentExp = currentExp;
+		this.nextLevelExp = nextLevelExp;
+		this.currentHp = currentHp;
+		this.maxHp = maxHp;
+		this.currentMana = currentMana;
+		this.maxMana = maxMana;
+		this.currentStamina = currentStamina;
+		this.maxStamina = maxStamina;
+		this.statStrength = statStrength;
+		this.statDexterity = statDexterity;
+		this.statVitality = statVitality;
+		this.statEnergy = statEnergy;
+		this.statIntelligence = statIntelligence;
+		this.statSpirit = statSpirit;
+		this.statWildness = statWildness;
 		this.socket = socket;
 		this.model = undefined;
-		this.hp = hp;
-		this.maxHp = maxHp;
-		this.mana = mana;
-		this.maxMana = maxMana;
 		this.getCharacterModel();
 		this.enterInRoom( this.current_room );
 		this.sendCharacterConnectData();

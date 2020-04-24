@@ -6,8 +6,8 @@
 		"default_race": 0,
 
 		"default_room": 1,
-		"default_pos_x": 1000,
-		"default_pox_y": 1000,
+		"default_pos_x": 1250,
+		"default_pox_y": 1250,
 
 		"default_hp": 40,
 		"max_hp": 131000,
@@ -42,8 +42,8 @@
 	"stage": {
 		"default_race": 0,
 		"default_room": 1,
-		"default_pos_x": 1000,
-		"default_pox_y": 1000,
+		"default_pos_x": 1250,
+		"default_pox_y": 1250,
 		"max_level": 1000,
 		"points_per_level": 5,
 		"default_hp": 40,
@@ -70,8 +70,8 @@
 	"prod": {
 		"default_race": 0,
 		"default_room": 1,
-		"default_pos_x": 1000,
-		"default_pox_y": 1000,
+		"default_pos_x": 1250,
+		"default_pox_y": 1250,
 		"max_level": 1000,
 		"points_per_level": 5,
 		"default_hp": 40,
