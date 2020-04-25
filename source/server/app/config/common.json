@@ -9,6 +9,7 @@
             "rooms": "rooms"
         },
 		"port": "8083",
+		"update_interval": 100,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500
@@ -42,7 +43,8 @@
             "items": "items",
             "rooms": "rooms"
         },
-        "port": "8082",
+		"port": "8082",
+		"update_interval": 250,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500
@@ -68,7 +70,8 @@
             "items": "items",
             "rooms": "rooms"
         },
-        "port": "8081",
+		"port": "8081",
+		"update_interval": 250,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500

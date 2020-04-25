@@ -102,6 +102,7 @@ module.exports = Client = class Client {
 
 	closeCharacterOnlineConnection() {
 		if( this.account.characterOnline ) {
+			this.account.characterOnline.clearUpdateDaemon();
 			this.account.characterOnline.exitRoom();
 			this.account.characterOnline.socket = undefined;
 			this.account.characterOnline = undefined

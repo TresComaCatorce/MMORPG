@@ -11,7 +11,7 @@
 module.exports = packet_C_UPDATE = {
 	process: ( client, datapacket ) => {
 		// Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
-		var data = PacketModels.position_update.parse(datapacket);
+		var data = PacketModels.character_update.parse(datapacket);
 		
 		//TODO Checkear que las nuevas coordenadas no sean incoherentes.
 		
@@ -21,6 +21,6 @@ module.exports = packet_C_UPDATE = {
 		client.account.characterOnline.pos_y = data.new_y;
 		
 		// Se le comunica al cliente que debe actualizar en su cliente el dato actualizado por otro cliente.
-		client.account.characterOnline.broadcastNearby( [Constants.PACKETS.S_UPDATE, client.account.characterOnline.name, data.new_x, data.new_y, data.direction, data.state], false);
+		client.account.characterOnline.broadcastNearby( [Constants.PACKETS.S_UPDATE_SPREAD, client.account.characterOnline.name, data.new_x, data.new_y, data.direction, data.state], false);
 	}
 }

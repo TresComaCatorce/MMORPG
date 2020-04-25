@@ -33,6 +33,7 @@ const common =
         rooms: appRoot + "\\resources\\game_data\\" + json_common[environment].data_paths.rooms + "\\"
     },
 	port: json_common[environment].port,
+	update_interval: json_common[environment].update_interval,
 	nearby_distance: json_common[environment].nearby_distance,
 	validations: json_common[environment].validations
 }

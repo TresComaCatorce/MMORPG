@@ -42,6 +42,7 @@ module.exports = Character = class Character extends Entity {
 		this.getCharacterModel();
 		this.enterInRoom( this.current_room );
 		this.sendCharacterConnectData();
+		this.updateDaemon = this.initUpdateDaemon();
 	}
 
 	async getCharacterModel() {
@@ -114,5 +115,22 @@ module.exports = Character = class Character extends Entity {
 		];
 
 		this.broadcastSelf(characterData);
+	}
+
+	// Send a request
+	sendUpdateRequest() {
+		const updateData = [ Constants.PACKETS.S_UPDATE ];
+
+		this.broadcastSelf(updateData);
+	}
+
+	// Init the update daemon of this character.
+	initUpdateDaemon() {
+		return setInterval( () => this.sendUpdateRequest(), Config.common.update_interval );
+	}
+
+	// Clear the update daemon of this character.
+	clearUpdateDaemon() {
+		clearInterval(this.updateDaemon);
 	}
 }

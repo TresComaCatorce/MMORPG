@@ -316,7 +316,7 @@ if( self.state == global.playerStateIdle )
 // Se llama en:
 //      -Al presionar la W para mover el personaje.
 //-----------------------------------------------------------------------------
-
+/*
 var packetName = "C_UPDATE";
 var attributes = ds_list_create();
 
@@ -327,6 +327,7 @@ ds_list_add(    attributes,
                 self.state );
 
 scr_sendPacket( packetName, attributes );
+*/
 </string>
           </argument>
         </arguments>

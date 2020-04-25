@@ -49,6 +49,11 @@ switch(command)
         break;
     }
     
+    case "S_UPDATE_SPREAD": {
+        scr_packetHandlerUpdateSpread( argument0 );
+        break;
+    }
+    
     //Respuesta a mensaje de chat enviado
     case "S_CHAT_MSG": {
         scr_packetHandlerChatMsg( argument0 );

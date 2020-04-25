@@ -31,7 +31,7 @@ module.exports = PacketModels =
         .string( 'username', StringOptions )
         .string( 'password', StringOptions ),
 
-    position_update: new Parser().skip(1)
+    character_update: new Parser().skip(1)
         .string( 'command', StringOptions )
         .int32le( 'new_x', StringOptions )
         .int32le( 'new_y', StringOptions )

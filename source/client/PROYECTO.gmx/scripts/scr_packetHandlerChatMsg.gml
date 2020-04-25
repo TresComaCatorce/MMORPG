@@ -15,8 +15,7 @@ if( isBoolTrue(message_accepted) &&
     //Se utiliza la instancia del objeto "obj_Chat_Msg_Ingame" asociada al player.
     if( player_name == obj_player.name ) {
         with( obj_player.chatMsgsIngame ) {
-            if( !ds_exists(queueMessages, ds_type_queue) )
-            {
+            if( !ds_exists(queueMessages, ds_type_queue) ) {
                 queueMessages = ds_queue_create();
             }
             

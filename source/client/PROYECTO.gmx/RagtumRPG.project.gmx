@@ -154,11 +154,12 @@
           <script>scripts\scr_packetHandlerLogin.gml</script>
           <script>scripts\scr_packetHandlerHello.gml</script>
           <script>scripts\scr_packetHandlerRegister.gml</script>
-          <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerChatMsg.gml</script>
           <script>scripts\scr_packetHandlerConCheck.gml</script>
           <script>scripts\scr_packetHandlerCloseGame.gml</script>
           <script>scripts\scr_packetHandlerCharacterConnect.gml</script>
+          <script>scripts\scr_packetHandlerUpdate.gml</script>
+          <script>scripts\scr_packetHandlerUpdateSpread.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
       </scripts>
