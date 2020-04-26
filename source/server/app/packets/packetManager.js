@@ -31,7 +31,7 @@ module.exports = PacketManager = class PacketManager {
 	// @param <Socket> 'socket': Socket instance.
 	// @param <[]> 'data': All data to send.
 	sendPacket( socket, data ) {
-		console.log("CBF sendpacket: ", data);
+		(data[0]!="S_UPDATE" && data[0]!="S_UPDATE_SPREAD"&&data[0]!="S_CON_CHECK") ? console.log("CBF sendpacket: ", data) : undefined;
 		return socket.write( this.build(data) );
 	}
 

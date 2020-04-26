@@ -31,7 +31,7 @@
 self.playerOwner = noone;
 
 // Queue con los mensajes a mostrar
-self.queueMessages = noone;
+self.queueMessages = ds_queue_create();
 
 // Flag que indica si se está ejecutando la alarma
 self.alarmExecuting = false;
@@ -72,12 +72,12 @@ depth = -505;
 {
     ds_queue_dequeue(queueMessages);
 
-    if( ds_queue_empty(queueMessages) )
+    if( !ds_queue_empty(queueMessages) )
     {
-        ds_queue_destroy(queueMessages);
+    /*    ds_queue_destroy(queueMessages);
     }
     else
-    {
+    {*/
         alarm[0] = alarmTimeInterval;
     }
 }
@@ -105,8 +105,7 @@ alarmExecuting = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-if( ds_exists(queueMessages, ds_type_queue) )
+            <string>if( ds_exists(queueMessages, ds_type_queue) )
 {
     if( ds_queue_size(queueMessages)&gt;maxMessagesToShow )
     {
@@ -142,6 +141,33 @@ if( !alarmExecuting )
           <argument>
             <kind>1</kind>
             <string>///Se dibuja el texto
+/*
+auxName = "";
+auxSize = 999;
+auxHead = "";
+auxTail = "";
+with( playerOwner ) {
+    other.auxName = name;
+}
+if( ds_exists(queueMessages, ds_type_queue) ) {
+    auxSize = ds_queue_size(queueMessages)
+    if( auxSize&gt;=1 ) {
+        auxHead = ds_queue_tail(queueMessages);
+        if( auxSize&gt;=2 ){
+            auxTail = ds_queue_head(queueMessages);
+        }
+    }
+}
+
+show_debug_message( "----------------------------------------------");
+show_debug_message( "Draw " + auxName );
+show_debug_message( "ID: " + string(queueMessages) );
+show_debug_message( "Size: " + string(auxSize) );
+show_debug_message( "Head: " + auxHead );
+show_debug_message( "Tail: " + auxTail );
+show_debug_message( "----------------------------------------------");
+*/
+
 
 if( ds_exists(queueMessages, ds_type_queue) )
 {
@@ -150,8 +176,16 @@ if( ds_exists(queueMessages, ds_type_queue) )
         draw_set_colour(c_black); //Color.
         draw_set_alpha(.2); //Opacidad.
         
-        var txt1_pos_x = self.playerOwner.x-(string_width(ds_queue_tail(queueMessages))/2);//Posicion X en la que debe aparecer el mensaje.
-        var txt1_pos_y = ( self.playerOwner.y - string_height(ds_queue_tail(queueMessages)) - 99 - separationBetweenLines); //Posicion Y en la que debe aparecer el mensaje.
+        ownerX = noone;
+        ownerY = noone;
+        
+        with( self.playerOwner ) {
+            other.ownerX = x;
+            other.ownerY = y;
+        }
+        
+        var txt1_pos_x = ownerX-(string_width(ds_queue_tail(queueMessages))/2);//Posicion X en la que debe aparecer el mensaje.
+        var txt1_pos_y = ( ownerY - string_height(ds_queue_tail(queueMessages)) - 99 - separationBetweenLines); //Posicion Y en la que debe aparecer el mensaje.
         
         //Dibujo el rectangulo de fondo.
         var rec1_pos_x1 = txt1_pos_x - 5;
@@ -167,7 +201,7 @@ if( ds_exists(queueMessages, ds_type_queue) )
         
         if( ds_queue_size(queueMessages)==2 )
         {
-            var txt2_pos_x = self.playerOwner.x-(string_width(ds_queue_head(queueMessages))/2);
+            var txt2_pos_x = ownerX-(string_width(ds_queue_head(queueMessages))/2);
             var txt2_pos_y = txt1_pos_y - (string_height(ds_queue_head(queueMessages))) - separationBetweenLines;
             
             //Dibujo el rectangulo de fondo.

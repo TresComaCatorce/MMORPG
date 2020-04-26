@@ -155,6 +155,7 @@
           <script>scripts\scr_packetHandlerHello.gml</script>
           <script>scripts\scr_packetHandlerRegister.gml</script>
           <script>scripts\scr_packetHandlerChatMsg.gml</script>
+          <script>scripts\scr_packetHandlerChatMsgSpread.gml</script>
           <script>scripts\scr_packetHandlerConCheck.gml</script>
           <script>scripts\scr_packetHandlerCloseGame.gml</script>
           <script>scripts\scr_packetHandlerCharacterConnect.gml</script>

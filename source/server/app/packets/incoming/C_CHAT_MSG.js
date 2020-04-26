@@ -10,19 +10,29 @@
 
 module.exports = packet_C_CHAT_MSG = {
 	process: (client, datapacket) => {
-		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
-		var data = PacketModels.chat_message.parse(datapacket);
+		// Use the "PacketModel" defined in <01_packetmodels.js>.
+		const data = PacketModels.chat_message.parse(datapacket);
 
-		//Se envia la respuesta a los clientes que correspondan
-		switch (data.type) {
+		// Send confirmation to the same client
+		const dataToSend = [
+			Constants.PACKETS.S_CHAT_MSG,
+			true,
+			data.message_text,
+			data.message_type
+		];
+		client.account.characterOnline.broadcastSelf(dataToSend);
+
+		// Spread message to another clients
+		switch (data.message_type) {
 			case Constants.CHAT.CHAT_MSG_TYPES.CHAT: {
+				const sendToSelf = false;
+				console.log("CBF data sendend")
 				client.account.characterOnline.broadcastNearby([
-					Constants.PACKETS.S_CHAT_MSG,
-					true,
-					data.pj_name,
-					data.message,
-					data.type
-				], true);
+					Constants.PACKETS.S_CHAT_MSG_SPREAD,
+					data.character_name,
+					data.message_text,
+					data.message_type
+				], sendToSelf);
 				break;
 			}
 			case Constants.CHAT.CHAT_MSG_TYPES.GLOBAL: {

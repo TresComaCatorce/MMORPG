@@ -41,9 +41,9 @@ module.exports = PacketModels =
 	
 	chat_message: new Parser().skip(1)
 		.string( 'command', StringOptions )
-		.string( 'pj_name', StringOptions )
-		.string( 'message', StringOptions )
-		.int32le( 'type', StringOptions ),
+		.string( 'character_name', StringOptions )
+		.string( 'message_text', StringOptions )
+		.int32le( 'message_type', StringOptions ),
 
 	character_connect: new Parser().skip(1)
 		.string( 'command', StringOptions )
