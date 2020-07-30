@@ -31,9 +31,9 @@ module.exports = Account = class Account {
 	// Update "Last login date" of the account with the current date.
 	updateLastLoginDate() {
 		AccountModel.updateOne(
-			{_id: this._id},
-			{last_login_date: new Date()},
-			{runValidators: true}
+			{ _id: this._id },
+			{ last_login_date: new Date() },
+			{ runValidators: true }
 		);
 	}
 
@@ -54,16 +54,16 @@ module.exports = Account = class Account {
 			this.last_login_date
 		];
 
-		accountDataToSend.push(this.characters.length);
+		accountDataToSend.push( this.characters.length );
 
 		this.characters.forEach( character => {
-			accountDataToSend.push(character.name);
-			accountDataToSend.push(character.race);
-			accountDataToSend.push(character.level);
-			accountDataToSend.push(character.account_slot);
+			accountDataToSend.push( character.name );
+			accountDataToSend.push( character.race );
+			accountDataToSend.push( character.level );
+			accountDataToSend.push( character.account_slot );
 		});
 
-		this.broadcastSelf(accountDataToSend);
+		this.broadcastSelf( accountDataToSend );
 	}
 
 	// If the account is already connected with one character.

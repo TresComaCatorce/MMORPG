@@ -32,5 +32,4 @@ instance_create( createCharButtonPosX, createCharButtonPosY, btn_createCharacter
 // Add the button "Enter Game"
 var enterGameButtonPosX = view_wview[view_current] * .987 - sprite_get_width(spr_enterGameButton);
 var enterGameButtonPosY = view_hview[view_current] * .9;
-
 instance_create( enterGameButtonPosX, enterGameButtonPosY, btn_enterGame );
