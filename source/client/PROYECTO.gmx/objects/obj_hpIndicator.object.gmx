@@ -28,6 +28,8 @@
             <string>/// Draw sprite
 
 event_inherited();
+
+
 </string>
           </argument>
         </arguments>

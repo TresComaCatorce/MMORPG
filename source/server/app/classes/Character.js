@@ -111,7 +111,13 @@ module.exports = Character = class Character extends Entity {
 			this.race,
 			this.current_room,
 			this.pos_x,
-			this.pos_y
+			this.pos_y,
+			this.currentHp,
+			this.maxHp,
+			this.currentMana,
+			this.maxMana,
+			this.currentExp,
+			this.nextLevelExp
 		];
 
 		this.broadcastSelf(characterData);

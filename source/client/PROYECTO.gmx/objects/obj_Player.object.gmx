@@ -25,55 +25,71 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion de variables
-//Nombre del personaje.
+            <string>/// Variables declaration [SERVER]
+
 self.name = noone;
-
-self.race = noone;
-
 self.level = noone;
+self.race = noone;
+self.current_room_code = noone;
+self.current_room_name = noone;
+self.pos_x = noone;
+self.pos_y = noone;
+self.currentHp = noone;
+self.maxhp = noone;
+self.currentMana = noone;
+self.maxMana = noone;
+self.currentExp = noone;
+self.nextLevelExp = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Variables declaration [CLIENT]
 
-//ID unico del cliente en el servidor.
-self.clientId = noone;
-
-//Estado del personaje.
 self.state = global.playerStateIdle;
-
-//Caja con el nombre del personaje.
 self.nameBox = noone;
-
-//Objeto que muestra los mensajes de chat ingame
 self.chatMsgsIngame = noone;
-
-//GUI Manager instance
 self.guiManagerInstance = noone;
 
-//Rangos de los frames de la animacion.
+
+// Animation frame ranges
 startFrm = 0;
 endFrm = 1;
 frm = startFrm;
-//Velocidad de la animacion (No del movimiento del personaje).
+// Animation speed (NOT player speed)
 rate = 0.5;
 
 //---------------------------------------
-//Direccion y velocidades del personaje.
+// Direction and player speeds.
 //---------------------------------------
-//Direccion.
+walkSpd = 2; // Walking speed
+runSpd = 5; // Runing speed
+
+// Direction
 dir = 0;
-
-//Velocidad al caminar.
-walkSpd = 2;
-
-//Velocidad al correr.
-runSpd = 5;
-
-//Velocidad del personaje.
+// Player speed
 spd = walkSpd; 
 
-//Profundidad del sprite del personaje
+// Sprite depth
 depth = -500;
 
-//Envio la nueva posicion al servidor.
+// Send new position to the server
 alarm[0]=10
 </string>
           </argument>
@@ -95,16 +111,16 @@ alarm[0]=10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Instanciación de objetos asociados
+            <string>/// Asociated objects instances
 
-//Objeto que muestra los mensajes de chat ingame
+// Chat messages ingame (over the player)
 self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
 with( self.chatMsgsIngame ) {
     self.playerOwner = other;
 }
 
-//GUI Manager
-self.guiManagerInstance = instance_create( -1000, -1000, obj_GUI_Manager );
+// GUI Manager
+self.guiManagerInstance = instance_create( 0, 0, obj_GUI_Manager );
 </string>
           </argument>
         </arguments>
@@ -428,6 +444,63 @@ draw_sprite( spr_Player, frm+(57*(360-dir)), x, y );
 
 //Envio la nueva posicion al servidor.
 //event_user(0);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="77">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Reduce Mana or HP
+var option = scr_generateRandom( 0, 4 );
+show_debug_message("random: " + string(option) );
+var valueToReduce = round(scr_generateRandom( 1, 10 ));
+if( option&lt;1 ) {
+    if( valueToReduce&lt;=self.currentMana ) {
+        self.currentMana = self.currentMana - valueToReduce;
+    }
+}
+if( option&gt;=1 &amp;&amp; option&lt;2 ) {
+    var auxValue = self.currentMana + valueToReduce;
+    if( auxValue&lt;=self.maxMana ) {
+        self.currentMana = auxValue;
+    }
+    else {
+        self.currentMana = self.maxMana;
+    }
+}
+if( option&gt;=2 &amp;&amp; option&lt;3 ) {
+    if( valueToReduce&lt;=self.currentHp ) {
+        self.currentHp = self.currentHp - valueToReduce;
+    }
+    else {
+        self.currentHp = 0;
+    }
+}
+if( option&gt;=3 ) {
+    var auxValue = self.currentHp + valueToReduce;
+    if( auxValue&lt;=self.maxHp ) {
+        self.currentHp = auxValue;
+    }
+    else {
+        self.currentHp = self.maxHp;
+    }
+}
 </string>
           </argument>
         </arguments>

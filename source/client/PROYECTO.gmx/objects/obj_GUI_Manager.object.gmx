@@ -33,8 +33,8 @@ self.chatHistory = instance_create( 0, 0, obj_Chat_History );
 // Coordinates
 self.coords = instance_create( 0, 0, obj_Coords );
 
-// HP Indicator
-self.hpIndicator = instance_create( 0, 0, obj_HP_Indicator );
+// Character GUI
+self.characterGui = instance_create( 0, 0, obj_characterGui );
 </string>
           </argument>
         </arguments>
@@ -72,9 +72,9 @@ if( instance_exists(self.coords) ) {
     instance_destroy(self.coords);
 }
 
-// HP Indicator
-if( instance_exists(self.hpIndicator) ) {
-    instance_destroy(self.hpIndicator);
+// Character GUI
+if( instance_exists(self.characterGui) ) {
+    instance_destroy(self.characterGui);
 }
 
 </string>

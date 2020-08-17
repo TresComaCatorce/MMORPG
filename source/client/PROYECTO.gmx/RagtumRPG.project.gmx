@@ -88,6 +88,7 @@
       <sprite>sprites\spr_Chat_History</sprite>
       <sprite>sprites\spr_Coords</sprite>
       <sprite>sprites\spr_HP__Indicator</sprite>
+      <sprite>sprites\spr_i_charGui</sprite>
     </sprites>
     <sprites name="Landmarks">
       <sprite>sprites\spr_landmarkGreen</sprite>
@@ -127,12 +128,17 @@
       <sprites name="Coords">
         <sprite>sprites\spr_coordsBackground</sprite>
       </sprites>
-      <sprites name="HP">
-        <sprite>sprites\spr_HP_Front</sprite>
-        <sprite>sprites\spr_HP_Back</sprite>
+      <sprites name="HP &amp; Mana">
+        <sprite>sprites\spr_hpRedCircle</sprite>
+        <sprite>sprites\spr_manaBlueCircle</sprite>
+        <sprite>sprites\spr_hpWhiteCircle</sprite>
+        <sprite>sprites\spr_manaWhiteCircle</sprite>
       </sprites>
-      <sprite>sprites\spr_chat_text_input</sprite>
+      <sprites name="Character GUI">
+        <sprite>sprites\spr_characterGui</sprite>
+      </sprites>
       <sprite>sprites\spr_chat_button</sprite>
+      <sprite>sprites\spr_chat_text_input</sprite>
       <sprite>sprites\spr_global_button</sprite>
       <sprite>sprites\spr_whisper_button</sprite>
       <sprite>sprites\spr_username_text_input</sprite>
@@ -197,6 +203,7 @@
       <script>scripts\scr_getRaceName.gml</script>
       <script>scripts\scr_getRoomName.gml</script>
       <script>scripts\scr_destroyAllInstances.gml</script>
+      <script>scripts\scr_generateRandom.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -264,7 +271,7 @@
       <object>objects\obj_Player_Name_Box</object>
       <object>objects\obj_GUI_Manager</object>
       <object>objects\obj_Coords</object>
-      <object>objects\obj_HP_Indicator</object>
+      <object>objects\obj_characterGui</object>
     </objects>
     <objects name="Enemys">
       <object>objects\obj_spider</object>
