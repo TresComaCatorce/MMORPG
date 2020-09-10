@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-09-10T07:02:00.190Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44" etag="OVmFCKMUD35i0CDKjKFS" version="13.6.9" type="github">
+<mxfile host="app.diagrams.net" modified="2020-09-10T07:13:57.734Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44" etag="p_3p8h7dEV4HusPLVFaI" version="13.6.9" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1185" dy="1770" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -119,7 +119,7 @@
         <mxCell id="u5gvoZnwLGpW4CmPaw9T-12" value="" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=#fff2cc;top=0;left=0;bottom=0;right=0;" vertex="1" parent="u5gvoZnwLGpW4CmPaw9T-11">
           <mxGeometry width="20" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="u5gvoZnwLGpW4CmPaw9T-13" value="determineDirection()" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=#fff2cc;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" vertex="1" parent="u5gvoZnwLGpW4CmPaw9T-11">
+        <mxCell id="u5gvoZnwLGpW4CmPaw9T-13" value="determineDirection( valueToSet&lt;number&gt; )" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=#fff2cc;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" vertex="1" parent="u5gvoZnwLGpW4CmPaw9T-11">
           <mxGeometry x="20" width="270" height="70" as="geometry" />
         </mxCell>
       </root>
