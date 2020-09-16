@@ -11,6 +11,10 @@ module.exports = class Utils {
 	constructor() {
 	}
 
+	exist( value ) {
+		return (value!==undefined && value!==null);
+	}
+
 	isEmail( input ) {
 		return input && typeof input === 'string' && input.match( new RegExp(Config.common.validations.account_email.regex) );
 	}
@@ -23,4 +27,9 @@ module.exports = class Utils {
 		};
 		return new Intl.DateTimeFormat('en-US', options).format( new Date(dateToFormat) );
 	}
+
+	isNotEmptyArray( value ) {
+		return (Array.isArray(value) && value.length>0);
+	}
+
 }

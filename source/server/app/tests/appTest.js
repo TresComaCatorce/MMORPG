@@ -13,14 +13,14 @@
 
  global.appRoot = __dirname;
 const mongoose = require('mongoose');
-global.Config = require('./initializers/00_configs');
+global.Config = require('../initializers/00_configs');
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 global.gamedb = mongoose.createConnection( 'mongodb://127.0.0.1/CBF_TEST' );
 
-const CharacterModel = require('./models/01_CharacterModel');
-const AccountModel = require('./models/02_AccountModel');
+const CharacterModel = require('../models/01_CharacterModel');
+const AccountModel = require('../models/02_AccountModel');
 
 
 const run = async () => {

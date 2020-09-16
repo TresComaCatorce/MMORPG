@@ -1,0 +1,56 @@
+{
+	"test": [
+		{
+			"roomCode": 0,
+			"spawnSpots": [
+				{
+					"entityId": 0,
+					"quantity": 1,
+					"interval": 5000,
+					"maxDistance": 100,
+					"x1": 50,
+					"y1": 50,
+					"x2": 100,
+					"y2": 100,
+					"direction": -1
+				}
+			]
+		}
+	],
+	"stage": [
+		{
+			"roomCode": 0,
+			"spawnSpots": [
+				{
+					"entityId": 0,
+					"quantity": 3,
+					"interval": 5000,
+					"maxDistance": 100,
+					"x1": 10,
+					"y1": 10,
+					"x2": 20,
+					"y2": 20,
+					"direction": -1
+				}
+			]
+		}
+	],
+	"prod": [
+		{
+			"roomCode": 0,
+			"spawnSpots": [
+				{
+					"entityId": 0,
+					"quantity": 3,
+					"interval": 5000,
+					"maxDistance": 100,
+					"x1": 10,
+					"y1": 10,
+					"x2": 20,
+					"y2": 20,
+					"direction": -1
+				}
+			]
+		}
+	]
+}

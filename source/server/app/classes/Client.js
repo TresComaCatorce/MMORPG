@@ -12,27 +12,98 @@ const Account = require('./Account');
 
 module.exports = Client = class Client {
 
+	//#region CLASS FIELDS DECLARATION
+	#remoteIpAddress;
+	#remotePort;
+	#remoteProtocol;
+	#socket;
+	#account;
+	//#endregion
+
+
+
+	//#region CONSTRUCTOR
 	constructor( data ) {
 
 		const { socket, remoteIpAddress, remotePort, remoteProtocol } = data;
-
-		this.remoteIpAddress = remoteIpAddress;
-		this.remotePort = remotePort;
-		this.remoteProtocol = remoteProtocol;
-		this.socket = socket;
-		this.account = undefined;
-		this.handshakeServer();
+		this.#setRemoteIpAddress( remoteIpAddress );
+		this.#setRemotePort( remotePort );
+		this.#setRemoteProtocol( remoteProtocol );
+		this.#setSocket( socket );
+		this.#handshakeServer();
 	}
+	//#endregion
+
+
+
+	//#region GETTERS & SETTERS
+	
+	getRemoteIpAddress() {
+		return this.#remoteIpAddress;
+	}
+	#setRemoteIpAddress( value ) {
+		if( Utils.exist(value) ) {
+			this.#remoteIpAddress = value;
+		}
+	}
+
+	getRemotePort() {
+		return this.#remotePort;
+	}
+	#setRemotePort( value ) {
+		if( Utils.exist(value) ) {
+			this.#remotePort = value;
+		}
+	}
+
+	getRemoteProtocol() {
+		return this.#remoteProtocol;
+	}
+	#setRemoteProtocol( value ) {
+		if( Utils.exist(value) ) {
+			this.#remoteProtocol = value;
+		}
+	}
+
+	getSocket() {
+		return this.#socket;
+	}
+	#setSocket( value ) {
+		if( Utils.exist(value) ) {
+			this.#socket = value;
+		}
+	}
+	#clearSocket() {
+		this.#socket = undefined;
+	}
+
+	getAccount() {
+		return this.#account;
+	}
+	#setAccount( value ) {
+		if( Utils.exist(value) && value instanceof Account ) {
+			this.#account = value;
+		}
+	}
+	#clearAccount() {
+		this.#account = undefined;
+	}
+
+	//#endregion
+
+
+
+	//#region METHODS
 
 	// Indicate if client is logged in with account.
 	// @return <bool>
 	isLoggedIn() {
-		return this.account != undefined;
+		return ( this.getAccount() != undefined );
 	}
 
 	//
 	loginAccount( accountData ) {
-		this.account = new Account( accountData, this );
+		this.#setAccount( new Account( accountData, this ) );
 	}
 
 	loginFail(error) {
@@ -40,9 +111,9 @@ module.exports = Client = class Client {
 	}
 
 	// Send handshake packet to client.
-	handshakeServer() {
+	#handshakeServer() {
 		//TODO integrity check
-		PacketManager.sendPacket( this.socket, [
+		PacketManager.sendPacket( this.getSocket(), [
 			Constants.PACKETS.S_HELLO,
 			now().toString()
 		]);
@@ -50,7 +121,7 @@ module.exports = Client = class Client {
 
 	// Funcion que envia un mensaje para el propio cliente.
 	broadcastSelf( data ) {
-		return PacketManager.sendPacket( this.socket, data );
+		return PacketManager.sendPacket( this.getSocket(), data );
 	}
 	
 	// Callback que maneja los paquetes de datos recibidos.
@@ -60,13 +131,13 @@ module.exports = Client = class Client {
 
     // Callback ejecutado cuando se finaliza la conexion con el cliente.
     end() {
-		this.socket.end();
-		this.closeConnection();
+		this.getSocket().end();
+		this.#closeConnection();
     }
 
     // Callback ejecutado al cerrar la conexion con el cliente.
     close( data ) {
-		const connectionDataString = `from IP: ${this.remoteIpAddress} | Port: ${this.remotePort} | Protocol: ${this.remoteProtocol}`.bold;
+		const connectionDataString = `from IP: ${this.getRemoteIpAddress()} | Port: ${this.getRemotePort()} | Protocol: ${this.getRemoteProtocol()}`.bold;
 		const errorString = `Client closed with transmission error ${connectionDataString}`.bgYellow.black;
 		const successString = `Client closed correctly ${connectionDataString}`;
 
@@ -76,42 +147,44 @@ module.exports = Client = class Client {
     // Callback de error en la conexion del cliente.
     error( error ) {
         console.log( 'Client error: '.red, error.toString() );
-		this.socket.destroy(error);
-		this.closeConnection();
+		this.getSocket().destroy(error);
+		this.#closeConnection();
     }
 
     // Callback por timeout con el cliente.
     timeout() {
         console.log( 'Socket timed out.'.red );
-		this.socket.end();
-		this.closeConnection();
+		this.getSocket().end();
+		this.#closeConnection();
     }
 
     //
     drain() {
         console.log('Write buffer is empty now.');
-        this.socket.resume();
+        this.getSocket().resume();
 	}
 
-	closeConnection() {
-		this.closeCharacterOnlineConnection();
-		this.account.socket = undefined;
-		this.account = undefined;
-		this.socket = undefined;
+	#closeConnection() {
+		this.#closeCharacterOnlineConnection();
+		this.getAccount().clearSocket();
+		this.#clearAccount();
+		this.#clearSocket();
 	}
 
-	closeCharacterOnlineConnection() {
-		if( this.account.characterOnline ) {
-			this.account.characterOnline.clearUpdateDaemon();
-			this.account.characterOnline.exitRoom();
-			this.account.characterOnline.socket = undefined;
-			this.account.characterOnline = undefined
+	#closeCharacterOnlineConnection() {
+		if( this.getAccount().getCharacterOnline() ) {
+			this.getAccount().getCharacterOnline().clearUpdateDaemon();
+			this.getAccount().getCharacterOnline().exitRoom();
+			this.getAccount().getCharacterOnline().clearSetSocket();
+			this.getAccount().clearCharacterOnline();
 		}
 	}
 	
 	// Sends a disconnect package to the client.
-	closeGame( message ) {
+	#closeGame( message ) {
 		const disconnectMessage = message || 'You have been disconnected from the server.';
 		this.broadcastSelf( [Constants.PACKETS.S_CLOSE_GAME, disconnectMessage] );
 	}
+	//#endregion
+
 };

@@ -40,11 +40,11 @@ const accountSchema = new mongoose.Schema
 		], 
 		select: false
 	},
-	creation_date: {
+	creationDate: {
 		type: Date,
 		default: Date.now
 	},
-	last_login_date: {
+	lastLoginDate: {
 		type: Date,
 		default: Date.now
 	},
@@ -106,7 +106,7 @@ accountSchema.statics.register = async( data ) => {
 	return await newAccount.save();
 };
 
-// Password verification (encrypted) (NO ARROW FUNCTION NEEDED)
+// Password verification (encrypted) (NO ARROW FUNCTION MANDATORY)
 accountSchema.methods.checkPassword = async function( password ) {
 	return await bcrypt.compare( password, this.password );
 };

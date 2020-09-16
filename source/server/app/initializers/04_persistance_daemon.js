@@ -15,4 +15,4 @@ const persistData = () => {
 	});
 }
 
-module.exports = persistenceInterval = setInterval( persistData, Config.data_base.persist_interval );
+module.exports = persistenceInterval = setInterval( persistData, Config.dataBase.persist_interval );

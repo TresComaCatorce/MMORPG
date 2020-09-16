@@ -8,67 +8,147 @@
 */
 
 const Entity = require('./Entity');
+const HPFunctionality = require('./HPFunctionality');
+const Position = require('./Position');
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ADD "clearSocket()" function (Called in Client.js)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 module.exports = Character = class Character extends Entity {
-	
+
+	//#region CLASS FIELDS DECLARATION
+	#accountSlot;
+	#position;
+	#HP;
+	#mana
+	#race;
+	#level;
+	#experience;
+	#socket;
+	#model;
+	#updateDaemon;
+	//#endregion
+
+
+
+	//#region CONSTRUCTOR
 	constructor( characterData, socket ) {
-		console.log("CBF char constructor: ", characterData );
-		const { _id, name, race, level, current_room, pos_x, pos_y, account_slot,
-			currentExp, nextLevelExp, currentHp, maxHp, currentMana, maxMana, currentStamina, maxStamina,
+		const { _id, name, race, level, roomCode, x, y, accountSlot,
+			currentExp, nextLevelExp, currentHP, maxHP, currentMana, maxMana, currentStamina, maxStamina,
 			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness,
 			} = characterData;
 			
-		super( _id, name, current_room, pos_x, pos_y );
-		this.race = race;
-		this.level = level;
-		this.account_slot = account_slot;
-		this.currentExp = currentExp;
-		this.nextLevelExp = nextLevelExp;
-		this.currentHp = currentHp;
-		this.maxHp = maxHp;
-		this.currentMana = currentMana;
-		this.maxMana = maxMana;
-		this.currentStamina = currentStamina;
-		this.maxStamina = maxStamina;
-		this.statStrength = statStrength;
-		this.statDexterity = statDexterity;
-		this.statVitality = statVitality;
-		this.statEnergy = statEnergy;
-		this.statIntelligence = statIntelligence;
-		this.statSpirit = statSpirit;
-		this.statWildness = statWildness;
-		this.socket = socket;
-		this.model = undefined;
-		this.getCharacterModel();
-		this.enterInRoom( this.current_room );
-		this.sendCharacterConnectData();
-		this.updateDaemon = this.initUpdateDaemon();
+		super({
+			id: _id,
+			typeId: Config.entityTypes.CHARACTER.id,
+			name: name
+		});
+
+		this.#setAccountSlot( accountSlot );
+		this.#setPosition( new Position({ x, y, roomCode, direction: -1 }) );
+		this.#setHP( new HPFunctionality({ currentHP, maxHP }) );
+		this.#setSocket( socket );
+
+		this.#getCharacterModel();
+		this.#enterInRoom( this.getPosition().getRoomCode() );
+		this.#sendCharacterConnectData();
+		this.#setUpdateDaemon( this.#initUpdateDaemon() );
+	}
+	//#endregion
+
+
+
+	//#region GETTERS & SETTERS
+	getAccountSlot() {
+		return this.#accountSlot;
+	}
+	#setAccountSlot( value ) {
+		if( !isNaN(value) ) {
+			this.#accountSlot = value;
+		}
 	}
 
-	async getCharacterModel() {
-		this.model = await CharacterModel.findOne({ name: this.name });
+	getPosition() {
+		return this.#position;
+	}
+	#setPosition( value ) {
+		if( value instanceof Position ) {
+			this.#position = value;
+		}
+	}
+
+	getHP() {
+		return this.#HP;
+	}
+	#setHP( value ) {
+		if( value instanceof HPFunctionality ) {
+			this.#HP = value;
+		}
+	}
+
+	getSocket() {
+		return this.#socket;
+	}
+	#setSocket( value ) {
+		if( Utils.exist(value) ) {
+			this.#socket = value;
+		}
+	}
+	clearSocket() {
+		this.#socket = undefined;
+	}
+
+	getModel() {
+		return this.#model;
+	}
+	#setModel( value ) {
+		if( Utils.exist(value) ) {
+			this.#model = value;
+		}
+	}
+
+	#getUpdateDaemon() {
+		return this.#updateDaemon;
+	}
+	#setUpdateDaemon( value ) {
+		if( Utils.exist(value) ) {
+			this.#updateDaemon = value;
+		}
+	}
+	//#endregion
+
+
+
+	//#region METHODS
+	async #getCharacterModel() {
+		this.model = await CharacterModel.findOne({ name: this.getName() });
 	}
 
 	//Save character info in DB.
 	save() {
-		this.model.pos_x = this.pos_x;
-		this.model.pos_y = this.pos_y;
-		this.model.current_room = this.current_room;
-		this.model.save();
+		this.getModel().x = this.getPosition().getX();
+		this.getModel().y = this.getPosition().getY();
+		this.getModel().roomCode = this.getPosition().getRoomCode();
+		this.getModel().save();
 	}
 
-	enterInRoom() {
-		World.addCharacterToRoom( this.current_room, this );
+	#enterInRoom() {
+		World.addCharacterToRoom( this.getPosition().getRoomCode(), this );
 	}
 
 	// Remove character from room
 	exitRoom() {
-		World.removeCharacterFromRoom( this.current_room, this );
+		World.removeCharacterFromRoom( this.getPosition().getRoomCode(), this );
 	}
 
 	// Funcion que envia un mensaje para el propio cliente.
 	broadcastSelf( data ) {
-		return PacketManager.sendPacket( this.socket, data );
+		return PacketManager.sendPacket( this.getSocket(), data );
 	}
 
 
@@ -77,10 +157,10 @@ module.exports = Character = class Character extends Entity {
 	broadcastRoom( data, sendToSelf = false ) {
 		//Se recorre el array que contiene todos los clientes en ese room.
 		//Y se ejecuta la funcion por cada uno de ellos.
-		World.forEachCharacterInRoom( this.current_room, ( otherCharacter ) => {
+		World.forEachCharacterInRoom( this.getPosition().getRoomCode(), ( otherCharacter ) => {
 			//Si el usuario actual NO es el usuario del array.
 			//(No le queremos mandar esta info al mismo cliente)
-			if( otherCharacter.name != this.name || sendToSelf ) {
+			if( otherCharacter.name != this.getName() || sendToSelf ) {
 				otherCharacter.broadcastSelf( data );
 			};
 		});
@@ -89,12 +169,12 @@ module.exports = Character = class Character extends Entity {
 
 	// Funcion que envia un update a todos los clientes
 	// que se encuentran "cerca" del jugador.
-	broadcastNearby( data, sendToSelf = false ) {
-		World.forEachCharacterInRoom( this.current_room, ( otherCharacter ) => {
-			const distX = Math.abs( otherCharacter.pos_x - this.pos_x );
-			const distY = Math.abs( otherCharacter.pos_y - this.pos_y );
+	broadcastNearby( data, sendToSelf=false ) {
+		World.forEachCharacterInRoom( this.getPosition().getRoomCode(), ( otherCharacter ) => {
+			const distX = Math.abs( otherCharacter.getPosition().getX() - this.getPosition().getX() );
+			const distY = Math.abs( otherCharacter.getPosition().getY() - this.getPosition().getY() );
 
-			if( ( otherCharacter.name !== this.name || sendToSelf ) &&
+			if( ( otherCharacter.name !== this.getName() || sendToSelf ) &&
 				distX<Config.common.nearby_distance.horizontal &&
 				distY<Config.common.nearby_distance.vertical ) {
 				otherCharacter.broadcastSelf( data );
@@ -103,40 +183,42 @@ module.exports = Character = class Character extends Entity {
 	}
 
 	// Tells to the client to enter in the game with this character.
-	sendCharacterConnectData() {
+	#sendCharacterConnectData() {
 		const characterData = [
 			Constants.PACKETS.S_CHARACTER_CONNECT,
-			this.name,
-			this.level,
-			this.race,
-			this.current_room,
-			this.pos_x,
-			this.pos_y,
-			this.currentHp,
-			this.maxHp,
-			this.currentMana,
-			this.maxMana,
-			this.currentExp,
-			this.nextLevelExp
+			this.getName(),
+			1, //Level
+			0, //race
+			this.getPosition().getRoomCode(),
+			this.getPosition().getX(),
+			this.getPosition().getY(),
+			this.getHP().getCurrentHP(),
+			this.getHP().getMaxHP(),
+			35, // current mana
+			50, // max mana
+			0, // current exp
+			100 // next level exp
 		];
 
 		this.broadcastSelf(characterData);
 	}
 
 	// Send a request
-	sendUpdateRequest() {
+	#sendUpdateRequest() {
 		const updateData = [ Constants.PACKETS.S_UPDATE ];
 
-		this.broadcastSelf(updateData);
+		this.broadcastSelf( updateData );
 	}
 
 	// Init the update daemon of this character.
-	initUpdateDaemon() {
-		return setInterval( () => this.sendUpdateRequest(), Config.common.update_interval );
+	#initUpdateDaemon() {
+		return setInterval( () => this.#sendUpdateRequest(), Config.common.character_update_interval_time );
 	}
 
 	// Clear the update daemon of this character.
 	clearUpdateDaemon() {
-		clearInterval(this.updateDaemon);
+		clearInterval(this.#getUpdateDaemon());
 	}
+	//#endregion
+	
 }

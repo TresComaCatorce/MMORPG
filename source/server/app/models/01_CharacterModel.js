@@ -38,13 +38,13 @@ const characterSchema = new mongoose.Schema
 		type: Number,
 		default: 100
 	},
-	currentHp: {
+	currentHP: {
 		type: Number,
 		min: 0,
 		max: Config.character.max_hp,
 		default: Config.character.default_hp
 	},
-	maxHp: {
+	maxHP: {
 		type: Number,
 		min: Config.character.default_hp,
 		max: Config.character.max_hp,
@@ -115,22 +115,22 @@ const characterSchema = new mongoose.Schema
 		max: Config.character.max_stat_wildness,
 		default: Config.character.default_stat_wildness,
 	},
-	current_room: {
+	roomCode: {
 		type: Number,
 		min: 1,
-		default: Config.character.default_room
+		default: Config.character.default_room_code
 	},
-	pos_x: {
+	x: {
 		type: Number,
-		min: 1,
-		default: Config.character.default_pos_x
+		min: 0,
+		default: Config.character.default_coord_x
 	},
-	pos_y: {
+	y: {
 		type: Number,
-		min: 1,
-		default: Config.character.default_pox_y
+		min: 0,
+		default: Config.character.default_coord_y
 	},
-	account_slot: {
+	accountSlot: {
 		type: Number,
 		min: 1,
 		max: 5
@@ -145,16 +145,16 @@ const characterSchema = new mongoose.Schema
 characterSchema.statics.create = async( data ) => {
 	console.log("CBF create char: ", data);
 	//Deasembly object to control stored data
-	const {name, race, level, current_room, pos_x, pos_y, account_slot, account} = data;
+	const { name, race, level, roomCode, x, y, accountSlot, account } = data;
 
 	const param  = {
 		name,
 		race,
 		level,
-		current_room,
-		pos_x,
-		pos_y,
-		account_slot,
+		roomCode,
+		x,
+		y,
+		accountSlot,
 		account
 	};
 	console.log("CBF params: ", param);
