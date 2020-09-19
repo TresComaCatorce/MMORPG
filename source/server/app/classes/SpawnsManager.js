@@ -11,43 +11,79 @@ const Spawner = require("./Spawner");
 
 module.exports = SpawnsManager = class SpawnsManager {
 
-	constructor() {
-		// Each spawnersIntances is like { entities: [],  }
-		this.spawnersIntances = [];
+	//#region CLASS FIELDS DECLARATION
+	#spawnersInstances = [];
+	//#endregion
 
-		this.loadAllSpawners();
+
+
+	//#region CONSTRUCTOR
+	constructor() {
+		this.#init();
+	}
+	//#endregion
+
+
+
+	//#region GETTERS & SETTERS
+	getSpawnersInstances() {
+		return this.#spawnersInstances;
+	}
+	#setSpawnersInstances( value ) {
+		if( Array.isArray(value) ) {
+			this.#spawnersInstances = value;
+		}
+	}
+	//#endregion
+
+
+
+	//#region METHODS
+	#init() {
+		this.#loadAllSpawners();
 	}
 
 	// Process all "spawnerByRoom" objects in "spawners.json" file.
-	loadAllSpawners() {
+	#loadAllSpawners() {
 		const spawnersByRoom = Config.spawners;
-		const hasSpawners = Utils.isNotEmptyArray(spawnersByRoom)
+		const hasSpawners = Utils.isNotEmptyArray( spawnersByRoom );
 		if( hasSpawners ) {
-			spawnersByRoom.forEach( this.loadSpawnSpots.bind(this) );
+			spawnersByRoom.forEach( this.#loadSpawnSpots.bind(this) );
 		}
 	}
 
 	// Load all spawn spots of one "spawnerByRoom" object.
-	loadSpawnSpots( spawnerByRoom ) {
+	#loadSpawnSpots( spawnerByRoom ) {
 		const { spawnSpots, roomCode } = spawnerByRoom;
 		const hasSpawnSpots = Utils.isNotEmptyArray( spawnSpots );
 		if( hasSpawnSpots ) {
-			spawnSpots.forEach( spawnSpot => this.processSpawnSpot({ roomCode, spawnSpot }) );
+			spawnSpots.forEach( spawnSpot => this.#processSpawnSpot({ roomCode, spawnSpot }) );
+		}
+	}
+
+	#addSpawnerToSpawnersInstances( itemToAdd ) {
+		if( itemToAdd instanceof Spawner ) {
+			this.#spawnersInstances.push(itemToAdd);
+		}
+		else {
+			throw( new Error(` SpawnsManager: attempt to add non 'Spawner' object into 'SpawnersInstances'.`) );
 		}
 	}
 
 	// Process one "spawnSpot"
-	processSpawnSpot({ roomCode, spawnSpot }) {
+	#processSpawnSpot({ roomCode, spawnSpot }) {
 		try {
 			const newSpawnerInstance = new Spawner({
 				...spawnSpot,
 				roomCode
 			});
-			this.spawnersIntances.push( newSpawnerInstance );
+			this.#addSpawnerToSpawnersInstances( newSpawnerInstance );
 		}
 		catch( error ) {
 			console.error( (error.message || error).bold.red );
 		}
 		
 	}
+	//#endregion
+
 }
