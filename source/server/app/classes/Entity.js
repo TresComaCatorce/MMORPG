@@ -6,7 +6,6 @@
     Description: Represents all renderizable entity ingame.
 
 */
-const _ = require('underscore');
 
 module.exports = Entity = class Entity {
 
@@ -69,7 +68,7 @@ module.exports = Entity = class Entity {
 
 	//#region METHODS
 
-	// Load all data of hentity
+	// Load all data of entity
 	#init() {
 		this.#loadEntityDataFromConfigJson();
 		this.#loadEntityTypeDataFromConfigJson();
@@ -78,19 +77,21 @@ module.exports = Entity = class Entity {
 	// Load data from "entity.json"
 	#loadEntityDataFromConfigJson() {
 		const entityObj = Config.entities.getEntityById( this.getId() );
-		if(entityObj) {
-			this.#setName( entityObj.name );
-			this.#setTypeId( entityObj.typeId );
-
-			// Enemy entity attributes load
-			(this.loadEnemyDataFromConfigJson) ? this.loadEnemyDataFromConfigJson(entityObj) : undefined;
+		if( this.getTypeId() != Config.entityTypes.CHARACTER.id ) {
+			if( entityObj ) {
+				this.#setName( entityObj.name );
+				this.#setTypeId( entityObj.typeId );
+			}
+			else {
+				throw( new Error(` Entity.js | entityId: "${this.getId()}" not found in <entities.json> file.`) );
+			}
 		}
 	}
 	
 	// Load data from "entityTypes.json"
 	#loadEntityTypeDataFromConfigJson() {
 		const entityTypeObj = Config.entityTypes[this.getTypeId()];
-		if(entityTypeObj) {
+		if( entityTypeObj ) {
 			this.#setTypeName( entityTypeObj.name )
 		}
 	}

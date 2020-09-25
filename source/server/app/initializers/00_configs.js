@@ -50,18 +50,13 @@ const spawners = jsonSpawnersParsed[environment];
 
 // "entities" config
 const entities = jsonEntitiesParsed[environment];
-entities.getEntityById = entityId => {
-	let retorno;
-	entities.forEach( entityObj => {
-		if( entityObj.id == entityId ) {
-			retorno = entityObj
-		}
-	});
-	return retorno;
-};
+entities.getEntityById = entityId => entities.find( entityObj => entityObj.id == entityId );
+entities.isValidEntity = entityId => !!entities.getEntityById(entityId);
 
 // "entityTypes" config
 const entityTypes = jsonEntityTypesParsed[environment];
+entityTypes.getEntityTypeById = entityTypeId => entityTypes[entityTypeId];
+entityTypes.isValidEntityType = entityTypeId => !!entityTypes.getEntityTypeById(entityTypeId);
 
 
 //Se genera el archivo de configuración general.

@@ -7,7 +7,7 @@
 	
 */
 
-const Utils = require("./Utils");
+const _ = require('underscore');
 
 module.exports = HPFunctionality = class HPFunctionality {
 
@@ -45,7 +45,7 @@ module.exports = HPFunctionality = class HPFunctionality {
 				this.#currentHP = newValue;
 			}
 			else {
-				throw( new Error(` HPFunctionality: attempt to assign 'currentHP' with a NaN value.`) );
+				throw( new Error(` HPFunctionality.js | Attempt to assign 'currentHP' with a NaN value.`) );
 			}
 		}
 	}
@@ -61,11 +61,11 @@ module.exports = HPFunctionality = class HPFunctionality {
 					this.#maxHP = value;
 				}
 				else {
-					throw( new Error(` HPFunctionality: attempt to assign 'maxHP' with a value less than or equal to zero.`) );
+					throw( new Error(` HPFunctionality.js | Attempt to assign 'maxHP' with a value less than or equal to zero.`) );
 				}
 			}
 			else {
-				throw( new Error(` HPFunctionality: attempt to assign 'maxHP' with a NaN value.`) );
+				throw( new Error(` HPFunctionality.js | Attempt to assign 'maxHP' with a NaN value.`) );
 			}
 		}
 	}
@@ -81,11 +81,11 @@ module.exports = HPFunctionality = class HPFunctionality {
 					this.#rangeMinHP = value;
 				}
 				else {
-					throw( new Error(` HPFunctionality: attempt to assign 'rangeMinHP' with a value less than or equal to zero.`) );
+					throw( new Error(` HPFunctionality.js | Attempt to assign 'rangeMinHP' with a value less than or equal to zero.`) );
 				}
 			}
 			else {
-				throw( new Error(` HPFunctionality: attempt to assign 'rangeMinHP' with a NaN value.`) );	
+				throw( new Error(` HPFunctionality.js | Attempt to assign 'rangeMinHP' with a NaN value.`) );	
 			}
 		}
 	};
@@ -101,11 +101,11 @@ module.exports = HPFunctionality = class HPFunctionality {
 					this.#rangeMaxHP = value;
 				}
 				else {
-					throw( new Error(` HPFunctionality: attempt to assign 'rangeMaxHP' with a value less than, equal to zero or less than 'rangeMinHP'.`) );
+					throw( new Error(` HPFunctionality.js | Attempt to assign 'rangeMaxHP' with a value less than, equal to zero or less than 'rangeMinHP'.`) );
 				}
 			}
 			else {
-				throw( new Error(` HPFunctionality: attempt to assign 'rangeMaxHP' with a NaN value.`) );
+				throw( new Error(` HPFunctionality.js | Attempt to assign 'rangeMaxHP' with a NaN value.`) );
 			}
 		}
 	}
@@ -144,7 +144,7 @@ module.exports = HPFunctionality = class HPFunctionality {
 				}
 			}
 			else {
-				throw( new Error(` HPFunctionality: attempt to receive damage with a NaN value.`) );
+				throw( new Error(` HPFunctionality.js | Attempt to receive damage with a NaN value.`) );
 			}
 		}
 	}

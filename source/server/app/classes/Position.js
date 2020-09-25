@@ -8,7 +8,7 @@
 	
 */
 
-const Utils = require("./Utils");
+const _ = require('underscore');
 
 module.exports = Position = class Position {
 
@@ -77,7 +77,7 @@ module.exports = Position = class Position {
 	
 	#setRoomCode( value ) {
 		if( Utils.exist(value) ) {
-			console.warn("CBF Position setRoomCode TODO validation")
+			console.warn(" TODO | Position setRoomCode validation | value: ", value);
 			if( true ) {
 				this.#roomCode = value;
 			}
@@ -105,6 +105,12 @@ module.exports = Position = class Position {
 			retorno = _.random( 0, 7 );
 		}
 		return retorno;
+	}
+
+	setNewPosition( params ) {
+		const { x, y } = params;
+		this.#setX( x );
+		this.#setY( y );
 	}
 	//#endregion	
 };

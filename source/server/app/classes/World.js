@@ -9,7 +9,6 @@
 
 const fs = require('fs');
 const Room = require('./Room');
-const Utils = require('./Utils');
 
 module.exports = WorldClass = class World {
 
@@ -91,7 +90,12 @@ module.exports = WorldClass = class World {
 	// @param <string> 'roomCode': Code of the room.
 	// @param <function> 'callback': Callback to execute for every character in the given room.
 	forEachCharacterInRoom( roomCode, callback ) {
-		this.#roomExist(roomCode) ? this.getRoomByCode(roomCode).forEachCharacter( callback ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if( this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).forEachCharacter( callback );
+		}
+		else {
+			throw( new Error(` World.js | forEachCharacterInRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
 	
 	// Remove all characters from every rooms.
@@ -105,14 +109,24 @@ module.exports = WorldClass = class World {
 	// @param <string> 'roomCode': Code name of the room.
 	// @param <Character> 'character': Id of the user.
 	removeCharacterFromRoom( roomCode, character ) {
-		this.#roomExist(roomCode) ? this.getRoomByCode(roomCode).removeCharacter( character ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if(this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).removeCharacter( character );
+		}
+		else {
+			throw( new Error(` World.js | removeCharacterFromRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
 
 	// Add a character to a given room.
 	// @param <string> 'roomCode': Code name of the room.
 	// @param <Character> 'character': Id of the user.
 	addCharacterToRoom( roomCode, character ) {
-		this.#roomExist(roomCode) ? this.getRoomByCode(roomCode).addCharacter( character ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if( this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).addCharacter( character )
+		}
+		else {
+			throw( new Error(` World.js | addCharacterToRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
 	//#endregion
 	

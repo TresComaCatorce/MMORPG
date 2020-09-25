@@ -56,16 +56,24 @@ module.exports = Enemy = class Enemy extends Entity {
 
 	//#region METHODS
 	#init() {
+		this.#loadEnemyDataFromConfigJson();
 		this.#programmedDeath();
 	}
 	
-	loadEnemyDataFromConfigJson( entityObj ) {
-		const { minHp, maxHp } = entityObj;
-		const hpParams = {
-			rangeMinHP: minHp,
-			rangeMaxHP: maxHp,
-		};
-		this.#setHP( new HPFunctionality(hpParams) );
+	
+	#loadEnemyDataFromConfigJson() {
+		const entityObj = Config.entities.getEntityById( this.getId() );
+		if( entityObj ) {
+			const { minHp, maxHp } = entityObj;
+			const hpParams = {
+				rangeMinHP: minHp,
+				rangeMaxHP: maxHp,
+			};
+			this.#setHP( new HPFunctionality(hpParams) );
+		}
+		else {
+			throw( new Error(` Enemy.js | entityId: "${this.getId()}" not found in <entities.json> file.`) );
+		}
 	}
 
 	loadEnemyTypeDataFromConfigJson( entityTypeObj ) {
@@ -73,9 +81,9 @@ module.exports = Enemy = class Enemy extends Entity {
 	}
 
 	#programmedDeath() {
-		// setTimeout( () => {
-		// 	this.receiveDamage( this.currentHp );
-		// }, 3000);
+		setTimeout( () => {
+			this.getHP().receiveDamage( this.currentHp );
+		}, 3000);
 	}
 	//#endregion
 

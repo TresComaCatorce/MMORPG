@@ -119,6 +119,9 @@ module.exports = Account = class Account {
 		if( Utils.exist(value) ) {
 			this.#socket = value;
 		}
+		else {
+			throw( new Error(` Account.js | Attempt to add a null value into 'socket'.`) );
+		}
 	}
 	clearSocket() {
 		this.#socket = undefined;
@@ -157,10 +160,10 @@ module.exports = Account = class Account {
 		accountDataToSend.push( this.getCharacters().length );
 
 		this.getCharacters().forEach( character => {
-			accountDataToSend.push( character.getName() );
-			accountDataToSend.push( character.getRace() );
-			accountDataToSend.push( character.getLevel() );
-			accountDataToSend.push( character.getAccountSlot() );
+			accountDataToSend.push( character.name );
+			accountDataToSend.push( character.race );
+			accountDataToSend.push( character.level );
+			accountDataToSend.push( character.accountSlot );
 		});
 
 		this.#broadcastSelf( accountDataToSend );
@@ -180,14 +183,14 @@ module.exports = Account = class Account {
 
 		if( !this.isOnline() ) {
 			if( characterExist() ) {
-				this.setCharacterOnline( new Character({ ...character[0], socket: this.getSocket() }) );
+				this.#setCharacterOnline( new Character({ ...character[0]._doc, socket: this.getSocket() }) );
 			}
 			else {
-				console.log( "CBF Error: The character doesn't exist in that account".red );
+				throw( new Error(` Account.js | The character doesn't exist in that account.`) );
 			}
 		}
 		else {
-			console.log("CBF Error: This account is already connected to the game with one character.".red );
+			throw( new Error(` Account.js | Account already connected.`) );
 		}
 	}
 	//#endregion

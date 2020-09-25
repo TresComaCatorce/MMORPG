@@ -66,7 +66,7 @@ module.exports = SpawnsManager = class SpawnsManager {
 			this.#spawnersInstances.push(itemToAdd);
 		}
 		else {
-			throw( new Error(` SpawnsManager: attempt to add non 'Spawner' object into 'SpawnersInstances'.`) );
+			throw( new Error(` SpawnsManager.js | Attempt to add non 'Spawner' object into 'SpawnersInstances'.`) );
 		}
 	}
 

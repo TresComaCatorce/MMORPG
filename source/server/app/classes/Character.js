@@ -37,8 +37,8 @@ module.exports = Character = class Character extends Entity {
 
 
 	//#region CONSTRUCTOR
-	constructor( characterData, socket ) {
-		const { _id, name, race, level, roomCode, x, y, accountSlot,
+	constructor( characterData ) {
+		const { socket, _id, name, race, level, roomCode, x, y, accountSlot,
 			currentExp, nextLevelExp, currentHP, maxHP, currentMana, maxMana, currentStamina, maxStamina,
 			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness,
 			} = characterData;
@@ -54,7 +54,7 @@ module.exports = Character = class Character extends Entity {
 		this.#setHP( new HPFunctionality({ currentHP, maxHP }) );
 		this.#setSocket( socket );
 
-		this.#getCharacterModel();
+		this.#loadCharacterModel();
 		this.#enterInRoom( this.getPosition().getRoomCode() );
 		this.#sendCharacterConnectData();
 		this.#setUpdateDaemon( this.#initUpdateDaemon() );
@@ -98,6 +98,9 @@ module.exports = Character = class Character extends Entity {
 		if( Utils.exist(value) ) {
 			this.#socket = value;
 		}
+		else {
+			throw( new Error(` Character.js | Attempt to add a null value into 'socket'.`) );
+		}
 	}
 	clearSocket() {
 		this.#socket = undefined;
@@ -125,8 +128,9 @@ module.exports = Character = class Character extends Entity {
 
 
 	//#region METHODS
-	async #getCharacterModel() {
-		this.model = await CharacterModel.findOne({ name: this.getName() });
+	async #loadCharacterModel() {
+		const characterModel = await CharacterModel.findOne({ name: this.getName() });
+		this.#setModel( characterModel );
 	}
 
 	//Save character info in DB.
@@ -174,7 +178,7 @@ module.exports = Character = class Character extends Entity {
 			const distX = Math.abs( otherCharacter.getPosition().getX() - this.getPosition().getX() );
 			const distY = Math.abs( otherCharacter.getPosition().getY() - this.getPosition().getY() );
 
-			if( ( otherCharacter.name !== this.getName() || sendToSelf ) &&
+			if( ( otherCharacter.getName() !== this.getName() || sendToSelf ) &&
 				distX<Config.common.nearby_distance.horizontal &&
 				distY<Config.common.nearby_distance.vertical ) {
 				otherCharacter.broadcastSelf( data );

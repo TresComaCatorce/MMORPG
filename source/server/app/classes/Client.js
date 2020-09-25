@@ -23,9 +23,9 @@ module.exports = Client = class Client {
 
 
 	//#region CONSTRUCTOR
-	constructor( data ) {
+	constructor( clientData ) {
 
-		const { socket, remoteIpAddress, remotePort, remoteProtocol } = data;
+		const { socket, remoteIpAddress, remotePort, remoteProtocol } = clientData;
 		this.#setRemoteIpAddress( remoteIpAddress );
 		this.#setRemotePort( remotePort );
 		this.#setRemoteProtocol( remoteProtocol );
@@ -71,6 +71,9 @@ module.exports = Client = class Client {
 	#setSocket( value ) {
 		if( Utils.exist(value) ) {
 			this.#socket = value;
+		}
+		else {
+			throw( new Error(` Client.js | Attempt to add a null value into 'socket'.`) );
 		}
 	}
 	#clearSocket() {
@@ -165,9 +168,11 @@ module.exports = Client = class Client {
 	}
 
 	#closeConnection() {
-		this.#closeCharacterOnlineConnection();
-		this.getAccount().clearSocket();
-		this.#clearAccount();
+		if( this.isLoggedIn() ) {
+			this.#closeCharacterOnlineConnection();
+			this.getAccount().clearSocket();
+			this.#clearAccount();
+		}
 		this.#clearSocket();
 	}
 
@@ -175,7 +180,7 @@ module.exports = Client = class Client {
 		if( this.getAccount().getCharacterOnline() ) {
 			this.getAccount().getCharacterOnline().clearUpdateDaemon();
 			this.getAccount().getCharacterOnline().exitRoom();
-			this.getAccount().getCharacterOnline().clearSetSocket();
+			this.getAccount().getCharacterOnline().clearSocket();
 			this.getAccount().clearCharacterOnline();
 		}
 	}

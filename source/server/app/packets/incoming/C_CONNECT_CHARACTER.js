@@ -14,6 +14,6 @@ module.exports = packet_C_CHARACTER_CONNECT = {
 		// Read incoming data, packet model defined in <01_packetmodels.js>.
 		var data = PacketModels.character_connect.parse(datapacket);
 
-		client.account.enterGame( data.character_name );
+		client.getAccount().enterGame( data.character_name );
 	}
 }

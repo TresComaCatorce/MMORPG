@@ -78,13 +78,13 @@ accountSchema.statics.login = async ( data ) => {
 	//Get user
 	const accountData = await AccountModel.findOne( queryParam ).select('+password').populate('characters');
 	if( !accountData ) {
-		throw new Error('Account or password invalid');
+		throw new Error('Account invalid');
 	}
 
 	//Check password
 	const correctPassword = await accountData.checkPassword(password);
 	if( !correctPassword ) {
-		throw new Error('Account or password invalid');
+		throw new Error('Password invalid');
 	}
 	
 	accountData.password = undefined;
@@ -127,6 +127,12 @@ accountSchema.methods.addCharacter = async function( characterData ) {
 	
 	return await this.save();
 }
+
+// Change password (NO ARROW FUNCTION MANDATORY)
+accountSchema.methods.changePassword = async function( newPassword ) {
+	this.password = newPassword;
+	return await this.save();
+};
 
 module.exports = AccountModel = gamedb.model('Account', accountSchema);
 

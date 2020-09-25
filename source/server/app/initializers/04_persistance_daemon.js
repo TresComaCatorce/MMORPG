@@ -9,7 +9,7 @@
 
 const persistData = () => {
 	World.forEachRoom( room => {
-		room.characters.forEach( character => {
+		room.getCharacters().forEach( character => {
 			character.save();
 		});
 	});

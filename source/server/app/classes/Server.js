@@ -40,7 +40,7 @@ module.exports = Server = class Server {
 	}
 	#setNetServer( value ) {
 		if( value ) {
-			this.#netServer(value);
+			this.#netServer = value;
 		}
 		else {
 			throw( new Error(` Server: attempt to asign 'netServer' with invalid value.`) );
