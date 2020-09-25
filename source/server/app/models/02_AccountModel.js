@@ -40,11 +40,11 @@ const accountSchema = new mongoose.Schema
 		], 
 		select: false
 	},
-	creation_date: {
+	creationDate: {
 		type: Date,
 		default: Date.now
 	},
-	last_login_date: {
+	lastLoginDate: {
 		type: Date,
 		default: Date.now
 	},
@@ -78,13 +78,13 @@ accountSchema.statics.login = async ( data ) => {
 	//Get user
 	const accountData = await AccountModel.findOne( queryParam ).select('+password').populate('characters');
 	if( !accountData ) {
-		throw new Error('Account or password invalid');
+		throw new Error('Account invalid');
 	}
 
 	//Check password
 	const correctPassword = await accountData.checkPassword(password);
 	if( !correctPassword ) {
-		throw new Error('Account or password invalid');
+		throw new Error('Password invalid');
 	}
 	
 	accountData.password = undefined;
@@ -106,7 +106,7 @@ accountSchema.statics.register = async( data ) => {
 	return await newAccount.save();
 };
 
-// Password verification (encrypted) (NO ARROW FUNCTION NEEDED)
+// Password verification (encrypted) (NO ARROW FUNCTION MANDATORY)
 accountSchema.methods.checkPassword = async function( password ) {
 	return await bcrypt.compare( password, this.password );
 };
@@ -127,6 +127,12 @@ accountSchema.methods.addCharacter = async function( characterData ) {
 	
 	return await this.save();
 }
+
+// Change password (NO ARROW FUNCTION MANDATORY)
+accountSchema.methods.changePassword = async function( newPassword ) {
+	this.password = newPassword;
+	return await this.save();
+};
 
 module.exports = AccountModel = gamedb.model('Account', accountSchema);
 

@@ -11,12 +11,41 @@ const fs = require('fs');
 const Room = require('./Room');
 
 module.exports = WorldClass = class World {
+
+	//#region CLASS FIELDS DECLARATION
+	#rooms = {};
+	//#endregion
+
+
+
+	//#region CONSTRUCTOR
 	constructor() {
-		this.rooms = {};
-		this.init();
+		this.#init();
+	}
+	//#endregion
+
+
+
+	//#region GETTERS & SETTERS
+	getRooms() {
+		return this.#rooms;
 	}
 
-	init() {
+	#setRooms( value ) {
+		if( Utils.exist(value) && typeof value == 'object' ) {
+			this.#rooms = value;
+		}
+	}
+	//#endregion
+
+
+
+	//#region METHODS
+	#init() {
+		this.#loadRoomsFiles();
+	}
+
+	#loadRoomsFiles() {
 		try {
 			const roomsPath = Config.common.data_paths.rooms;
 			const roomsFiles = fs.readdirSync( roomsPath );
@@ -24,24 +53,36 @@ module.exports = WorldClass = class World {
 			roomsFiles.forEach( roomFile => {
 				const roomPath = `${roomsPath}${roomFile}`;
 				const roomData = require( roomPath);
-				this.rooms[roomData.code] = new Room(roomData);
+				this.#addRoom( new Room(roomData) );
 			});
 		} catch (error) {
 			console.log("CBF error reading rooms: ", error);
 		}
 	}
 
+	#addRoom( roomToAdd ) {
+		if( roomToAdd && roomToAdd instanceof Room ) {
+			this.#rooms[roomToAdd.getCode()] = roomToAdd;
+		}
+	}
+
 	// Check if exist a room with a given room code.
 	// @param <string> 'roomCode': Room code to check.
-	roomExist( roomCode ) {
-		return this.rooms.hasOwnProperty(roomCode);
+	#roomExist( roomCode ) {
+		return this.getRooms().hasOwnProperty(roomCode);
+	}
+
+	getRoomByCode( roomCode ) {
+		if( Utils.exist(roomCode) && this.#roomExist(roomCode) ) {
+			return this.getRooms()[roomCode];
+		}
 	}
 
 	// Call a callback for each map and pass the map as a paremeter to the callback.
 	// @param <function> 'callBack': Function to execute for every room.
 	forEachRoom( callBack ) {
-		for( const room in this.rooms ) {
-			callBack( this.rooms[room] );
+		for( const roomCode in this.getRooms() ) {
+			callBack( this.getRoomByCode(roomCode) );
 		}
 	}
 
@@ -49,7 +90,12 @@ module.exports = WorldClass = class World {
 	// @param <string> 'roomCode': Code of the room.
 	// @param <function> 'callback': Callback to execute for every character in the given room.
 	forEachCharacterInRoom( roomCode, callback ) {
-		this.roomExist(roomCode) ? this.rooms[roomCode].forEachCharacter( callback ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if( this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).forEachCharacter( callback );
+		}
+		else {
+			throw( new Error(` World.js | forEachCharacterInRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
 	
 	// Remove all characters from every rooms.
@@ -63,13 +109,25 @@ module.exports = WorldClass = class World {
 	// @param <string> 'roomCode': Code name of the room.
 	// @param <Character> 'character': Id of the user.
 	removeCharacterFromRoom( roomCode, character ) {
-		this.roomExist(roomCode) ? this.rooms[roomCode].removeCharacter( character ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if(this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).removeCharacter( character );
+		}
+		else {
+			throw( new Error(` World.js | removeCharacterFromRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
 
 	// Add a character to a given room.
 	// @param <string> 'roomCode': Code name of the room.
 	// @param <Character> 'character': Id of the user.
 	addCharacterToRoom( roomCode, character ) {
-		this.roomExist(roomCode) ? this.rooms[roomCode].addCharacter( character ) : console.log(`CBF Error: The room with code "${roomCode}" doesn't exist.`.red);
+		if( this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).addCharacter( character )
+		}
+		else {
+			throw( new Error(` World.js | addCharacterToRoom() | The room with code "${roomCode}" doesn't exist.`) );
+		}
 	}
+	//#endregion
+	
 };

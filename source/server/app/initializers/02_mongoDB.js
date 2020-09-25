@@ -14,4 +14,4 @@ mongoose.set('useUnifiedTopology', true);
 mongoose.set('useFindAndModify', false);
 
 //Se conecta a la base de datos.
-module.exports = gamedb = mongoose.createConnection( Config.data_base.url );
+module.exports = gamedb = mongoose.createConnection( Config.dataBase.url );

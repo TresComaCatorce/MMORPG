@@ -1,19 +1,19 @@
 {
-	"name": "MMORPG_Server",
+	"name": "mmorpg-ragtum-server",
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
-		"bcrypt": "^4.0.1",
-		"binary-parser": "^1.5.0",
+		"bcrypt": "^5.0.0",
+		"binary-parser": "^1.6.2",
 		"colors": "^1.4.0",
 		"extend": "^3.0.2",
-		"minimist": "*",
-		"mongoose": "*",
+		"minimist": "^1.2.5",
+		"mongoose": "^5.10.4",
 		"performance-now": "*",
-		"underscore": "^1.9.1"
+		"underscore": "^1.11.0"
 	},
 	"scripts": {
 		"start": "node .\\app\\app.js",
-		"test": "node .\\app\\appTest.js"
+		"test": "node .\\app\\tests\\appTest.js"
 	}
 }
