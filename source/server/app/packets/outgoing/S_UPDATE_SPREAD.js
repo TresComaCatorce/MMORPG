@@ -8,7 +8,12 @@
 */
 
 module.exports = packet_S_UPDATE_SPREAD = {
-	validate: data => {
-		return data;
-	}
+	packetDataTypes: [
+		String,	// Packet name
+		String,	// Character name
+		Number,	// Character X coord
+		Number,	// Character Y coord
+		Number,	// Character direction
+		Number	// Character state
+	]
 };

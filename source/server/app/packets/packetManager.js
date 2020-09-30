@@ -50,26 +50,38 @@ module.exports = PacketManager = class PacketManager {
 
 	#validateOutgoingPacketvalidate( packetData ) {
 
-		const runDataTypeValidation = ( pd, pdt) => {
-			// Validate packet length
-			if( pd.length != pdt.length ) {
-				throw( new Error(` ${pd[0]}.js | Invalid packet length.`) );
-			}
-			
-			// Validate packet name
+		// pd = packet data
+		// ph = packet handler ( from <PACKET_NAME.json> file)
+		// Validate packet name
+		const runPacketNameValidation = ( pd ) => {
 			if( pd[0] != Constants.PACKETS[pd[0]] ) {
 				throw( new Error(` ${pd[0]}.js | Error processing packet name.`) );
 			}
-	
-			// Validate packet data type
-			for( let i=0 ; i<pd.length ; i++ ) {
-				const item = pd[i];
-				const itemTypeof = (typeof item);
-				if( itemTypeof.toLowerCase() != pdt[i].name.toLowerCase() ) {
-					throw( new Error(` ${pd[0]}.js | Invalid data type '${itemTypeof}' at index: ${i}`) );
+		};
+		// Validate packet length
+		const runPacketLengthValidation = ( pd, ph ) => {
+			const { checkPacketLength=true } = ph;
+			const hasDataTypesToValidate = Utils.isNotEmptyArray(ph.packetDataTypes);
+			if( checkPacketLength && hasDataTypesToValidate && (pd.length != ph.packetDataTypes.length) ) {
+				throw( new Error(` ${pd[0]}.js | Invalid packet length.`) );
+			}
+		};
+		// Validate packet data type
+		const runDataTypeValidation = ( pd, ph ) => {
+			const { checkDataTypes=true } = ph;
+			const hasDataTypesToValidate = Utils.isNotEmptyArray(ph.packetDataTypes);
+
+			if( checkDataTypes && hasDataTypesToValidate ) {
+				for( let i=0 ; i<pd.length ; i++ ) {
+					const item = pd[i];
+					const itemTypeof = (typeof item);
+					if( itemTypeof.toLowerCase() != ph.packetDataTypes[i].name.toLowerCase() ) {
+						throw( new Error(` ${pd[0]}.js | Invalid data type '${itemTypeof}' at index: ${i}`) );
+					}
 				}
 			}
 		};
+		
 
 		if( Utils.isNotEmptyArray(packetData) ) {
 			const packetName = packetData[0];
@@ -81,9 +93,11 @@ module.exports = PacketManager = class PacketManager {
 			: undefined;
 
 			if( Utils.exist(packetHandler) ) {
-				if( Utils.isNotEmptyArray(packetHandler.packetDataTypes) ) {
+				if( !packetHandler.checkDataTypes || Utils.Utils.isNotEmptyArray(packetHandler.packetDataTypes) ) {
 
-					runDataTypeValidation( packetData, packetHandler.packetDataTypes );
+					runPacketNameValidation( packetData );
+					runPacketLengthValidation( packetData, packetHandler );
+					runDataTypeValidation( packetData, packetHandler );
 
 					if( Utils.exist(packetHandler.validate) ) {
 						if( (typeof packetHandler.validate == 'function') ) {

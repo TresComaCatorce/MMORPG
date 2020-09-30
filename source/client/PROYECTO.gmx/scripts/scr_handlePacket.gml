@@ -31,9 +31,14 @@ switch(command)
         break;
     }
     
-    //Intento de loggeo.
-    case "S_LOGIN": {
-        scr_packetHandlerLogin( argument0 );
+    // Login exitoso
+    case "S_LOGIN_SUCCESS": {
+        scr_packetHandlerLoginSuccess( argument0 );
+        break;
+    }
+    
+    case "S_LOGIN_FAILURE": {
+        scr_packetHandlerLoginFailure( argument0 );
         break;
     }
     

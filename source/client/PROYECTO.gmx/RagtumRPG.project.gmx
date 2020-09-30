@@ -162,7 +162,8 @@
       <script>scripts\scr_networkWrite.gml</script>
       <scripts name="receiving">
         <scripts name="packets_handlers">
-          <script>scripts\scr_packetHandlerLogin.gml</script>
+          <script>scripts\scr_packetHandlerLoginSuccess.gml</script>
+          <script>scripts\scr_packetHandlerLoginFailure.gml</script>
           <script>scripts\scr_packetHandlerHello.gml</script>
           <script>scripts\scr_packetHandlerRegister.gml</script>
           <script>scripts\scr_packetHandlerChatMsg.gml</script>

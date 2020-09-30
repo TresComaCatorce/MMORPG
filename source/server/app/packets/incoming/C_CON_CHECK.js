@@ -12,7 +12,6 @@ module.exports = packet_C_CON_CHECK = {
 	process: ( client, datapacket ) => {
 		//Utilizo el "PacketModel" de update de posicion (definido en <01_packetmodels.js>).
 		const data = PacketModels.connection_check.parse(datapacket);
-		console.log("CBF C_CON_CHECK: ", typeof data.key, data.key)
 				
 		//Se envia la respuesta al cliente
 		client.broadcastSelf( [Constants.PACKETS.S_CON_CHECK, data.key] );

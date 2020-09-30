@@ -3,13 +3,13 @@
     Date: 25/09/2020
     Author: Cristian Ferrero
 
-	Description: Packet "S_CLOSE_GAME"
+	Description: Packet "S_LOGIN_FAILURE"
 
 */
 
-module.exports = packet_S_CLOSE_GAME = {
+module.exports = packet_S_LOGIN_FAILURE = {
 	packetDataTypes: [
 		String,	// Packet name
-		String	// Diconnection message
+		String	// Message
 	]
 };

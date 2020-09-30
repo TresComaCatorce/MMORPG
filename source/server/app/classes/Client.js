@@ -110,7 +110,7 @@ module.exports = Client = class Client {
 	}
 
 	loginFail(error) {
-		this.broadcastSelf( [Constants.PACKETS.S_LOGIN_FAILURE, ] );
+		this.broadcastSelf( [Constants.PACKETS.S_LOGIN_FAILURE, error.message] );
 	}
 
 	// Send handshake packet to client.

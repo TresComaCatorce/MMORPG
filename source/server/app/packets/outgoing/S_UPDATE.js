@@ -8,7 +8,7 @@
 */
 
 module.exports = packet_S_UPDATE = {
-	validate: data => {
-		return data;
-	}
+	packetDataTypes: [
+		String // Packet name
+	]
 };

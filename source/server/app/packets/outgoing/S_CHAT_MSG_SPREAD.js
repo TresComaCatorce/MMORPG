@@ -8,7 +8,10 @@
 */
 
 module.exports = packet_S_CHAT_MSG_SPREAD = {
-	validate: data => {
-		return data;
-	}
+	packetDataTypes: [
+		String,	// Packet name
+		String,	// Character name
+		String,	// Message text
+		Number	// Message type
+	]
 };
