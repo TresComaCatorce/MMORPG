@@ -24,6 +24,13 @@ module.exports = packet_C_UPDATE = {
 		
 		
 		// Se le comunica al cliente que debe actualizar en su cliente el dato actualizado por otro cliente.
-		client.getAccount().getCharacterOnline().broadcastNearby( [Constants.PACKETS.S_UPDATE_SPREAD, client.getAccount().getCharacterOnline().getName(), data.new_x, data.new_y, data.direction, data.state], false);
+		client.getAccount().getCharacterOnline().broadcastNearby( [
+			Constants.PACKETS.S_UPDATE_SPREAD,
+			client.getAccount().getCharacterOnline().getName(),
+			data.new_x,
+			data.new_y,
+			data.direction,
+			data.state],
+		false );
 	}
 }

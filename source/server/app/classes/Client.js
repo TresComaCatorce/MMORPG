@@ -110,7 +110,7 @@ module.exports = Client = class Client {
 	}
 
 	loginFail(error) {
-		this.broadcastSelf( [Constants.PACKETS.S_LOGIN, false] );
+		this.broadcastSelf( [Constants.PACKETS.S_LOGIN_FAILURE, error.message] );
 	}
 
 	// Send handshake packet to client.
@@ -129,7 +129,12 @@ module.exports = Client = class Client {
 	
 	// Callback que maneja los paquetes de datos recibidos.
     data(data) {
-        PacketManager.parse( this, data );
+		try {
+			PacketManager.parse( this, data );
+		}
+		catch(error) {
+			console.log(` Client.js | Error: ${error.message||error}`);
+		}
     }
 
     // Callback ejecutado cuando se finaliza la conexion con el cliente.
@@ -185,7 +190,7 @@ module.exports = Client = class Client {
 		}
 	}
 	
-	// Sends a disconnect package to the client.
+	// Sends a disconnect packet to the client.
 	#closeGame( message ) {
 		const disconnectMessage = message || 'You have been disconnected from the server.';
 		this.broadcastSelf( [Constants.PACKETS.S_CLOSE_GAME, disconnectMessage] );
