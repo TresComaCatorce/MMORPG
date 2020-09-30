@@ -149,8 +149,7 @@ module.exports = Account = class Account {
 	// Send login data to the client.
 	#sendLoginData() {
 		const accountDataToSend = [
-			Constants.PACKETS.S_LOGIN,
-			true,
+			Constants.PACKETS.S_LOGIN_SUCCESS,
 			this.getEmail(),
 			this.getNickname(),
 			this.getCreationDate(),

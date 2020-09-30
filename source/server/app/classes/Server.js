@@ -102,36 +102,41 @@ module.exports = Server = class Server {
 		const remotePort = socket.remotePort.toString();
 		const remoteProtocol = socket.remoteFamily;
 
-		console.log( ('Client connected from ip: ' + remoteIpAddress.bold + ' | port: ' + remotePort.bold + ' | protocol: ' + remoteProtocol.bold) );
+		console.log( (' * Client connected from ip: ' + remoteIpAddress.bold + ' | port: ' + remotePort.bold + ' | protocol: ' + remoteProtocol.bold).brightBlue );
 
 		// One instance of 'Client' for each person connected to the server.
-		const thisClient = new Client({
-			socket,
-			remoteIpAddress,
-			remotePort,
-			remoteProtocol
-		});
-
-		//--------------------------------------------------------------------------
-		// Handler functions
-		//--------------------------------------------------------------------------
-		// Handle data from remote client.
-		socket.on( 'data', thisClient.data.bind(thisClient) );
-
-		// Handle end of connection with the remote client.
-		socket.on( 'end', thisClient.end.bind(thisClient) );
-
-		// Handle close of connection with the remote client.
-		socket.on( 'close', thisClient.close.bind(thisClient) );
-
-		//
-		socket.on( 'drain', thisClient.drain.bind(thisClient) );
-
-		// Handle timeout in connection with the remote client.
-		socket.on( 'timeout', thisClient.timeout.bind(thisClient) );
-
-		// Handle error in connection with the remote client.
-		socket.on( 'error', thisClient.error.bind(thisClient) );
+		try {
+			const thisClient = new Client({
+				socket,
+				remoteIpAddress,
+				remotePort,
+				remoteProtocol
+			});
+			
+			//--------------------------------------------------------------------------
+			// Handler functions
+			//--------------------------------------------------------------------------
+			// Handle data from remote client.
+			socket.on( 'data', thisClient.data.bind(thisClient) );
+	
+			// Handle end of connection with the remote client.
+			socket.on( 'end', thisClient.end.bind(thisClient) );
+	
+			// Handle close of connection with the remote client.
+			socket.on( 'close', thisClient.close.bind(thisClient) );
+	
+			//
+			socket.on( 'drain', thisClient.drain.bind(thisClient) );
+	
+			// Handle timeout in connection with the remote client.
+			socket.on( 'timeout', thisClient.timeout.bind(thisClient) );
+	
+			// Handle error in connection with the remote client.
+			socket.on( 'error', thisClient.error.bind(thisClient) );
+		}
+		catch( error ) {
+			console.log( (error.message||error).red );
+		}
 	}
 
 	#handleServerListening() {
