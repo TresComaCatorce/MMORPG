@@ -8,7 +8,6 @@
 */
 
 module.exports = packet_S_HELLO = {
-
 	packetDataTypes: [
 		String,
 		String

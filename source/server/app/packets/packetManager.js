@@ -44,8 +44,13 @@ module.exports = PacketManager = class PacketManager {
 	// @param <Socket> 'socket': Socket instance.
 	// @param <[]> 'packetData': All data to send.
 	sendPacket( socket, packetData ) {
-		const dataToSend = this.#validateOutgoingPacketvalidate(packetData);
-		return socket.write( this.build(dataToSend) );
+		try {
+			const dataToSend = this.#validateOutgoingPacketvalidate(packetData);
+			return socket.write( this.build(dataToSend) );
+		}
+		catch( error ) {
+			console.log(error.message.bold.red);
+		}
 	}
 
 	#validateOutgoingPacketvalidate( packetData ) {
