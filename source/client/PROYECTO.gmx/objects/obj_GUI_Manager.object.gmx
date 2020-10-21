@@ -25,13 +25,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Se instancian los objetos asociados
+            <string>/// Create instances of asociate objects
 
-// Historial de chat
+// Chat history
 self.chatHistory = instance_create( 0, 0, obj_Chat_History );
 
-// Coordenadas
+// Coordinates
 self.coords = instance_create( 0, 0, obj_Coords );
+
+// Character GUI
+self.characterGui = instance_create( 0, 0, obj_characterGui );
 </string>
           </argument>
         </arguments>
@@ -54,19 +57,24 @@ self.coords = instance_create( 0, 0, obj_Coords );
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se destruyen las instancias asociadas
+            <string>///Destroy asociated instances
 
-//Historial de chat
-instance_destroy(chatHistory);
+// Chat History
+instance_destroy(self.chatHistory);
 
-//Input de chat
-if( instance_exists(textInputInstance) ) {
-    instance_destroy(textInputInstance);
+// Chat inputs
+if( instance_exists(self.textInputInstance) ) {
+    instance_destroy(self.textInputInstance);
 }
 
-//Coords
-if( instance_exists( self.coords ) ) {
-    instance_destroy( self.coords );
+// Coordinates
+if( instance_exists(self.coords) ) {
+    instance_destroy(self.coords);
+}
+
+// Character GUI
+if( instance_exists(self.characterGui) ) {
+    instance_destroy(self.characterGui);
 }
 
 </string>
@@ -93,15 +101,13 @@ if( instance_exists( self.coords ) ) {
             <kind>1</kind>
             <string>///Se abre el input de chat ingame.
 
-if( instance_exists(obj_Chat_Input) )
-{
+if( instance_exists(obj_Chat_Input) ) {
     instance_destroy( textInputInstance );
     
     //Se oculta el fondo del historial de chat
     chatHistory.showBackground = false;
 }
-else
-{
+else {
     //Se crea la instancia del input de chat y se corrige el offset del texto.
     textInputInstance = instance_create( 0, 0, obj_Chat_Input );
     

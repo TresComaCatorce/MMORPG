@@ -37,6 +37,8 @@ historyChatHeight = .5;
 showBackground = false;
 
 //Coordenadas del fondo
+show_debug_message("view_wview[view_current] " + string(view_wview[view_current]));
+show_debug_message("view_current " + string(view_current) );
 rectangle_x1 = view_wview[view_current]*.01;
 rectangle_y1 = (view_hview[view_current]*.99 - sprite_get_height(spr_chat_text_input) - sprite_get_height(spr_chat_button) - view_hview[view_current]*.01);
 rectangle_x2 = rectangle_x1 + sprite_get_width(spr_chat_text_input);
@@ -63,7 +65,7 @@ rectangle_y2 = rectangle_y1 * historyChatHeight;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Se dibuja el fondo del historial de chat
+            <string>/// Se dibuja el fondo del historial de chat
 
 event_inherited();
 

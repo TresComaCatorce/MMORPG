@@ -11,8 +11,16 @@ module.exports = class Utils {
 	constructor() {
 	}
 
-	isEmail( input ) {
+	exist( value ) {
+		return (value!==undefined && value!==null);
+	}
+
+	isValidEmail( input ) {
 		return input && typeof input === 'string' && input.match( new RegExp(Config.common.validations.account_email.regex) );
+	}
+
+	isValidDirection( value ) {
+		return ( typeof value == 'number' && value>=0 && value <= 7 )
 	}
 
 	formatDateWithHours( dateToFormat ) {
@@ -23,4 +31,11 @@ module.exports = class Utils {
 		};
 		return new Intl.DateTimeFormat('en-US', options).format( new Date(dateToFormat) );
 	}
+
+	isNotEmptyArray( value ) {
+		return (Array.isArray(value) && value.length>0);
+	}
+
+
+
 }

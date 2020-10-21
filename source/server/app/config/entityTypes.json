@@ -1,0 +1,56 @@
+{
+	"test": {
+		"ENEMY": {
+			"id": "ENEMY",
+			"name": "Enemy"
+		},
+		"NPC": {
+			"id": "NPC",
+			"name": "NPC"
+		},
+		"CHARACTER": {
+			"id": "CHARACTER",
+			"name": "Character"
+		},
+		"NEUTRAL": {
+			"id": "NEUTRAL",
+			"name": "Neutral"
+		}
+	},
+	"stage": {
+		"ENEMY": {
+			"id": "ENEMY",
+			"name": "Enemy"
+		},
+		"NPC": {
+			"id": "NPC",
+			"name": "NPC"
+		},
+		"CHARACTER": {
+			"id": "CHARACTER",
+			"name": "Character"
+		},
+		"NEUTRAL": {
+			"id": "NEUTRAL",
+			"name": "Neutral"
+		}
+	},
+	"prod": {
+		"ENEMY": {
+			"id": "ENEMY",
+			"name": "Enemy"
+		},
+		"NPC": {
+			"id": "NPC",
+			"name": "NPC"
+		},
+		"CHARACTER": {
+			"id": "CHARACTER",
+			"name": "Character"
+		},
+		"NEUTRAL": {
+			"id": "NEUTRAL",
+			"name": "Neutral"
+		}
+	}
+}

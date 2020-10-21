@@ -31,9 +31,14 @@ switch(command)
         break;
     }
     
-    //Intento de loggeo.
-    case "S_LOGIN": {
-        scr_packetHandlerLogin( argument0 );
+    // Login exitoso
+    case "S_LOGIN_SUCCESS": {
+        scr_packetHandlerLoginSuccess( argument0 );
+        break;
+    }
+    
+    case "S_LOGIN_FAILURE": {
+        scr_packetHandlerLoginFailure( argument0 );
         break;
     }
     
@@ -49,9 +54,18 @@ switch(command)
         break;
     }
     
-    //Respuesta a mensaje de chat enviado
+    case "S_UPDATE_SPREAD": {
+        scr_packetHandlerUpdateSpread( argument0 );
+        break;
+    }
+    
     case "S_CHAT_MSG": {
         scr_packetHandlerChatMsg( argument0 );
+        break;
+    }
+    
+    case "S_CHAT_MSG_SPREAD": {
+        scr_packetHandlerChatMsgSpread( argument0 );
         break;
     }
     

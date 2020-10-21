@@ -1,0 +1,13 @@
+{
+	"test": [
+		{
+			"id": "SPIDER",
+			"name": "Spider",
+			"typeId": "ENEMY",
+			"minHp": 4,
+			"maxHp": 6
+		}
+	],
+	"stage": [],
+	"prod": []
+}

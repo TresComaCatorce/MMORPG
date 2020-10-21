@@ -17,7 +17,7 @@ module.exports = packet_C_LOGIN = {
 		
 		// Determined if was received an email or nickname 
 		const dataToLogin = {};
-		if( Utils.isEmail(data.input) ) {
+		if( Utils.isValidEmail(data.input) ) {
 			dataToLogin.email = data.input;
 		}
 		else {

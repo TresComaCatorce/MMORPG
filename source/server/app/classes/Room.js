@@ -7,41 +7,130 @@
 
 */
 
+const Character = require("./Character");
+const Entity = require("./Entity");
+
 module.exports = RoomClass = class Room {
 
+	//#region CLASS FIELDS DECLARATION
+	#name;
+	#code;
+	#spawnRange;
+	#characters = [];
+	#entities = [];
+	//#endregion
+
+
+
+	//#region CONSTRUCTOR
 	constructor( data ) {
 		const { name, code, spawn_range } = data;
-		this.name = name;
-		this.code = code;
-		this.spawn_range = spawn_range;
-		this.characters = [];
+		this.#setName( name );
+		this.#setCode( code );
+		this.#setSpawnRange( spawn_range );
+	}
+	//#endregion
+
+
+
+	//#region GETTERS & SETTERS
+	getName() {
+		return this.#name;
+	}
+	#setName( value ) {
+		this.#name = value;
 	}
 
+	getCode() {
+		return this.#code;
+	}
+	#setCode( value ) {
+		this.#code = value;
+	}
+
+	getSpawnRange() {
+		return this.#spawnRange;
+	}
+	#setSpawnRange( value ) {
+		this.#spawnRange = value;
+	}
+
+	getCharacters() {
+		return this.#characters;
+	}
+	#setCharacters( value ) {
+		if( Array.isArray(value) ) {
+			this.#characters = value;
+		}
+	}
+
+	getEntities() {
+		return this.#entities;
+	}
+	#setEntities( value ) {
+		if( Array.isArray(value) ) {
+			this.#entities = value;
+		}
+	}
+	//#endregion
+
+
+
+	//#region METHODS
 	// Add a character to room.
 	// @param <Character> 'character': Character to add.
 	// @return <number> Total number of characters in room. || <undefined> error case.
 	addCharacter( character ) {
-		return character ? this.characters.push(character) : console.log( `Error adding character to room ${this.name}`.red );
+		if( character instanceof Character ) {
+			return this.getCharacters().push(character);
+		}
+		else {
+			throw( new Error(` Room.js | ${this.getName()} | try to add an invalid Character.`) );
+		}
 	}
 
 	// Remove a given character from the room.
 	// @param <Character> 'character': Character to remove.
 	removeCharacter( character ) {
-		if(character) {
-			this.characters = this.characters.filter( item => item !== character );
+		if( character instanceof Character ) {
+			this.#setCharacters( this.getCharacters().filter( item => item !== character ) );
 		}
 		else {
-			console.log( "Error removing character from room.".red );
+			throw( new Error(` Room.js | ${this.getName()} | try to remove an invalid Character.`) );
 		}
 	}
 
 	// Remove all character of the room.
 	removeAllCharacters() {
-		this.characters = [];
+		this.#setCharacters( [] );
 	}
 
 	forEachCharacter( callback ) {
-		this.characters.forEach( callback );
+		this.getCharacters().forEach( callback );
 	}
+
+	// Adds entity to room.
+	// @param <Entity> 'entity': Entity to add.
+	// @return <number> Total number of entities in room. || <undefined> error case.
+	addEntity( entity ) {
+		if( entity instanceof Entity ) {
+			return this.getEntities().push( entity );
+		}
+		else {
+			throw( new Error(` Room.js | ${this.getName()} | try to add an invalid Entity.`) );
+		}
+	}
+
+	// Remove a given entity from the room.
+	// @param <Entity> 'entity': Entity to remove.
+	removeEntity( entity ) {
+		if( entity instanceof Entity ) {
+			this.#setEntities( this.getEntities().filter( item => item !== entity ) );
+		}
+		else {
+			throw( new Error(` Room.js | ${this.getName()} | try to remove an invalid Entity.`) );
+		}
+	}
+	//#endregion
 
 }

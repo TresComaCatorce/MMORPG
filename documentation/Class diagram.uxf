@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>963</x>
+      <y>1494</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Class: Enemy*
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>657</x>
+      <y>756</y>
+      <w>243</w>
+      <h>486</h>
+    </coordinates>
+    <panel_attributes>*Class: Entity*
+--
+id &lt;string&gt;
+
+pos_x &lt;number&gt;
+
+pos_y &lt;number&gt;
+
+current_room &lt;number&gt;
+
+spawnerAsociated &lt;Spawner&gt;
+
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>531</x>
+      <y>1350</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Class: PassiveEntity*
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>855</x>
+      <y>1350</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Class: HostileEntity*
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1107</x>
+      <y>1242</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Class: Character*
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>657</x>
+      <y>1494</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Class: NPC*
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>657</x>
+      <y>1296</y>
+      <w>144</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>1233</y>
+      <w>144</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;130.0;140.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>180</y>
+      <w>234</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>*Class: Account*
+--
+_id &lt;string&gt;
+email &lt;string&gt;
+nickname &lt;string&gt;
+creation_date &lt;string&gt;
+last_login_date &lt;string&gt;
+characters [&lt;Character&gt;]
+characterOnline &lt;Character&gt;
+socket &lt;Socket&gt;
+
+--
+
+updateLastLoginDate()
+
+broadcastSelf( data&lt;Packet&gt; )
+
+sendLoginData()
+
+isOnline()
+
+enterGame( characterName&lt;string&gt; )
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>72</x>
+      <y>1071</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Class: Spawner
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1008</x>
+      <y>729</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Class: Room
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>306</x>
+      <y>0</y>
+      <w>270</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>*Class: Server*
+--
+netServer &lt;net&gt;
+
+clients [&lt;Client&gt;]
+
+--
+
+loadInitializers()
+
+loadModels()
+
+loadFromFiles( path&lt;string&gt;, name&lt;string&gt; )
+
+createNetServer()
+
+attachEventsToNetServer()
+
+handleServerConnection( socket&lt;socket&gt; )
+
+handleServerListening()
+
+handleServerClose()
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>81</x>
+      <y>756</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Class: SpawnersManager
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>666</x>
+      <y>45</y>
+      <w>234</w>
+      <h>594</h>
+    </coordinates>
+    <panel_attributes>*Class: Client*
+--
+socket &lt;socket&gt;
+
+remoteIpAddress &lt;string&gt;
+
+remotePort &lt;string&gt;
+
+remoteProtocol &lt;string&gt;
+
+account &lt;Account&gt;
+
+--
+
+isLoggedIn()
+
+loginAccount( accountData&lt;object&gt; )
+
+loginFail( error&lt;Error&gt; )
+
+handshakeServer()
+
+broadcastSelf( data&lt;&gt; )
+
+data( data&lt;&gt; )
+
+end()
+
+close( data&lt;&gt; )
+
+error( error&lt;Error&gt; )
+
+timeout()
+
+drain()
+
+closeConnection()
+
+closeCharacterOnlineConnection()
+
+closeGame( message )
+
+
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>45</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>891</x>
+      <y>180</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>1458</y>
+      <w>72</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>909</x>
+      <y>1458</y>
+      <w>72</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1215</x>
+      <y>279</y>
+      <w>135</w>
+      <h>990</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>80.0;1080.0;130.0;1080.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>531</x>
+      <y>1323</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/AbstractClass/
+
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>1323</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/AbstractClass/
+
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>729</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/AbstractClass/
+
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>891</x>
+      <y>1296</y>
+      <w>234</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

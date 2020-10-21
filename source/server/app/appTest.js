@@ -31,7 +31,7 @@ const run = async () => {
 		// const u1 = await AccountModel.register({
 		// 	email: "test@test.com",
 		// 	nickname: "test",
-		// 	password: "qweasd40954"
+		// 	password: "test"
 		// });
 		// console.log("CBF u1: ", u1);
 		
@@ -91,28 +91,40 @@ const run = async () => {
 
 
 		//-----------------------------------------------
+		// UPDATE CHARACTER
+		const x2 = await CharacterModel.update(
+			{name: "KriztiaN"},
+			{accountSlot: 3},
+			{runValidators: true}
+		);
+		console.log("CBF x2: ", x2.n, x2.nModified)
+		//-----------------------------------------------
+
+
+
+		//-----------------------------------------------
 		// CREATE CHARACTER
-		const acc = await AccountModel.findOne({nickname: "test"});
-		const char = await CharacterModel.create({
-			name: "KriZ",
-			race: 0,
-			level: 300,
-			current_room: 1,
-			pos_x: 100,
-			pos_y: 100,
-			account_slot: 2,
-			account: acc._id
-		});
-		console.log("CBF char2: ", char);
+		// const acc = await AccountModel.findOne({nickname: "test"});
+		// const char = await CharacterModel.create({
+		// 	name: "KriztiaN",
+		// 	race: 0,
+		// 	level: 300,
+		// 	current_room: 1,
+		// 	x: 100,
+		// 	y: 100,
+		// 	account_slot: 4,
+		// 	account: acc._id
+		// });
+		// console.log("CBF char1: ", char);
 		//-----------------------------------------------
 		//-----------------------------------------------
 		// ADD CHARACTER TO ACCOUNT
-		// const char = await CharacterModel.findOne({ name: 'KriztiaN' });
-		const account = await AccountModel.findOneAndUpdate(
-			{nickname: "test"},
-			{$push:{characters: char._id}}
-		);
-		console.log("CBF acc2: ", account);
+		// const char = await CharacterModel.findOne({ name: 'KriZ' });
+		// const account = await AccountModel.findOneAndUpdate(
+		// 	{nickname: "test"},
+		// 	{$push:{characters: char._id}}
+		// );
+		// console.log("CBF acc2: ", account);
 		//-----------------------------------------------
 
 
@@ -145,6 +157,15 @@ const run = async () => {
 		// console.log("CBF acc: ", account);
 		//-----------------------------------------------
 		
+
+		//-----------------------------------------------
+		// CHANGE ACCOUNT PASSWORD
+		// const account = await AccountModel.findOne(
+		// 	{nickname: "test"}
+		// );
+		// account.changePassword("qweasd40954");
+		// console.log("CBF acc2: ", account);
+		//-----------------------------------------------
 
 		
 	} catch (error) {
