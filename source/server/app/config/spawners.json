@@ -13,6 +13,17 @@
 					"x2": 100,
 					"y2": 100,
 					"direction": -1
+				},
+				{
+					"entityId": "SLIME",
+					"quantity": 1,
+					"interval": 3000,
+					"maxDistance": 50,
+					"x1": 150,
+					"y1": 150,
+					"x2": 200,
+					"y2": 200,
+					"direction": -1
 				}
 			]
 		}
