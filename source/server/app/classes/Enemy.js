@@ -69,7 +69,7 @@ module.exports = Enemy = class Enemy extends Entity {
 			const hpParams = {
 				rangeMinHP: minHp,
 				rangeMaxHP: maxHp,
-				onDeadEvent: this.onDead.bind(this)
+				onDeadEvent: this.onDeadEvent.bind(this)
 			};
 			this.#setHP( new HPFunctionality(hpParams) );
 		}
@@ -98,7 +98,7 @@ module.exports = Enemy = class Enemy extends Entity {
 		});
 	}
 
-	onDead() {
+	onDeadEvent() {
 		this.#removeFromWorld();
 	}
 
