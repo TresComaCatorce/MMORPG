@@ -55,7 +55,7 @@ const accountSchema = new mongoose.Schema
 });
 
 // Password encryptation (NO ARROW FUNCTION NEEDED)
-accountSchema.pre( "save", async function( next )
+accountSchema.pre( 'save', async function( next )
 {
 	if ( !this.isModified('password') ) {
 		return next();
@@ -71,7 +71,7 @@ accountSchema.statics.login = async ( data ) => {
 	const {nickname, email, password} = data;
 	const queryParam = {};
 
-	//Build query param. "nickname" or "email" who corresponds.
+	//Build query param. 'nickname' or 'email' who corresponds.
 	nickname ? queryParam.nickname = nickname : undefined;
 	email ? queryParam.email = email : undefined;
 	

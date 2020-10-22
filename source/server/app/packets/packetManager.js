@@ -5,9 +5,9 @@
 
     Description: Administrador de paquetes hexadecimales recibidos/enviados al servidor.
 
-    @function "build":
-    @function "parse":
-    @function "interpret":
+    @function 'build':
+    @function 'parse':
+    @function 'interpret':
 */
 const fs = require('fs');
 const zeroBuffer = new Buffer.from('00', 'hex');
@@ -92,9 +92,9 @@ module.exports = PacketManager = class PacketManager {
 			const packetName = packetData[0];
 			const packetHandler = global[`packet_${packetName}`];
 
-			( packetName!="S_UPDATE" && packetName!="S_UPDATE_SPREAD" && packetName!="S_CON_CHECK" )
+			( packetName!='S_UPDATE' && packetName!='S_UPDATE_SPREAD' && packetName!='S_CON_CHECK' )
 			?
-				console.log("CBF sendpacket: ", packetData)
+				console.log('CBF sendpacket: ', packetData)
 			: undefined;
 
 			if( Utils.exist(packetHandler) ) {
@@ -179,10 +179,10 @@ module.exports = PacketManager = class PacketManager {
 
 
 	// Parsea a Buffer de datos un paquete recibido desde el cliente.
-	// Luego lo envía a la funcion "interpret" para que interprete el paquete recibido.
+	// Luego lo envía a la funcion 'interpret' para que interprete el paquete recibido.
 	//
 	// @param <Client> 'client': Cliente que envia el paquete.
-	// @param <DataStream> 'data': Datos "raw" recibidos desde el cliente.
+	// @param <DataStream> 'data': Datos 'raw' recibidos desde el cliente.
 	//
 	parse( client, data ) {
 		let idx = 0;
@@ -200,7 +200,7 @@ module.exports = PacketManager = class PacketManager {
 
 
 	// Interpreta los paquetes recibidos desde el cliente.
-	// Desde aquí se llama al handler correspondiente ubicado en la carpeta "handlers".
+	// Desde aquí se llama al handler correspondiente ubicado en la carpeta 'handlers'.
 	//
 	// @param <Client> 'cliente': Cliente que envia el paquete.
 	// @param <Buffer> 'datapacket': Buffer de datos recibidos desde el cliente.

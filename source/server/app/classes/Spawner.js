@@ -160,11 +160,11 @@ module.exports = Spawner = class Spawner {
 				this.#setEntityTypeId( entityTypeObj.id );
 			}
 			else {
-				throw( new Error(` Spawner.js | Error spawning entityTypeId: "${entityObj.typeId}". Entity type not found in <entityTypes.json>`) );
+				throw( new Error(` Spawner.js | Error spawning entityTypeId: '${entityObj.typeId}'. Entity type not found in <entityTypes.json>`) );
 			}
 		}
 		else {
-			throw( new Error(` Spawner.js | Error spawning entityId: "${this.getEntityIdToSpawn()}". Not found in <entities.json> file.`) );
+			throw( new Error(` Spawner.js | Error spawning entityId: '${this.getEntityIdToSpawn()}'. Not found in <entities.json> file.`) );
 		}
 	}
 
@@ -207,7 +207,7 @@ module.exports = Spawner = class Spawner {
 		return _.random( cMin, cMax );
 	}
 
-	// Add entity to "entitiesSpawned" array
+	// Add entity to 'entitiesSpawned' array
 	#addEntitySpawned( value ) {
 		if( value instanceof Entity ) {
 			this.#entitiesSpawned.push( value );
@@ -227,7 +227,7 @@ module.exports = Spawner = class Spawner {
 					x,
 					y,
 					id: this.getEntityIdToSpawn(),
-					current_room: this.getRoomCodeToSpawn(),
+					roomCode: this.getRoomCodeToSpawn(),
 					direction: this.getDirection(),
 					spawnerAsociated: this
 				});
@@ -235,7 +235,7 @@ module.exports = Spawner = class Spawner {
 			}
 			
 			case Config.entityTypes.NPC.id: {
-				console.log("CBF instance NPC")
+				console.log('CBF instance NPC')
 				break;
 			}
 
@@ -251,7 +251,7 @@ module.exports = Spawner = class Spawner {
 	getEntityDeathEvent( entityDead ) {
 		this.entitiesSpawned.forEach( entity => {
 			if( entity == entityDead ) {
-				console.log("CBF entidad muerta: ", entity, entityDead);
+				console.log('CBF entidad muerta: ', entity, entityDead);
 			}
 		});
 	}

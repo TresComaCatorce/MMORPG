@@ -7,8 +7,8 @@
 
 */
 
-const Character = require("./Character");
-const Entity = require("./Entity");
+const Character = require('./Character');
+const Entity = require('./Entity');
 
 module.exports = RoomClass = class Room {
 

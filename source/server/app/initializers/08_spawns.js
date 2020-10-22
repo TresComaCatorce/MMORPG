@@ -6,6 +6,6 @@
 
  const SpawnsManagerClass = require('../classes/SpawnsManager');
 
- // Instance of "Spawner" class
+ // Instance of 'SpawnsManager' class
  module.exports = SpawnsManager = new SpawnsManagerClass();
  

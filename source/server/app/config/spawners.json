@@ -1,7 +1,7 @@
 {
 	"test": [
 		{
-			"roomCode": 0,
+			"roomCode": 1,
 			"spawnSpots": [
 				{
 					"entityId": "SPIDER",
@@ -30,7 +30,7 @@
 	],
 	"stage": [
 		{
-			"roomCode": 0,
+			"roomCode": 1,
 			"spawnSpots": [
 				{
 					"entityId": "SPIDER",
@@ -48,7 +48,7 @@
 	],
 	"prod": [
 		{
-			"roomCode": 0,
+			"roomCode": 1,
 			"spawnSpots": [
 				{
 					"entityId": "SPIDER",

@@ -29,32 +29,32 @@ const run = async () => {
 		//-----------------------------------------------
 		// CREATE ACCOUNT
 		const u1 = await AccountModel.register({
-			email: "test@test.com",
-			nickname: "test",
-			password: "qweasd40954"
+			email: 'test@test.com',
+			nickname: 'test',
+			password: 'qweasd40954'
 		});
-		console.log("CBF u1: ", u1);
+		console.log('CBF u1: ', u1);
 		
 		const u2 = await AccountModel.register({
-			email: "test2@test.com",
-			nickname: "test2",
-			password: "qweasd40954"
+			email: 'test2@test.com',
+			nickname: 'test2',
+			password: 'qweasd40954'
 		});
-		console.log("CBF u2: ", u2);
+		console.log('CBF u2: ', u2);
 		
 		const u3 = await AccountModel.register({
-			email: "test3@test.com",
-			nickname: "test3",
-			password: "qweasd40954"
+			email: 'test3@test.com',
+			nickname: 'test3',
+			password: 'qweasd40954'
 		});
-		console.log("CBF u3: ", u3);
+		console.log('CBF u3: ', u3);
 		
 		const u4 = await AccountModel.register({
-			email: "cris@test.com",
-			nickname: "cris",
-			password: "qweasd40954"
+			email: 'cris@test.com',
+			nickname: 'cris',
+			password: 'qweasd40954'
 		});
-		console.log("CBF u4: ", u4);
+		console.log('CBF u4: ', u4);
 		//-----------------------------------------------
 
 
@@ -62,16 +62,16 @@ const run = async () => {
 		//-----------------------------------------------
 		// FIND ACCOUNT BY ID
 		// const x3 = await AccountModel.findById(
-		// 	"THE_ACCOUNT_ID"
+		// 	'THE_ACCOUNT_ID'
 		// );
-		// console.log("CBF account: ", x3);
+		// console.log('CBF account: ', x3);
 		//-----------------------------------------------
 		//-----------------------------------------------
 		// FIND ACCOUNT BY NICKNAME
 		// const x3 = await AccountModel.find(
-		// 	{nickname: "test"}
+		// 	{nickname: 'test'}
 		// );
-		// console.log("CBF account: ", x3);
+		// console.log('CBF account: ', x3);
 		//-----------------------------------------------
 
 
@@ -81,20 +81,20 @@ const run = async () => {
 		//-----------------------------------------------
 		// UPDATE LAST LOGIN DATE
 		// const x2 = await AccountModel.update(
-		// 	{nickname: "test"},
+		// 	{nickname: 'test'},
 		// 	{last_login_date: new Date()},
 		// 	{runValidators: true}
 		// );
-		// console.log("CBF x2: ", x2.n, x2.nModified)
+		// console.log('CBF x2: ', x2.n, x2.nModified)
 		//-----------------------------------------------
 
 
 
 		//-----------------------------------------------
 		// CREATE CHARACTER
-		// const acc = await AccountModel.findOne({nickname: "test2"});
+		// const acc = await AccountModel.findOne({nickname: 'test2'});
 		// const char = await CharacterModel.create({
-		// 	name: "TresComa",
+		// 	name: 'TresComa',
 		// 	race: 0,
 		// 	level: 300,
 		// 	current_room: 1,
@@ -103,16 +103,16 @@ const run = async () => {
 		// 	account_slot: 2,
 		// 	account: acc._id
 		// });
-		// console.log("CBF char2: ", char);
+		// console.log('CBF char2: ', char);
 		// //-----------------------------------------------
 		// //-----------------------------------------------
 		// // ADD CHARACTER TO ACCOUNT
 		// // const char = await CharacterModel.findOne({ name: 'KriztiaN' });
 		// const account = await AccountModel.findOneAndUpdate(
-		// 	{nickname: "test2"},
+		// 	{nickname: 'test2'},
 		// 	{$push:{characters: char._id}}
 		// );
-		// console.log("CBF acc2: ", account);
+		// console.log('CBF acc2: ', account);
 		//-----------------------------------------------
 
 
@@ -121,14 +121,14 @@ const run = async () => {
 		// GET CHARACTER
 		// const t = await CharacterModel.
 		// findOne({ name: 'KriZ3' });
-		// console.log("CBF T: ", t);
+		// console.log('CBF T: ', t);
 		//-----------------------------------------------
 		//-----------------------------------------------
 		// GET CHARACTER WITH ACCOUNT DATA POPULATED
 		// const t = await CharacterModel.
 		// findOne({ name: 'KriZ3' }).
 		// populate('account');
-		// console.log("CBF T: ", t);
+		// console.log('CBF T: ', t);
 		//-----------------------------------------------
 
 		
@@ -136,13 +136,13 @@ const run = async () => {
 
 		//-----------------------------------------------
 		// GET ACCOUNT
-		// const account = await AccountModel.findOne({nickname: "test"});
-		// console.log("CBF acc: ", account);
+		// const account = await AccountModel.findOne({nickname: 'test'});
+		// console.log('CBF acc: ', account);
 		//-----------------------------------------------
 		//-----------------------------------------------
 		// GET ACCOUNT WITH CHARACTERS DATA POPULATED
-		// const account = await AccountModel.findOne({nickname: "test"}).populate('characters');
-		// console.log("CBF acc: ", account);
+		// const account = await AccountModel.findOne({nickname: 'test'}).populate('characters');
+		// console.log('CBF acc: ', account);
 		//-----------------------------------------------
 		
 

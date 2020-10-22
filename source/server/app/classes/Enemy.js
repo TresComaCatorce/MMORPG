@@ -26,7 +26,7 @@ module.exports = Enemy = class Enemy extends Entity {
 		super({ id });
 		this.#setPosition( new Position({ x, y, roomCode, direction }) );
 		this.#init();
-		console.log(`CBF || ${this.getName()} spawned at X: ${this.getPosition().getX()} Y: ${this.getPosition().getY()}.`);
+		console.log(`CBF || ${this.getName()} spawned in '${World.getRoomByCode(this.getPosition().getRoomCode()).getName()}' at X: ${this.getPosition().getX()} Y: ${this.getPosition().getY()}.`);
 	}
 	//#endregion
 
@@ -58,6 +58,7 @@ module.exports = Enemy = class Enemy extends Entity {
 	#init() {
 		this.#loadEnemyDataFromConfigJson();
 		this.#programmedDeath();
+		this.#addToWorld();
 	}
 	
 	
@@ -68,11 +69,12 @@ module.exports = Enemy = class Enemy extends Entity {
 			const hpParams = {
 				rangeMinHP: minHp,
 				rangeMaxHP: maxHp,
+				onDeadEvent: this.onDead.bind(this)
 			};
 			this.#setHP( new HPFunctionality(hpParams) );
 		}
 		else {
-			throw( new Error(` Enemy.js | entityId: "${this.getId()}" not found in <entities.json> file.`) );
+			throw( new Error(` Enemy.js | entityId: '${this.getId()}' not found in <entities.json> file.`) );
 		}
 	}
 
@@ -80,10 +82,30 @@ module.exports = Enemy = class Enemy extends Entity {
 
 	}
 
+	// Add current instance to the World object.
+	#addToWorld() {
+		World.addEntityToRoom({
+			roomCode: this.getPosition().getRoomCode(),
+			entityInstance: this
+		});
+	}
+
+	// Remove current instance from the World object.
+	#removeFromWorld() {
+		World.removeEntityFromRoom({
+			roomCode: this.getPosition().getRoomCode(),
+			entityInstance: this
+		});
+	}
+
+	onDead() {
+		this.#removeFromWorld();
+	}
+
 	#programmedDeath() {
 		setTimeout( () => {
-			this.getHP().receiveDamage( this.currentHp );
-		}, 3000);
+			this.getHP().receiveDamage( 20 );
+		}, 5000);
 	}
 	//#endregion
 
