@@ -3,7 +3,7 @@
     Date: 16/04/2020
     Author: Cristian Ferrero
 
-	Description: Handler que maneja la recepción del paquete "C_CONNECT_CHARACTER" enviado por el cliente.
+	Description: Handler que maneja la recepción del paquete 'C_CONNECT_CHARACTER' enviado por el cliente.
 	Este paquete contiene un mensaje de chat.
 
 */

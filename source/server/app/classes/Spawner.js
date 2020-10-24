@@ -136,7 +136,7 @@ module.exports = Spawner = class Spawner {
 		return this.#entitiesSpawned;
 	}
 	#setEntitiesSpawned( value ) {
-		if( Utils.isNotEmptyArray(value) ) {
+		if( Array.isArray(value) ) {
 			this.#entitiesSpawned = value;
 		}
 	}
@@ -146,13 +146,13 @@ module.exports = Spawner = class Spawner {
 
 	//#region METHODS
 	#init() {
-		this.determineEntityType();
-		this.spawnAllEntities();
+		this.#determineEntityType();
+		this.#spawnAllEntities();
 	}
 
 
 	
-	determineEntityType() {
+	#determineEntityType() {
 		const entityObj = Config.entities.getEntityById( this.getEntityIdToSpawn() );
 		if(entityObj) {
 			const entityTypeObj = Config.entityTypes[entityObj.typeId];
@@ -160,38 +160,45 @@ module.exports = Spawner = class Spawner {
 				this.#setEntityTypeId( entityTypeObj.id );
 			}
 			else {
-				throw( new Error(` Spawner.js | Error spawning entityTypeId: "${entityObj.typeId}". Entity type not found in <entityTypes.json>`) );
+				throw( new Error(` Spawner.js | Error spawning entityTypeId: '${entityObj.typeId}'. Entity type not found in <entityTypes.json>`) );
 			}
 		}
 		else {
-			throw( new Error(` Spawner.js | Error spawning entityId: "${this.getEntityIdToSpawn()}". Not found in <entities.json> file.`) );
+			throw( new Error(` Spawner.js | Error spawning entityId: '${this.getEntityIdToSpawn()}'. Not found in <entities.json> file.`) );
 		}
 	}
 
-	spawnAllEntities() {
-		
+	#spawnAllEntities() {
 		for( let i=0; i<this.getQuantityToSpawn() ; i++ ) {
-			const randomPoint = this.getRandomSpawnPoint();
-			// console.log(`Random point X: ${randomPoint.x} Y: ${randomPoint.y}`);
-	
-			this.spawnEntity({
-				x: randomPoint.x,
-				y: randomPoint.y
-			});
+			this.#spawnOneEntity();
 		}
+	}
 
+	#spawnOneEntity() {
+		const randomPoint = this.#getRandomSpawnPoint();
+	
+		this.#spawnEntity({
+			x: randomPoint.x,
+			y: randomPoint.y
+		});
+	}
+
+	#respawnOneEntity() {
+		setTimeout( () => {
+			this.#spawnOneEntity();
+		}, this.#getTimeInterval() );
 	}
 
 	// Get a random spawn points inside the configured spawner area
-	getRandomSpawnPoint() {
+	#getRandomSpawnPoint() {
 		return {
-			x: this.getRandomCoordBetween({ c1: this.getX1(), c2: this.getX2() }),
-			y: this.getRandomCoordBetween({ c1: this.getY1(), c2: this.getY2() })
+			x: this.#getRandomCoordBetween({ c1: this.getX1(), c2: this.getX2() }),
+			y: this.#getRandomCoordBetween({ c1: this.getY1(), c2: this.getY2() })
 		}
 	}
 
 	// Obtains a random coord beetwen two points of the same axis
-	getRandomCoordBetween({ c1, c2 }) {
+	#getRandomCoordBetween({ c1, c2 }) {
 		if( c1 == c2 )
 			return c1;
 		
@@ -207,18 +214,30 @@ module.exports = Spawner = class Spawner {
 		return _.random( cMin, cMax );
 	}
 
-	// Add entity to "entitiesSpawned" array
-	#addEntitySpawned( value ) {
-		if( value instanceof Entity ) {
-			this.#entitiesSpawned.push( value );
+	// Add entity to 'entitiesSpawned' array
+	// @param <Entity> 'entityToAdd': Entity to add.
+	#addEntitySpawned( entityToAdd ) {
+		if( entityToAdd instanceof Entity ) {
+			this.getEntitiesSpawned().push( entityToAdd );
 		}
 		else {
 			throw( new Error(`Spawner.js | Attempt to add a non 'Entity' object into 'entitiesSpawned'.`) );
 		}
 	}
 
+	#removeEntitySpawned( entityToRemove ) {
+		if( entityToRemove instanceof Entity ) {
+			const newEntitiesSpawned = this.getEntitiesSpawned().filter( item => item!=entityToRemove );
+			this.#setEntitiesSpawned( newEntitiesSpawned );
+			console.log("CBF realEntitiesSpawned: ", this.getEntitiesSpawned());
+		}
+		else {
+			throw( new Error(`Spawner.js | Attempt to remove a non 'Entity' object fom 'entitiesSpawned'.`) );
+		}
+	}
+
 	// Spawns entity at given point
-	spawnEntity({ x, y }) {
+	#spawnEntity({ x, y }) {
 		let instanceCreated;
 
 		switch( this.getEntityTypeId() ) {
@@ -227,15 +246,16 @@ module.exports = Spawner = class Spawner {
 					x,
 					y,
 					id: this.getEntityIdToSpawn(),
-					current_room: this.getRoomCodeToSpawn(),
+					roomCode: this.getRoomCodeToSpawn(),
 					direction: this.getDirection(),
-					spawnerAsociated: this
+					spawnerAsociated: this,
+					onDeadEvent: this.#entityOnDeadEvent.bind(this)
 				});
 				break;
 			}
 			
 			case Config.entityTypes.NPC.id: {
-				console.log("CBF instance NPC")
+				console.log('CBF instance NPC')
 				break;
 			}
 
@@ -248,12 +268,10 @@ module.exports = Spawner = class Spawner {
 	}
 
 	// Re-spawn entity who died
-	getEntityDeathEvent( entityDead ) {
-		this.entitiesSpawned.forEach( entity => {
-			if( entity == entityDead ) {
-				console.log("CBF entidad muerta: ", entity, entityDead);
-			}
-		});
+	// @param <Entity> 'entityDead': Instence of entity who die.
+	#entityOnDeadEvent( entityDead ) {
+		this.#removeEntitySpawned( entityDead );
+		this.#respawnOneEntity();
 	}
 	//#endregion
 

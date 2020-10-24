@@ -7,7 +7,7 @@
 
 */
 
-const Spawner = require("./Spawner");
+const Spawner = require('./Spawner');
 
 module.exports = SpawnsManager = class SpawnsManager {
 
@@ -43,7 +43,7 @@ module.exports = SpawnsManager = class SpawnsManager {
 		this.#loadAllSpawners();
 	}
 
-	// Process all "spawnerByRoom" objects in "spawners.json" file.
+	// Process all 'spawnerByRoom' objects in 'spawners.json' file.
 	#loadAllSpawners() {
 		const spawnersByRoom = Config.spawners;
 		const hasSpawners = Utils.isNotEmptyArray( spawnersByRoom );
@@ -52,7 +52,7 @@ module.exports = SpawnsManager = class SpawnsManager {
 		}
 	}
 
-	// Load all spawn spots of one "spawnerByRoom" object.
+	// Load all spawn spots of one 'spawnerByRoom' object.
 	#loadSpawnSpots( spawnerByRoom ) {
 		const { spawnSpots, roomCode } = spawnerByRoom;
 		const hasSpawnSpots = Utils.isNotEmptyArray( spawnSpots );
@@ -70,7 +70,7 @@ module.exports = SpawnsManager = class SpawnsManager {
 		}
 	}
 
-	// Process one "spawnSpot"
+	// Process one 'spawnSpot'
 	#processSpawnSpot({ roomCode, spawnSpot }) {
 		try {
 			const newSpawnerInstance = new Spawner({

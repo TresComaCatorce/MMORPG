@@ -8,6 +8,8 @@
 */
 
 const fs = require('fs');
+const Entity = require('./Entity');
+const Character = require('./Character');
 const Room = require('./Room');
 
 module.exports = WorldClass = class World {
@@ -56,7 +58,7 @@ module.exports = WorldClass = class World {
 				this.#addRoom( new Room(roomData) );
 			});
 		} catch (error) {
-			console.log("CBF error reading rooms: ", error);
+			console.log('CBF error reading rooms: ', error);
 		}
 	}
 
@@ -94,7 +96,7 @@ module.exports = WorldClass = class World {
 			this.getRoomByCode(roomCode).forEachCharacter( callback );
 		}
 		else {
-			throw( new Error(` World.js | forEachCharacterInRoom() | The room with code "${roomCode}" doesn't exist.`) );
+			throw( new Error(` World.js | forEachCharacterInRoom() | The room with code '${roomCode}' doesn't exist.`) );
 		}
 	}
 	
@@ -105,27 +107,51 @@ module.exports = WorldClass = class World {
 		});
 	}
 
-	// Remove a character from a given room.
+	// Remove a 'Character' from a given room.
 	// @param <string> 'roomCode': Code name of the room.
-	// @param <Character> 'character': Id of the user.
-	removeCharacterFromRoom( roomCode, character ) {
+	// @param <Character> 'characterInstance': Instance of the 'Character' class.
+	removeCharacterFromRoom( roomCode, characterInstance ) {
 		if(this.#roomExist(roomCode) ) {
-			this.getRoomByCode(roomCode).removeCharacter( character );
+			this.getRoomByCode(roomCode).removeCharacter( characterInstance );
 		}
 		else {
-			throw( new Error(` World.js | removeCharacterFromRoom() | The room with code "${roomCode}" doesn't exist.`) );
+			throw( new Error(` World.js | removeCharacterFromRoom() | The room with code '${roomCode}' doesn't exist.`) );
 		}
 	}
 
-	// Add a character to a given room.
+	// Add a 'Character' instance into a given room.
 	// @param <string> 'roomCode': Code name of the room.
-	// @param <Character> 'character': Id of the user.
-	addCharacterToRoom( roomCode, character ) {
+	// @param <Character> 'characterInstance': Instance of the 'Character' class.
+	addCharacterToRoom( roomCode, characterInstance ) {
 		if( this.#roomExist(roomCode) ) {
-			this.getRoomByCode(roomCode).addCharacter( character )
+			this.getRoomByCode(roomCode).addCharacter( characterInstance );
 		}
 		else {
-			throw( new Error(` World.js | addCharacterToRoom() | The room with code "${roomCode}" doesn't exist.`) );
+			throw( new Error(` World.js | addCharacterToRoom() | The room with code '${roomCode}' doesn't exist.`) );
+		}
+	}
+	
+	// Add a 'Entity' instance into a given room.
+	// @param <string> 'roomCode': Code name of the room.
+	// @param <Entity> 'entityInstance': Instance of the 'Entity' class.
+	addEntityToRoom({roomCode, entityInstance}) {
+		if( this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).addEntity(entityInstance);
+		}
+		else {
+			throw( new Error(` World.js | addEntityToRoom() | The room with code '${roomCode}' doesn't exist.`) );
+		}
+	}
+
+	// Remove a entity from a given room.
+	// @param <string> 'roomCode': Code name of the room.
+	// @param <Entity> 'entityInstance': Instance of the 'Entity' class.
+	removeEntityFromRoom({roomCode, entityInstance}) {
+		if(this.#roomExist(roomCode) ) {
+			this.getRoomByCode(roomCode).removeEntity( entityInstance );
+		}
+		else {
+			throw( new Error(` World.js | removeEntityFromRoom() | The room with code '${roomCode}' doesn't exist.`) );
 		}
 	}
 	//#endregion

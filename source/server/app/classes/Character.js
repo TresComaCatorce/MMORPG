@@ -14,7 +14,7 @@ const Position = require('./Position');
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// ADD "clearSocket()" function (Called in Client.js)
+// ADD 'clearSocket()' function (Called in Client.js)
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,11 +156,10 @@ module.exports = Character = class Character extends Entity {
 	}
 
 
-	// Funcion que envia un update a todos los clientes
-    // que se encuentran en el room.
+	// Send a packet to all character where are in the same room of this character.
+	// @param <Array> 'packetData': Data to send.
+	// @param <bool> 'sendToSelf': Flag to send the data also to itself.
 	broadcastRoom( data, sendToSelf = false ) {
-		//Se recorre el array que contiene todos los clientes en ese room.
-		//Y se ejecuta la funcion por cada uno de ellos.
 		World.forEachCharacterInRoom( this.getPosition().getRoomCode(), ( otherCharacter ) => {
 			//Si el usuario actual NO es el usuario del array.
 			//(No le queremos mandar esta info al mismo cliente)
@@ -171,9 +170,10 @@ module.exports = Character = class Character extends Entity {
 	}
 
 
-	// Funcion que envia un update a todos los clientes
-	// que se encuentran "cerca" del jugador.
-	broadcastNearby( data, sendToSelf=false ) {
+	// Send a packet to all characters where are nearby to this character.
+	// @param <Array> 'packetData': Data to send.
+	// @param <bool> 'sendToSelf': Flag to send the data also to itself.
+	broadcastNearbyCharacters( data, sendToSelf=false ) {
 		World.forEachCharacterInRoom( this.getPosition().getRoomCode(), ( otherCharacter ) => {
 			const distX = Math.abs( otherCharacter.getPosition().getX() - this.getPosition().getX() );
 			const distY = Math.abs( otherCharacter.getPosition().getY() - this.getPosition().getY() );

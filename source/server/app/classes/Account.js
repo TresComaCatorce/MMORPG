@@ -131,7 +131,7 @@ module.exports = Account = class Account {
 
 
 	//#region METHODS
-	// Update "Last login date" of the account with the current date.
+	// Update 'Last login date' of the account with the current date.
 	#updateLastLoginDate() {
 		AccountModel.updateOne(
 			{ _id: this.getId() },

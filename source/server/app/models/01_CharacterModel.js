@@ -143,7 +143,7 @@ const characterSchema = new mongoose.Schema
 
 // Create new character
 characterSchema.statics.create = async( data ) => {
-	console.log("CBF create char: ", data);
+	console.log('CBF create char: ', data);
 	//Deasembly object to control stored data
 	const { name, race, level, roomCode, x, y, accountSlot, account } = data;
 
@@ -157,7 +157,7 @@ characterSchema.statics.create = async( data ) => {
 		accountSlot,
 		account
 	};
-	console.log("CBF params: ", param);
+	console.log('CBF params: ', param);
 
 	var newCharacter = new CharacterModel(param);
 

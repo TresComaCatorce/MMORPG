@@ -173,6 +173,7 @@
           <script>scripts\scr_packetHandlerCharacterConnect.gml</script>
           <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerUpdateSpread.gml</script>
+          <script>scripts\scr_packetHandlerEnemySpawn.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
       </scripts>
