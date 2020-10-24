@@ -42,7 +42,7 @@ module.exports = PacketManager = class PacketManager {
 
 	// Send a packet to the client.
 	// @param <Socket> 'socket': Socket instance.
-	// @param <[]> 'packetData': All data to send.
+	// @param <Array> 'packetData': All data to send.
 	sendPacket( socket, packetData ) {
 		try {
 			const dataToSend = this.#validateOutgoingPacketvalidate(packetData);
@@ -130,7 +130,7 @@ module.exports = PacketManager = class PacketManager {
 	}
 
 	// Build a buffer from a differents type of data.
-	// @param <[]> 'params': Array de valores a convertir.
+	// @param <Array> 'params': Array de valores a convertir.
 	// @return <Buffer>: Buffer construido a partir de 'params'.
 	build( params ) {
 		const packetParts = [];

@@ -1,16 +1,26 @@
 class A {
-	constructor(name) {
-		this.name = name;
-	}
-	doSomething() {
+	#items=[];
 
+	constructor() {
+
+	}
+
+	getItems() {
+		return this.#items;
+	}
+
+	#setItems(value) {
+		if(Array.isArray(value)) {
+			this.#items = value;
+		}
+	}
+
+	addItem(itemToAdd) {
+		this.getItems().push(itemToAdd);
 	}
 }
 
-
-const inst1 = new A("hola1");
-const inst2 = new A("hola2");
-
-const x = [inst1, inst2];
-
-console.log(x.filter(item => item==inst2))
+const insta = new A();
+insta.addItem("a");
+insta.addItem("b");
+console.log("CBF : ", insta.getItems(), insta.getItems().length );

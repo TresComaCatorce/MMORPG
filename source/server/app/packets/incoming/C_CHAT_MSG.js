@@ -26,7 +26,7 @@ module.exports = packet_C_CHAT_MSG = {
 		switch (data.message_type) {
 			case Constants.CHAT.CHAT_MSG_TYPES.CHAT: {
 				const sendToSelf = false;
-				client.getAccount().getCharacterOnline().broadcastNearby([
+				client.getAccount().getCharacterOnline().broadcastNearbyCharacters([
 					Constants.PACKETS.S_CHAT_MSG_SPREAD,
 					data.character_name,
 					data.message_text,

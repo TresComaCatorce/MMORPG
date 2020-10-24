@@ -25,7 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_speed = 0.15;
+            <string>/// Variables declaration
+
+self.uId = noone;
+self.maxHP = noone;
+image_speed = 0.15;
 </string>
           </argument>
         </arguments>

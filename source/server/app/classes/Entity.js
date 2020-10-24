@@ -9,7 +9,10 @@
 
 module.exports = Entity = class Entity {
 
+	static instanceCounter = 0;
+
 	//#region CLASS FIELDS DECLARATION
+	#uId
 	#id;
 	#name;
 	#typeId;
@@ -20,7 +23,9 @@ module.exports = Entity = class Entity {
 
 	//#region CONSTRUCTOR
 	constructor(params={}) {
+		Entity.instanceCounter++;
 		const { id, typeId, name } = params;
+		this.#setUId( Entity.instanceCounter );
 		this.#setId( id );
 		this.#setTypeId( typeId||-1 );
 		this.#setName( name );
@@ -31,6 +36,13 @@ module.exports = Entity = class Entity {
 
 
 	//#region GETTERS & SETTERS
+	getUId() {
+		return this.#uId;
+	}
+	#setUId(value) {
+		this.#uId = value;
+	}
+
 	getId() {
 		return this.#id;
 	}
