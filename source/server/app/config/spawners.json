@@ -5,7 +5,7 @@
 			"spawnSpots": [
 				{
 					"entityId": "SPIDER",
-					"quantity": 1,
+					"quantity": 3,
 					"interval": 5000,
 					"maxDistance": 100,
 					"x1": 500,
@@ -16,7 +16,7 @@
 				},
 				{
 					"entityId": "SLIME",
-					"quantity": 1,
+					"quantity": 0,
 					"interval": 3000,
 					"maxDistance": 50,
 					"x1": 1000,

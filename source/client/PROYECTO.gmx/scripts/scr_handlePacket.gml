@@ -78,6 +78,11 @@ switch(command)
         scr_packetHandlerEnemySpawn( argument0 );
         break;
     }
+    
+    case "S_ENEMY_DEATH": {
+        scr_packetHandlerEnemyDeath( argument0 );
+        break;
+    }
 }
 
 

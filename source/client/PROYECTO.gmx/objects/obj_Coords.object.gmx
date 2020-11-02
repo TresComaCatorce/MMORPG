@@ -76,8 +76,8 @@ if( showCoords ) {
     var spriteHeight = sprite_get_height( self.sprite );
     var textX = x + spriteWidth * textOffsetX;
     var textY = y + spriteHeight * textOffsetY;
-    var textValueX = "X: "+string(floor(obj_player.x/100));
-    var textValueY = " Y: "+string(floor(obj_player.y/100));
+    var textValueX = "X: "+string(floor(obj_Player.x/100));
+    var textValueY = " Y: "+string(floor(obj_Player.y/100));
     draw_text_transformed_colour( textX, textY, textValueX, textScaleX, textScaleY, 0, textColor, textColor, textColor, textColor, 1 );
     draw_text_transformed_colour( textX+(spriteWidth * spriteScaleX * .3), textY, textValueY, textScaleX, textScaleY, 0, textColor, textColor, textColor, textColor, 1 );
 }

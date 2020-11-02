@@ -89,6 +89,7 @@
       <sprite>sprites\spr_Coords</sprite>
       <sprite>sprites\spr_HP__Indicator</sprite>
       <sprite>sprites\spr_i_charGui</sprite>
+      <sprite>sprites\spr_Entity</sprite>
     </sprites>
     <sprites name="Landmarks">
       <sprite>sprites\spr_landmarkGreen</sprite>
@@ -174,6 +175,7 @@
           <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerUpdateSpread.gml</script>
           <script>scripts\scr_packetHandlerEnemySpawn.gml</script>
+          <script>scripts\scr_packetHandlerEnemyDeath.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
       </scripts>
@@ -259,10 +261,6 @@
         <object>objects\btn_enterGame</object>
       </objects>
     </objects>
-    <objects name="Characters">
-      <object>objects\obj_player</object>
-      <object>objects\obj_Network_Player</object>
-    </objects>
     <objects name="GUI">
       <objects name="Chat">
         <object>objects\obj_Chat_Input</object>
@@ -275,8 +273,15 @@
       <object>objects\obj_Coords</object>
       <object>objects\obj_characterGui</object>
     </objects>
-    <objects name="Enemys">
-      <object>objects\obj_spider</object>
+    <objects name="Entities">
+      <objects name="Characters">
+        <object>objects\obj_Player</object>
+        <object>objects\obj_Network_Player</object>
+      </objects>
+      <objects name="Enemies">
+        <object>objects\obj_spider</object>
+      </objects>
+      <object>objects\obj_Entity</object>
     </objects>
     <object>objects\obj_point</object>
   </objects>

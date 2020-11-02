@@ -206,7 +206,7 @@
             <string>depth=-y*2
 draw_sprite(sprite_index,frm-1,x,y)
 
-if frm=e.stone and point_distance(x,y,obj_player.x,obj_player.y)&lt;50
+if frm=e.stone and point_distance(x,y,obj_Player.x,obj_Player.y)&lt;50
     {sprite_index=spr_chestOpen}
     
 </string>

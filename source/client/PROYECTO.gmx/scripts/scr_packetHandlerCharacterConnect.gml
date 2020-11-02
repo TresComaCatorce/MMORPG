@@ -18,7 +18,7 @@ var nextLevelExp = buffer_read(argument0, buffer_u16);
 
 show_debug_message("CBF: " + string(name) + " | " + string(level) + " | " + string(race) + " | ");
 
-global.playerOnline = instance_create( -1000, -1000, obj_player);
+global.playerOnline = instance_create( -1000, -1000, obj_Player);
 
 with( global.playerOnline ) {
     self.name = name;
