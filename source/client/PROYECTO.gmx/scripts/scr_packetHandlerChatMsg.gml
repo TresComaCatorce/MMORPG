@@ -9,7 +9,7 @@ if( isBoolTrue(message_accepted) &&
     string_length(message_text) > 0 )
 {
     //Se utiliza la instancia del objeto "obj_Chat_Msg_Ingame" asociada al player.
-    with( obj_player.chatMsgsIngame ) {
+    with( obj_Player.chatMsgsIngame ) {
         /*
         if( !ds_exists(queueMessages, ds_type_queue) ) {
             queueMessages = ds_queue_create();
@@ -22,9 +22,9 @@ if( isBoolTrue(message_accepted) &&
     }    
     
     //Se utiliza la instancia del objeto "obj_Chat_History".
-    with( obj_player.guiManagerInstance.chatHistory )
+    with( obj_Player.guiManagerInstance.chatHistory )
     {
         //messages
-        ds_list_add( messages, obj_player.name + ": " + other.message_text );
+        ds_list_add( messages, obj_Player.name + ": " + other.message_text );
     }
 }

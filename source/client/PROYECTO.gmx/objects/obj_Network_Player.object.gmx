@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>/// Creación de variables
 
+event_inherited();
+
 //Nombre del personaje.
 self.name = noone;
 

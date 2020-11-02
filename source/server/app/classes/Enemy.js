@@ -93,12 +93,11 @@ module.exports = Enemy = class Enemy extends Entity {
 		const entityObj = Config.entities.getEntityById( this.getId() );
 		if( entityObj ) {
 			const { minHp, maxHp } = entityObj;
-			const hpParams = {
+			this.#setHP( new HPFunctionality({
 				rangeMinHP: minHp,
 				rangeMaxHP: maxHp,
 				onDeadEvent: this.#onDeadEvent.bind(this)
-			};
-			this.#setHP( new HPFunctionality(hpParams) );
+			}) );
 		}
 		else {
 			throw( new Error(` Enemy.js | entityId: '${this.getId()}' not found in <entities.json> file.`) );
@@ -136,7 +135,7 @@ module.exports = Enemy = class Enemy extends Entity {
 		});
 	}
 
-	// Send S_ENEMY_SPAWN packet to nearby clients
+	// Send S_ENEMY_SPAWN packet to nearby clients.
 	#sendSpawnPacket() {
 		this.#broadcastNearbyCharacters([
 			Constants.PACKETS.S_ENEMY_SPAWN,
@@ -146,6 +145,14 @@ module.exports = Enemy = class Enemy extends Entity {
 			this.getPosition().getY(),
 			this.getPosition().getDirection(),
 			this.getHP().getMaxHP()
+		]);
+	}
+
+	// Send S_ENEMY_DEATH packet to nearby clients.
+	#sendDeathPacket() {
+		this.#broadcastNearbyCharacters([
+			Constants.PACKETS.S_ENEMY_DEATH,
+			this.getUId()
 		]);
 	}
 	
@@ -159,6 +166,7 @@ module.exports = Enemy = class Enemy extends Entity {
 	#onDeadEvent() {
 		this.#removeFromWorld();
 		this.#getExternalOnDeadEvent()(this);
+		this.#sendDeathPacket();
 	}
 
 	#programmedDeath() {

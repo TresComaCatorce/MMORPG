@@ -272,7 +272,7 @@ var attributes = ds_list_create();
 var msgTypeCode = scr_getTypeMsgCode(typeMsg);
 
 ds_list_add(    attributes,
-                obj_player.name,
+                obj_Player.name,
                 text,
                 msgTypeCode );
 

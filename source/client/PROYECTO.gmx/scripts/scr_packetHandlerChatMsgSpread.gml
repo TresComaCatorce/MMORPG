@@ -27,7 +27,7 @@ if( is_string(message_text) && string_length(message_text) > 0 ) {
     
     
     //Se utiliza la instancia del objeto "obj_Chat_History".
-    with( obj_player.guiManagerInstance.chatHistory )
+    with( obj_Player.guiManagerInstance.chatHistory )
     {
         //messages
         ds_list_add( messages, other.character_name + ": " + other.message_text );
