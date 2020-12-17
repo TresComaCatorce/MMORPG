@@ -79,6 +79,11 @@ switch(command)
         break;
     }
     
+    case "S_ENEMY_UPDATE": {
+        scr_packetHandlerEnemyUpdate( argument0 );
+        break;
+    }
+    
     case "S_ENEMY_DEATH": {
         scr_packetHandlerEnemyDeath( argument0 );
         break;
