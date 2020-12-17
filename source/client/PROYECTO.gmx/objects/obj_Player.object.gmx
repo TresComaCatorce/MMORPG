@@ -208,31 +208,6 @@ alarm[0]=10;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Si se esta moviendo se envia update al servidor.
-if( state != global.playerStateIdle )
-{
-    //event_user(0);
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>/// Delete further instances
 
 if( instance_exists(obj_entity) ) {
@@ -329,52 +304,6 @@ if( self.state == global.playerStateIdle )
 {
     self.state = global.playerStateAttacking // Left mouse to attack
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="10">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Send update package to server
-//-----------------------------------------------------------------------------
-// Evento custom que envia el update al servidor de los siguientes atributos:
-// @header [String] Accion a informar, en este caso "POS_UPDATE".
-// @posX [intS32] Nueva posicion X del personaje.
-// @posY [intS32] Nueva posicion Y del personaje.
-// @dir [intS32] Nueva direccion del personaje.
-// @state [String] Nuevo 'state' del personaje.
-//
-// Se llama en:
-//      -Al presionar la W para mover el personaje.
-//-----------------------------------------------------------------------------
-/*
-var packetName = "C_UPDATE";
-var attributes = ds_list_create();
-
-ds_list_add(    attributes,
-                self.x,
-                self.y,
-                self.dir,
-                self.state );
-
-scr_sendPacket( packetName, attributes );
-*/
 </string>
           </argument>
         </arguments>
@@ -532,31 +461,6 @@ if( option&gt;=3 ) {
         self.currentHp = self.maxHp;
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="69">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Spawn Spider
-
-instance_create( x+200, y+200, obj_spider );
 </string>
           </argument>
         </arguments>
