@@ -6,7 +6,7 @@
 				{
 					"entityId": "SPIDER",
 					"quantity": 3,
-					"interval": 5000,
+					"interval": 10000,
 					"maxDistance": 100,
 					"x1": 500,
 					"y1": 500,

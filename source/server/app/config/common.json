@@ -10,6 +10,7 @@
         },
 		"port": "8083",
 		"character_update_interval_time": 100,
+		"enemy_update_interval_time": 100,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500
@@ -44,7 +45,8 @@
             "rooms": "rooms"
         },
 		"port": "8082",
-		"character_update_interval_time": 250,
+		"character_update_interval_time": 100,
+		"enemy_update_interval_time": 100,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500
@@ -71,7 +73,8 @@
             "rooms": "rooms"
         },
 		"port": "8081",
-		"character_update_interval_time": 250,
+		"character_update_interval_time": 100,
+		"enemy_update_interval_time": 100,
 		"nearby_distance": {
 			"horizontal": 500,
 			"vertical": 500

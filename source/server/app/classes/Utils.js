@@ -36,6 +36,14 @@ module.exports = class Utils {
 		return (Array.isArray(value) && value.length>0);
 	}
 
+	isValidPlayerState(value) {
+		console.log("CBF Constants: ", Constants.STATES.CHARACTER);
+		return true;
+	}
 
+	isValidEnemyState(value) {
+		console.log("CBF Constants: ", Constants.STATES.ENEMY);
+		return true;
+	}
 
 }

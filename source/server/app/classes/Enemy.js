@@ -19,20 +19,24 @@ module.exports = Enemy = class Enemy extends Entity {
 
 	//#region CLASS FIELDS DECLARATION
 	#position;
+	#state;
 	#HP;
 	#spawnerAsociated;
 	#externalOnDeadEvent;
+	#updateDaemon
 	//#endregion
 
 
 
 	//#region CONSTRUCTOR
 	constructor( params={} ) {
-		const { id, x, y, roomCode, direction, spawnerAsociated, onDeadEvent=()=>{} } = params;
+		const { id, x, y, state=Constants.STATES.ENEMY.IDLE, roomCode, direction, spawnerAsociated, onDeadEvent=()=>{} } = params;
 		super({ id });
 		this.#setPosition( new Position({ x, y, roomCode, direction }) );
+		this.#setState(state);
 		this.#setSpawnerAsociated(spawnerAsociated);
 		this.#setExternalOnDeadEvent(onDeadEvent);
+		this.#setUpdateDaemon( this.#initUpdateDaemon() );
 		this.#init();
 	}
 	//#endregion
@@ -46,6 +50,15 @@ module.exports = Enemy = class Enemy extends Entity {
 	#setPosition( value ) {
 		if( value instanceof Position ) {
 			this.#position = value;
+		}
+	}
+	
+	getState() {
+		return this.#state;
+	}
+	#setState( value ) {
+		if( Utils.isValidEnemyState(value) ) {
+			this.#state = value;
 		}
 	}
 
@@ -66,12 +79,22 @@ module.exports = Enemy = class Enemy extends Entity {
 			this.#spawnerAsociated = value;
 		}
 	}
+	
 	#getExternalOnDeadEvent() {
 		return this.#externalOnDeadEvent;
 	}
 	#setExternalOnDeadEvent( value ) {
 		if( typeof value == 'function' ) {
 			this.#externalOnDeadEvent = value;
+		}
+	}
+	
+	#getUpdateDaemon() {
+		return this.#updateDaemon;
+	}
+	#setUpdateDaemon( value ) {
+		if( Utils.exist(value) ) {
+			this.#updateDaemon = value;
 		}
 	}
 	//#endregion
@@ -164,15 +187,44 @@ module.exports = Enemy = class Enemy extends Entity {
 
 	// Event who runs when the enemy die.
 	#onDeadEvent() {
+		this.#clearUpdateDaemon();
 		this.#removeFromWorld();
 		this.#getExternalOnDeadEvent()(this);
 		this.#sendDeathPacket();
 	}
 
+	// Send a update request
+	#sendUpdateRequest() {
+		const updateData = [
+			Constants.PACKETS.S_ENEMY_UPDATE,
+			this.getUId(),
+			this.getId(),
+			this.getPosition().getX(),
+			this.getPosition().getY(),
+			this.getPosition().getDirection(),
+			this.getState(),
+			this.getHP().getCurrentHP(),
+			this.getHP().getMaxHP()
+		];
+
+		this.#broadcastNearbyCharacters(updateData);
+	}
+
+	// Init the update daemon of this enemy.
+	#initUpdateDaemon() {
+		return setInterval( () => this.#sendUpdateRequest(), Config.common.enemy_update_interval_time );
+	}
+
+	// Clear the update daemon of this enemy.
+	#clearUpdateDaemon() {
+		clearInterval(this.#getUpdateDaemon());
+	}
+
 	#programmedDeath() {
+		const timeToDeath = 60000;//_.random( 1000, 60000 );
 		setTimeout( () => {
 			this.getHP().receiveDamage( 20 );
-		}, _.random( 1000, 5000 ));
+		}, timeToDeath );
 	}
 	//#endregion
 

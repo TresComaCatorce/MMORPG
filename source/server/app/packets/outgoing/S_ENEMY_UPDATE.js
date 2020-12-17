@@ -1,13 +1,13 @@
 /*
     Project: MMORPGServer
-    Date: 25/09/2020
+    Date: 17/12/2020
     Author: Cristian Ferrero
 
-	Description: Packet "S_ENEMY_SPAWN"
+	Description: Packet "S_ENEMY_UPDATE"
 
 */
 
-module.exports = packet_S_ENEMY_SPAWN = {
+module.exports = packet_S_ENEMY_UPDATE = {
 	packetDataTypes: [
 		String, // Packet name
 		String, // uuId
@@ -15,6 +15,8 @@ module.exports = packet_S_ENEMY_SPAWN = {
 		Number, // Coord X
 		Number, // Coord Y
 		Number, // Direction
-		Number  // Max HP
+		String, // State
+		Number, // Current HP
+		Number, // Max HP
 	]
 };
