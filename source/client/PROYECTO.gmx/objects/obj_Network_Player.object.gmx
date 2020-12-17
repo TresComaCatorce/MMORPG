@@ -93,9 +93,13 @@ new_y = y;
 
 //Objeto que muestra los mensajes de chat ingame
 self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
+self.chatMsgsIngame.playerOwner = self;
+
+/*
 with( self.chatMsgsIngame ) {
     self.playerOwner = other;
 }
+*/
 </string>
           </argument>
         </arguments>

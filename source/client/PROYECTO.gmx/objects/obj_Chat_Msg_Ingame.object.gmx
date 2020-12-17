@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion de variables
+            <string>/// Variables declaration
 
 // Personaje al que pertenece este objeto
 self.playerOwner = noone;
