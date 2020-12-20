@@ -8,13 +8,13 @@ if( isBoolTrue(message_accepted) &&
     is_string(message_text) &&
     string_length(message_text) > 0 )
 {
-    //Se utiliza la instancia del objeto "obj_Chat_Msg_Ingame" asociada al player.
+    //Se utiliza la instancia del objeto "obj_chatMessageIngame" asociada al player.
     ds_queue_enqueue( global.playerOnline.chatMsgsIngame.queueMessages, other.message_text );
     with( global.playerOnline.chatMsgsIngame ) {
         event_user(0);
     }
     
-    //Se utiliza la instancia del objeto "obj_Chat_History".
+    //Se utiliza la instancia del objeto "obj_chatHistory".
     ds_list_add(
         global.playerOnline.guiManagerInstance.chatHistory.messages,
         global.playerOnline.name + ": " + other.message_text

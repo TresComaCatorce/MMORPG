@@ -28,13 +28,16 @@
             <string>/// Create instances of asociate objects
 
 // Chat history
-self.chatHistory = instance_create( 0, 0, obj_Chat_History );
+self.chatHistory = instance_create( 0, 0, obj_chatHistory );
 
 // Coordinates
-self.coords = instance_create( 0, 0, obj_Coords );
+self.coords = instance_create( 0, 0, obj_coords );
 
 // Character GUI
 self.characterGui = instance_create( 0, 0, obj_characterGui );
+
+// Text input instance
+self.textInputInstance = noone;
 </string>
           </argument>
         </arguments>
@@ -101,7 +104,7 @@ if( instance_exists(self.characterGui) ) {
             <kind>1</kind>
             <string>///Se abre el input de chat ingame.
 
-if( instance_exists(obj_Chat_Input) ) {
+if( instance_exists(obj_chatInput) ) {
     instance_destroy( textInputInstance );
     
     //Se oculta el fondo del historial de chat
@@ -109,7 +112,7 @@ if( instance_exists(obj_Chat_Input) ) {
 }
 else {
     //Se crea la instancia del input de chat y se corrige el offset del texto.
-    textInputInstance = instance_create( 0, 0, obj_Chat_Input );
+    textInputInstance = instance_create( 0, 0, obj_chatInput );
     
     //Se muestra el fondo del historial de chat
     chatHistory.showBackground = true;

@@ -264,25 +264,21 @@
     </objects>
     <objects name="GUI">
       <objects name="Chat">
-        <object>objects\obj_Chat_Input</object>
-        <object>objects\obj_Chat_Msg_Ingame</object>
-        <object>objects\obj_Chat_Type_Button</object>
-        <object>objects\obj_Chat_History</object>
+        <object>objects\obj_chatInput</object>
+        <object>objects\obj_chatMessageIngame</object>
+        <object>objects\obj_chatTypeButton</object>
+        <object>objects\obj_chatHistory</object>
       </objects>
-      <object>objects\obj_Player_Name_Box</object>
+      <object>objects\obj_characterNameBox</object>
       <object>objects\obj_GUI_Manager</object>
-      <object>objects\obj_Coords</object>
+      <object>objects\obj_coords</object>
       <object>objects\obj_characterGui</object>
     </objects>
     <objects name="Entities">
-      <objects name="Characters">
-        <object>objects\obj_Player</object>
-        <object>objects\obj_Network_Player</object>
-      </objects>
-      <objects name="Enemies">
-        <object>objects\obj_spider</object>
-      </objects>
       <object>objects\obj_entity</object>
+      <object>objects\obj_character</object>
+      <object>objects\obj_networkCharacter</object>
+      <object>objects\obj_enemy</object>
     </objects>
     <object>objects\obj_point</object>
   </objects>

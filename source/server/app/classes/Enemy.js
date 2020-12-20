@@ -221,7 +221,7 @@ module.exports = Enemy = class Enemy extends Entity {
 	}
 
 	#programmedDeath() {
-		const timeToDeath = 60000;//_.random( 1000, 60000 );
+		const timeToDeath = 15000;//_.random( 1000, 60000 );
 		setTimeout( () => {
 			this.getHP().receiveDamage( 20 );
 		}, timeToDeath );

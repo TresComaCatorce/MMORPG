@@ -92,7 +92,7 @@ module.exports = PacketManager = class PacketManager {
 			const packetName = packetData[0];
 			const packetHandler = global[`packet_${packetName}`];
 
-			( packetName!='S_UPDATE' && packetName!='S_UPDATE_SPREAD' && packetName!='S_CON_CHECK' )
+			( packetName!='S_UPDATE' && packetName!='S_UPDATE_SPREAD' && packetName!='S_CON_CHECK' && packetName!='S_ENEMY_UPDATE' )
 			?
 				console.log('CBF sendpacket: ', packetData)
 			: undefined;

@@ -27,7 +27,10 @@
             <kind>1</kind>
             <string>/// Variables declaration
 event_inherited();
+
 self.maxHP = noone;
+self.currentHP = noone;
+
 image_speed = 0.15;
 </string>
           </argument>

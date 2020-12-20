@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>-1</persistent>
-  <parentName>self</parentName>
+  <parentName>obj_entity</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -115,7 +115,7 @@ alarm[0]=10
             <string>/// Asociated objects instances
 
 // Chat messages ingame (over the player)
-self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
+self.chatMsgsIngame = instance_create( x, y, obj_chatMessageIngame );
 with( self.chatMsgsIngame ) {
     self.playerOwner = other;
 }
@@ -214,7 +214,7 @@ if( instance_exists(obj_entity) ) {
     var furtherInstance = instance_furthest(x, y, obj_entity);
     var distanceBetween = distance_to_object(furtherInstance);
     
-    if( distanceBetween &gt; ENTITIES_RENDER_DISTANCE ) {
+    if( furtherInstance != self &amp;&amp; distanceBetween &gt; ENTITIES_RENDER_DISTANCE ) {
         instance_destroy(furtherInstance);
     }
 }
