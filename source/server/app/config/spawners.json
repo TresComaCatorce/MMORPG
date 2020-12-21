@@ -5,8 +5,8 @@
 			"spawnSpots": [
 				{
 					"entityId": "SPIDER",
-					"quantity": 3,
-					"interval": 10000,
+					"quantity": 2,
+					"interval": 3000,
 					"maxDistance": 100,
 					"x1": 500,
 					"y1": 500,

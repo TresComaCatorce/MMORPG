@@ -28,10 +28,35 @@
             <string>/// Variables declaration
 event_inherited();
 
-self.maxHP = noone;
+self.state = global.enemyStateIdle;
 self.currentHP = noone;
+self.maxHP = noone;
 
 image_speed = 0.15;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Drop some blood
+scr_createBloodParticles(x, y, 3, 6);
 </string>
           </argument>
         </arguments>
@@ -122,6 +147,97 @@ else if( self.y &lt; self.yprevious )
         sprite_index = spr_spider_walk_up;
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Draw self
+draw_self();
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Draw HP Bar
+
+// HP variables
+var currentHealthPoints = real(self.currentHP);
+var maxHealthPoints = real(self.maxHP);
+var hpDivided = currentHealthPoints/maxHealthPoints;
+
+// Bar variables
+var barWidth = 70;
+var barHeight = 6;
+var barOffSetX = (barWidth/2);
+var barOffSetY = 45;
+
+// Text variables
+var textScale = .7;
+var textValue = string(self.currentHP)+"/"+string(self.maxHP);
+var textWidht = string_width(textValue) * textScale;
+var textHeight = string_height(textValue) * textScale;
+var textOffSetX = (textWidht/2);
+var textOffSetY = barOffSetY + textHeight;
+
+depth= -500;
+
+// Draw gray text background
+draw_set_color(c_black);
+draw_set_alpha(.2);
+draw_rectangle(x-barOffSetX, y-textOffSetY, x-barOffSetX+barWidth, y-textOffSetY+textHeight, false);
+draw_set_alpha(1);
+
+// Draw black bar background
+var yRectangle = (y-barOffSetY+barHeight);
+draw_rectangle( x-barOffSetX, y-barOffSetY, x-barOffSetX+barWidth, yRectangle, false);
+
+
+// Draw green rectangle
+draw_set_colour(c_green);
+var xHpRelative = (x-barOffSetX + (hpDivided*barWidth) );
+draw_rectangle( x-barOffSetX , y-barOffSetY, xHpRelative, yRectangle, false);
+
+// Draw black border
+draw_set_color(c_black);
+draw_rectangle( x-barOffSetX, y-barOffSetY, x-barOffSetX+barWidth, yRectangle, true);
+
+// Draw text
+draw_set_color(c_white);
+draw_text_transformed(x-textOffSetX, y-textOffSetY, textValue, textScale, textScale, 0);
+
 </string>
           </argument>
         </arguments>

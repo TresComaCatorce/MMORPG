@@ -88,7 +88,7 @@ dir = 0;
 spd = walkSpd; 
 
 // Sprite depth
-depth = -500;
+depth = -400;
 
 // Send new position to the server
 alarm[0]=10
@@ -212,7 +212,8 @@ alarm[0]=10;
 
 if( instance_exists(obj_entity) ) {
     var furtherInstance = instance_furthest(x, y, obj_entity);
-    var distanceBetween = distance_to_object(furtherInstance);
+    //var distanceBetween = distance_to_object(furtherInstance);
+    var distanceBetween = point_distance( x, y, furtherInstance.x, furtherInstance.y );
     
     if( furtherInstance != self &amp;&amp; distanceBetween &gt; ENTITIES_RENDER_DISTANCE ) {
         instance_destroy(furtherInstance);

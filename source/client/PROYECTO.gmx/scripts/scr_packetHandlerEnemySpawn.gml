@@ -7,9 +7,11 @@ var coorY = buffer_read( argument0, buffer_u16 );
 var enemyDirection = buffer_read( argument0, buffer_u16 );
 var maxHP = buffer_read( argument0, buffer_u16 );
 
-show_debug_message("ENEMY_SPAWNED : " + string(enemyId) + " | X: " + string(coorX) + " Y: " + string(coorY) + " | uId: " + string(uId));
+show_debug_message("ENEMY_SPAWNED : " + string(enemyId) + " | X: " + string(coorX) + " Y: " + string(coorY) + " | HP: " + string(maxHP)+ " | uId: " + string(uId));
 
 with( instance_create( coorX, coorY, obj_enemy) ) {
     self.uId = uId;
+    self.entityId = enemyId;
+    self.currentHP = maxHP;
     self.maxHP = maxHP;
 }

@@ -145,6 +145,9 @@
       <sprite>sprites\spr_username_text_input</sprite>
       <sprite>sprites\spr_password_text_input</sprite>
     </sprites>
+    <sprites name="Effects">
+      <sprite>sprites\spr_bloodParticle</sprite>
+    </sprites>
     <sprite>sprites\spr_point</sprite>
     <sprite>sprites\spr_toDelete</sprite>
   </sprites>
@@ -209,6 +212,9 @@
       <script>scripts\scr_getRoomName.gml</script>
       <script>scripts\scr_destroyAllInstances.gml</script>
       <script>scripts\scr_generateRandom.gml</script>
+    </scripts>
+    <scripts name="Effects">
+      <script>scripts\scr_createBloodParticles.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -279,6 +285,9 @@
       <object>objects\obj_character</object>
       <object>objects\obj_networkCharacter</object>
       <object>objects\obj_enemy</object>
+    </objects>
+    <objects name="Effects">
+      <object>objects\obj_bloodParticle</object>
     </objects>
     <object>objects\obj_point</object>
   </objects>

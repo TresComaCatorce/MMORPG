@@ -92,10 +92,14 @@ module.exports = PacketManager = class PacketManager {
 			const packetName = packetData[0];
 			const packetHandler = global[`packet_${packetName}`];
 
-			( packetName!='S_UPDATE' && packetName!='S_UPDATE_SPREAD' && packetName!='S_CON_CHECK' && packetName!='S_ENEMY_UPDATE' )
-			?
-				console.log('CBF sendpacket: ', packetData)
-			: undefined;
+			if( packetName!='S_UPDATE' && packetName!='S_UPDATE_SPREAD' && packetName!='S_CON_CHECK' && packetName!='S_ENEMY_UPDATE' ) {
+				if(packetName=='S_ENEMY_SPAWN' || packetName=='S_ENEMY_DEATH') {
+					console.log(`CBF sendpacket | ${packetData[0]} | ${packetData[2]} | ${packetData[1]}`);
+				}
+				else {
+					console.log('CBF sendpacket: ', packetData)
+				}
+			}
 
 			if( Utils.exist(packetHandler) ) {
 				if( !packetHandler.checkDataTypes || Utils.Utils.isNotEmptyArray(packetHandler.packetDataTypes) ) {

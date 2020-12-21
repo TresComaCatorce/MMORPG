@@ -37,13 +37,24 @@ module.exports = class Utils {
 	}
 
 	isValidPlayerState(value) {
-		console.log("CBF Constants: ", Constants.STATES.CHARACTER);
+		// console.log("CBF Constants: ", Constants.STATES.CHARACTER);
 		return true;
 	}
 
 	isValidEnemyState(value) {
-		console.log("CBF Constants: ", Constants.STATES.ENEMY);
+		// console.log("CBF Constants: ", Constants.STATES.ENEMY);
 		return true;
 	}
 
+	getDistanceBetweenPoints({x1, y1, x2, y2}) {
+		if( isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) ) {
+			throw new Error(`Attempt to calculate between invalid points | P1: x->${x1} y->${y1} P2: x->${x2} y->${y2}`);
+		}
+
+		const distXPow2 = Math.pow( Math.abs( x1 - x2 ), 2 );
+		const distYPow2 = Math.pow( Math.abs( y1 - y2 ), 2 );
+		const summation = distXPow2 + distYPow2;
+
+		return Math.pow(summation, .5);
+	}
 }

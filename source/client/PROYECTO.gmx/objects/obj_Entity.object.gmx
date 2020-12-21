@@ -28,6 +28,10 @@
             <string>/// Variables declaration
 
 self.uId = noone;
+self.entityId = noone;
+self.name = noone;
+self.typeId = noone;
+self.typeName = noone;
 </string>
           </argument>
         </arguments>

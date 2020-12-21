@@ -73,12 +73,12 @@ switch(command)
         scr_packetHandlerCharacterConnect( argument0 );
         break;
     }
-    
+    /*
     case "S_ENEMY_SPAWN": {
         scr_packetHandlerEnemySpawn( argument0 );
         break;
     }
-    
+    */
     case "S_ENEMY_UPDATE": {
         scr_packetHandlerEnemyUpdate( argument0 );
         break;
