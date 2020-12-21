@@ -3,10 +3,11 @@
 
 //Enemies
 //Posible states of enemies
-global.enemyStateWalking = "state_enemy_walking";
-global.enemyStateIdle = "state_enemy_idle";
-global.enemyStateRunning = "state_enemy_running";
-global.enemyStateAttacking = "state_enemy_attacking";
+global.enemyStateIdle = "STATE_ENEMY_IDLE";
+global.enemyStateWalking = "STATE_ENEMY_WALKING";
+global.enemyStateRunning = "STATE_ENEMY_RUNNING";
+global.enemyStateHitting = "STATE_ENEMY_ATTACKING";
+global.enemyStateDead = "STATE_ENEMY_DEAD";
 
 //Player
 //Posible states of player

@@ -52,14 +52,12 @@
             <string>depth=-y*2
 draw_sprite(spr_DoorLeftWall,frm,x,y)
 
-if point_distance(x,y,obj_Player.x,obj_Player.y)&lt;50
-    {
+if( point_distance( x, y, obj_character.x, obj_character.y ) &lt; 50 ) {
     if frm&lt;2 frm+=0.25
-    }
-else    
-    {
+}
+else {
     if frm&gt;0 frm-=0.5
-    }
+}
 
  
 </string>

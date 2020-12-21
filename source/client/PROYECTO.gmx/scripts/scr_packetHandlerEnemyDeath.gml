@@ -1,11 +1,13 @@
 /// scr_packetHandlerEnemyDeath( dataFromServer );
 
-var uIdToKill = buffer_read( argument0, buffer_u16 );
+var uIdToKill = buffer_read( argument0, buffer_string );
 var i;
 
-for( i = 0; i < instance_number(obj_spider); i += 1 ) {
-    var spiderInstance = instance_find(obj_spider,i);
-    if( spiderInstance.uId == uIdToKill) {
-        instance_destroy(spiderInstance);   
+show_debug_message("Enemy DEATH: " + string(uIdToKill));
+
+for( i = 0; i < instance_number(obj_entity); i += 1 ) {
+    var enemyEntity = instance_find(obj_entity,i);
+    if( enemyEntity.uId == uIdToKill) {
+        instance_destroy(enemyEntity);   
     }
 }

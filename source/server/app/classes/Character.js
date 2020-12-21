@@ -24,6 +24,7 @@ module.exports = Character = class Character extends Entity {
 	//#region CLASS FIELDS DECLARATION
 	#accountSlot;
 	#position;
+	#state;
 	#HP;
 	#mana
 	#race;
@@ -38,7 +39,7 @@ module.exports = Character = class Character extends Entity {
 
 	//#region CONSTRUCTOR
 	constructor( characterData ) {
-		const { socket, _id, name, race, level, roomCode, x, y, accountSlot,
+		const { socket, _id, name, race, level, roomCode, x, y, accountSlot, state=Constants.STATES.CHARACTER.IDLE,
 			currentExp, nextLevelExp, currentHP, maxHP, currentMana, maxMana, currentStamina, maxStamina,
 			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness,
 			} = characterData;
@@ -50,6 +51,7 @@ module.exports = Character = class Character extends Entity {
 		});
 
 		this.#setAccountSlot( accountSlot );
+		this.#setState( state );
 		this.#setPosition( new Position({ x, y, roomCode, direction: -1 }) );
 		this.#setHP( new HPFunctionality({ currentHP, maxHP }) );
 		this.#setSocket( socket );
@@ -79,6 +81,15 @@ module.exports = Character = class Character extends Entity {
 	#setPosition( value ) {
 		if( value instanceof Position ) {
 			this.#position = value;
+		}
+	}
+	
+	getState() {
+		return this.#state;
+	}
+	#setState( value ) {
+		if( Utils.isValidPlayerState(value) ) {
+			this.#state = value;
 		}
 	}
 

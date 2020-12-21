@@ -9,7 +9,7 @@
 
 module.exports = packet_S_ENEMY_DEATH = {
 	packetDataTypes: [
-		String,
-		Number
+		String, // Packet name
+		String	// uuId
 	]
 };

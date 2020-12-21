@@ -229,7 +229,7 @@ module.exports = Spawner = class Spawner {
 		if( entityToRemove instanceof Entity ) {
 			const newEntitiesSpawned = this.getEntitiesSpawned().filter( item => item!=entityToRemove );
 			this.#setEntitiesSpawned( newEntitiesSpawned );
-			console.log("CBF realEntitiesSpawned: ", this.getEntitiesSpawned());
+			// console.log("CBF realEntitiesSpawned: ", this.getEntitiesSpawned());
 		}
 		else {
 			throw( new Error(`Spawner.js | Attempt to remove a non 'Entity' object fom 'entitiesSpawned'.`) );

@@ -145,6 +145,9 @@
       <sprite>sprites\spr_username_text_input</sprite>
       <sprite>sprites\spr_password_text_input</sprite>
     </sprites>
+    <sprites name="Effects">
+      <sprite>sprites\spr_bloodParticle</sprite>
+    </sprites>
     <sprite>sprites\spr_point</sprite>
     <sprite>sprites\spr_toDelete</sprite>
   </sprites>
@@ -175,6 +178,7 @@
           <script>scripts\scr_packetHandlerUpdate.gml</script>
           <script>scripts\scr_packetHandlerUpdateSpread.gml</script>
           <script>scripts\scr_packetHandlerEnemySpawn.gml</script>
+          <script>scripts\scr_packetHandlerEnemyUpdate.gml</script>
           <script>scripts\scr_packetHandlerEnemyDeath.gml</script>
         </scripts>
         <script>scripts\scr_handlePacket.gml</script>
@@ -208,6 +212,9 @@
       <script>scripts\scr_getRoomName.gml</script>
       <script>scripts\scr_destroyAllInstances.gml</script>
       <script>scripts\scr_generateRandom.gml</script>
+    </scripts>
+    <scripts name="Effects">
+      <script>scripts\scr_createBloodParticles.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -263,25 +270,24 @@
     </objects>
     <objects name="GUI">
       <objects name="Chat">
-        <object>objects\obj_Chat_Input</object>
-        <object>objects\obj_Chat_Msg_Ingame</object>
-        <object>objects\obj_Chat_Type_Button</object>
-        <object>objects\obj_Chat_History</object>
+        <object>objects\obj_chatInput</object>
+        <object>objects\obj_chatMessageIngame</object>
+        <object>objects\obj_chatTypeButton</object>
+        <object>objects\obj_chatHistory</object>
       </objects>
-      <object>objects\obj_Player_Name_Box</object>
+      <object>objects\obj_characterNameBox</object>
       <object>objects\obj_GUI_Manager</object>
-      <object>objects\obj_Coords</object>
+      <object>objects\obj_coords</object>
       <object>objects\obj_characterGui</object>
     </objects>
     <objects name="Entities">
-      <objects name="Characters">
-        <object>objects\obj_Player</object>
-        <object>objects\obj_Network_Player</object>
-      </objects>
-      <objects name="Enemies">
-        <object>objects\obj_spider</object>
-      </objects>
-      <object>objects\obj_Entity</object>
+      <object>objects\obj_entity</object>
+      <object>objects\obj_character</object>
+      <object>objects\obj_networkCharacter</object>
+      <object>objects\obj_enemy</object>
+    </objects>
+    <objects name="Effects">
+      <object>objects\obj_bloodParticle</object>
     </objects>
     <object>objects\obj_point</object>
   </objects>
@@ -294,6 +300,9 @@
       <room>rooms\rom_market_town</room>
     </rooms>
   </rooms>
+  <constants number="1">
+    <constant name="ENTITIES_RENDER_DISTANCE">500</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>

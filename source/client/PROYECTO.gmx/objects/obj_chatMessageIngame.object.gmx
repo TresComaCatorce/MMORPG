@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inicializacion de variables
+            <string>/// Variables declaration
 
 // Personaje al que pertenece este objeto
 self.playerOwner = noone;
@@ -141,33 +141,6 @@ if( !alarmExecuting )
           <argument>
             <kind>1</kind>
             <string>///Se dibuja el texto
-/*
-auxName = "";
-auxSize = 999;
-auxHead = "";
-auxTail = "";
-with( playerOwner ) {
-    other.auxName = name;
-}
-if( ds_exists(queueMessages, ds_type_queue) ) {
-    auxSize = ds_queue_size(queueMessages)
-    if( auxSize&gt;=1 ) {
-        auxHead = ds_queue_tail(queueMessages);
-        if( auxSize&gt;=2 ){
-            auxTail = ds_queue_head(queueMessages);
-        }
-    }
-}
-
-show_debug_message( "----------------------------------------------");
-show_debug_message( "Draw " + auxName );
-show_debug_message( "ID: " + string(queueMessages) );
-show_debug_message( "Size: " + string(auxSize) );
-show_debug_message( "Head: " + auxHead );
-show_debug_message( "Tail: " + auxTail );
-show_debug_message( "----------------------------------------------");
-*/
-
 
 if( ds_exists(queueMessages, ds_type_queue) )
 {

@@ -18,12 +18,11 @@ if( characters_created>0 ) {
         var character_account_slot = buffer_read(argument0, buffer_u16);
         var character = instance_create( -1000, -1000, obj_characterPreview );
         
-        with( character ) {
-            self.name = character_name;
-            self.race = character_race;
-            self.level = character_level;
-            self.slotNumber = character_account_slot;
-        }
+        character.name = character_name;
+        character.race = character_race;
+        character.level = character_level;
+        character.slotNumber = character_account_slot;
+        
         ds_list_add( global.accountCharacters, character );
     }
 }

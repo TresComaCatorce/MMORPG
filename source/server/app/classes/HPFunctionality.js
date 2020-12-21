@@ -161,7 +161,7 @@ module.exports = HPFunctionality = class HPFunctionality {
 				if( damageToReceive>=0 ) {
 					if( this.isAlive() ) {
 						let auxNewCurrentHP = this.getCurrentHP() - damageToReceive;
-						console.log(`HPFunctionality.js | receiveDamage | damageToReceive: ${damageToReceive} | ${this.getCurrentHP()}/${this.getMaxHP()} -> ${auxNewCurrentHP<0?0:auxNewCurrentHP}/${this.getMaxHP()}`);
+						// console.log(`HPFunctionality.js | receiveDamage | damageToReceive: ${damageToReceive} | ${this.getCurrentHP()}/${this.getMaxHP()} -> ${auxNewCurrentHP<0?0:auxNewCurrentHP}/${this.getMaxHP()}`);
 						this.#setCurrentHP( auxNewCurrentHP );
 						returnValue = this.getCurrentHP();
 					}

@@ -6,7 +6,7 @@ message_type = buffer_read( argument0, buffer_u16 );
 
 
 if( is_string(message_text) && string_length(message_text) > 0 ) {
-    with(obj_Network_Player) {
+    with(obj_networkCharacter) {
         show_debug_message("CBF net player: " + name + " | other name: " + other.character_name );
         tempMessageText = other.message_text;
         if( name == other.character_name ) {
@@ -26,8 +26,8 @@ if( is_string(message_text) && string_length(message_text) > 0 ) {
     }
     
     
-    //Se utiliza la instancia del objeto "obj_Chat_History".
-    with( obj_Player.guiManagerInstance.chatHistory )
+    //Se utiliza la instancia del objeto "obj_chatHistory".
+    with( obj_character.guiManagerInstance.chatHistory )
     {
         //messages
         ds_list_add( messages, other.character_name + ": " + other.message_text );
