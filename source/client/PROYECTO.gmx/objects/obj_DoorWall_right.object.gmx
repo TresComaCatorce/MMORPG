@@ -49,16 +49,18 @@
           <argument>
             <kind>1</kind>
             <string>depth=-y*2
-draw_sprite(spr_doorWallRight,frm,x,y)
+draw_sprite(spr_doorWallRight, frm, x, y)
 
-if point_distance(x,y,obj_player.x,obj_player.y)&lt;50
-    {
-    if frm&lt;2 frm+=0.25
+if( point_distance(x,y,obj_character.x,obj_character.y)&lt;50 ){
+    if( frm &lt; 2 ) {
+        frm += 0.25;
     }
-else    
-    {
-    if frm&gt;0 frm-=0.5
+}
+else {
+    if( frm &gt; 0 ) {
+        frm -= 0.5;
     }
+}
 
 
 </string>

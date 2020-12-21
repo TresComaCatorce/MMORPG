@@ -10,10 +10,8 @@
         },
 		"port": "8083",
 		"character_update_interval_time": 100,
-		"nearby_distance": {
-			"horizontal": 500,
-			"vertical": 500
-		},
+		"enemy_update_interval_time": 100,
+		"nearby_distance": 500,
 		"validations": {
 			"account_email": {
 				"regex": "[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+",
@@ -44,11 +42,9 @@
             "rooms": "rooms"
         },
 		"port": "8082",
-		"character_update_interval_time": 250,
-		"nearby_distance": {
-			"horizontal": 500,
-			"vertical": 500
-		},
+		"character_update_interval_time": 100,
+		"enemy_update_interval_time": 100,
+		"nearby_distance": 500,
 		"validations": {
 			"nickname": {
 				"regex": "^[a-z0-9_]{4,12}$",
@@ -71,11 +67,9 @@
             "rooms": "rooms"
         },
 		"port": "8081",
-		"character_update_interval_time": 250,
-		"nearby_distance": {
-			"horizontal": 500,
-			"vertical": 500
-		},
+		"character_update_interval_time": 100,
+		"enemy_update_interval_time": 100,
+		"nearby_distance": 500,
 		"validations": {
 			"nickname": {
 				"regex": "^[a-z0-9_]{4,12}$",

@@ -18,20 +18,19 @@ var nextLevelExp = buffer_read(argument0, buffer_u16);
 
 show_debug_message("CBF: " + string(name) + " | " + string(level) + " | " + string(race) + " | ");
 
-global.playerOnline = instance_create( -1000, -1000, obj_player);
+global.playerOnline = instance_create( -1000, -1000, obj_character);
 
-with( global.playerOnline ) {
-    self.name = name;
-    self.race = race;
-    self.level = level;
-    self.x = pos_x;
-    self.y = pos_y;
-    self.currentHp = currentHp;
-    self.maxHp = maxHp;
-    self.currentMana = currentMana;
-    self.maxMana = maxMana;
-    self.currentExp = currentExp;
-    self.nextLevelExp = nextLevelExp;
-}
+global.playerOnline.name = name;
+global.playerOnline.race = race;
+global.playerOnline.level = level;
+global.playerOnline.x = pos_x;
+global.playerOnline.y = pos_y;
+global.playerOnline.currentHp = currentHp;
+global.playerOnline.maxHp = maxHp;
+global.playerOnline.currentMana = currentMana;
+global.playerOnline.maxMana = maxMana;
+global.playerOnline.currentExp = currentExp;
+global.playerOnline.nextLevelExp = nextLevelExp;
+
 
 room_goto( asset_get_index(current_room_name) );

@@ -16,16 +16,18 @@ module.exports = HPFunctionality = class HPFunctionality {
 	#maxHP;
 	#rangeMinHP;
 	#rangeMaxHP;
+	#onDeadEvent
 	//#endregion
 
 
 
 	//#region CONSTRUCTOR
-	constructor({ currentHP, maxHP, rangeMinHP, rangeMaxHP }) {
+	constructor({ currentHP, maxHP, rangeMinHP, rangeMaxHP, onDeadEvent=()=>{} }) {
 		this.#setCurrentHP( currentHP );
 		this.#setMaxHP( maxHP );
 		this.#setRangeMinHP( rangeMinHP );
 		this.#setRangeMaxHP( rangeMaxHP );
+		this.#setOnDeadEvent( onDeadEvent );
 
 		this.#init();
 	}
@@ -43,6 +45,7 @@ module.exports = HPFunctionality = class HPFunctionality {
 			if( !isNaN(value) ) {
 				const newValue = (value<0) ? 0 : value;
 				this.#currentHP = newValue;
+				(newValue == 0) ? this.#getOnDeadEvent()() : undefined;
 			}
 			else {
 				throw( new Error(` HPFunctionality.js | Attempt to assign 'currentHP' with a NaN value.`) );
@@ -109,6 +112,19 @@ module.exports = HPFunctionality = class HPFunctionality {
 			}
 		}
 	}
+	
+	#getOnDeadEvent() {
+		return this.#onDeadEvent;
+	}
+	
+	#setOnDeadEvent( value ) {
+		if( typeof value == 'function' ) {
+			this.#onDeadEvent = value;
+		}
+		else {
+			throw( new Error(` HPFunctionality.js | Attempt to assign 'onDeadEvent' with a non 'function' value.`) );
+		}
+	}
 	//#endregion
 	
 	
@@ -130,23 +146,35 @@ module.exports = HPFunctionality = class HPFunctionality {
 		}
 	}
 	
+	// 
 	isAlive() {
 		return (this.getCurrentHP()>0);
 	}
 	
-	// Receive damage
+	// Receive damage.
+	// @param <number> 'damageToReceive': HP points to substract to the currentHp.
+	// @return <number|undefined> 'currentHp': HP value after the damage calculation, 'undefined' if is already dead.
 	receiveDamage( damageToReceive ) {
+		let returnValue;
 		if( Utils.exist(damageToReceive) ) {
 			if( !isNaN(damageToReceive) ) {
-				if( this.isAlive() ) {
-					let auxNewCurrentHP = this.getCurrentHP() - damageToReceive;
-					this.#setCurrentHP( auxNewCurrentHP );
+				if( damageToReceive>=0 ) {
+					if( this.isAlive() ) {
+						let auxNewCurrentHP = this.getCurrentHP() - damageToReceive;
+						// console.log(`HPFunctionality.js | receiveDamage | damageToReceive: ${damageToReceive} | ${this.getCurrentHP()}/${this.getMaxHP()} -> ${auxNewCurrentHP<0?0:auxNewCurrentHP}/${this.getMaxHP()}`);
+						this.#setCurrentHP( auxNewCurrentHP );
+						returnValue = this.getCurrentHP();
+					}
+				}
+				else {
+					throw( new Error(` HPFunctionality.js | Attempt to receive damage with a negative value.`) );
 				}
 			}
 			else {
 				throw( new Error(` HPFunctionality.js | Attempt to receive damage with a NaN value.`) );
 			}
 		}
+		return returnValue;
 	}
 	//#endregion
 };

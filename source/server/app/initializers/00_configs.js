@@ -12,7 +12,7 @@ const extend = require('extend');
 //Para darle un valor al argumento 'environment' se debe ejecutar: node server.js --env="production"
 const environment = args.env || 'test';
 
-//Variable "config" general que se va a exportar.
+//Variable 'config' general que se va a exportar.
 //Contiene todas las configuraciones.
 const conf = { 'environment': environment };
 
@@ -33,27 +33,27 @@ const jsonEntitiesParsed = JSON.parse( jsonEntitiesRaw );
 const jsonEntityTypesParsed = JSON.parse( jsonEntityTypesRaw );
 
 
-// "common" configs
+// 'common' configs
 const common = jsonCommonParsed[environment];
 common.data_paths.items = `${appRoot}\\resources\\game_data\\${jsonCommonParsed[environment].data_paths.items}\\`;
 common.data_paths.rooms = `${appRoot}\\resources\\game_data\\${jsonCommonParsed[environment].data_paths.rooms}\\`;
 
-// "dataBase" configs
+// 'dataBase' configs
 const dataBase = jsonDataBaseParsed[environment];
 dataBase.url = `mongodb://${jsonDataBaseParsed[environment].ip}/${jsonDataBaseParsed[environment].name}`;
 
-// "character" configs
+// 'character' configs
 const character = jsonCharacterParsed[environment];
 
-// "spawners" config
+// 'spawners' config
 const spawners = jsonSpawnersParsed[environment];
 
-// "entities" config
+// 'entities' config
 const entities = jsonEntitiesParsed[environment];
 entities.getEntityById = entityId => entities.find( entityObj => entityObj.id == entityId );
 entities.isValidEntity = entityId => !!entities.getEntityById(entityId);
 
-// "entityTypes" config
+// 'entityTypes' config
 const entityTypes = jsonEntityTypesParsed[environment];
 entityTypes.getEntityTypeById = entityTypeId => entityTypes[entityTypeId];
 entityTypes.isValidEntityType = entityTypeId => !!entityTypes.getEntityTypeById(entityTypeId);

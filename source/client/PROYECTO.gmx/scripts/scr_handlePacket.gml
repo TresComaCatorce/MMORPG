@@ -73,22 +73,21 @@ switch(command)
         scr_packetHandlerCharacterConnect( argument0 );
         break;
     }
+    /*
+    case "S_ENEMY_SPAWN": {
+        scr_packetHandlerEnemySpawn( argument0 );
+        break;
+    }
+    */
+    case "S_ENEMY_UPDATE": {
+        scr_packetHandlerEnemyUpdate( argument0 );
+        break;
+    }
     
-    /*case "CREATE_ENEMY":
-        type = buffer_read(argument0, buffer_string);
-        target_room = buffer_read(argument0, buffer_string);
-        target_x = buffer_read(argument0, buffer_u16);
-        target_y = buffer_read(argument0, buffer_u16);
-        direccion = buffer_read(argument0, buffer_u16);
-        
-        //Se mueve al room correspondiente.
-        
-        with( instance_create( target_x, target_y, obj_spider) )
-        {
-            name = other.name;
-        }
-        
-        break;*/
+    case "S_ENEMY_DEATH": {
+        scr_packetHandlerEnemyDeath( argument0 );
+        break;
+    }
 }
 
 

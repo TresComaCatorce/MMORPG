@@ -12,6 +12,7 @@ const colors = require ('colors');
 const net = require('net');
 
 const Client = require('./Client');
+const World = require('./World');
 
 module.exports = Server = class Server {
 

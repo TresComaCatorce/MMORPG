@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>/// Creación de variables
 
+event_inherited();
+
 //Nombre del personaje.
 self.name = noone;
 
@@ -90,10 +92,14 @@ new_y = y;
             <string>/// Objetos asociados
 
 //Objeto que muestra los mensajes de chat ingame
-self.chatMsgsIngame = instance_create( x, y, obj_Chat_Msg_Ingame );
+self.chatMsgsIngame = instance_create( x, y, obj_chatMessageIngame );
+self.chatMsgsIngame.playerOwner = self;
+
+/*
 with( self.chatMsgsIngame ) {
     self.playerOwner = other;
 }
+*/
 </string>
           </argument>
         </arguments>

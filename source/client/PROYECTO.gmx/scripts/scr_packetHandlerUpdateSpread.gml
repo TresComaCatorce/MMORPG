@@ -8,7 +8,7 @@ animacion = buffer_read( argument0, buffer_u16 );
 
 foundPlayer = -1;
 
-with( obj_Network_Player ) {
+with( obj_networkCharacter ) {
     if( name == other.character_name ) {
         other.foundPlayer = id;
         break;
@@ -26,7 +26,7 @@ if( foundPlayer != -1 ) {
 }
 //Si el jugador NO existe en el room
 else {
-    with( instance_create( target_x, target_y, obj_Network_Player) ) {
+    with( instance_create( target_x, target_y, obj_networkCharacter) ) {
         name = other.character_name;
         dir = other.direccion;
         state = other.animacion;

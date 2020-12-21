@@ -107,7 +107,7 @@ self.originPoint_y = (view_hview[view_current]*.99 - sprite_get_height(self.spri
             <kind>1</kind>
             <string>///Creación del boton "CHAT"
 
-chatChatTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+chatChatTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_chatTypeButton );
 
 with(chatChatTypeButtonObject)
 {
@@ -138,7 +138,7 @@ with(chatChatTypeButtonObject)
             <kind>1</kind>
             <string>///Creación del boton "GLOBAL"
 
-chatGlobalTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+chatGlobalTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_chatTypeButton );
 
 with(chatGlobalTypeButtonObject)
 {
@@ -169,7 +169,7 @@ with(chatGlobalTypeButtonObject)
             <kind>1</kind>
             <string>///Creación del boton "WHISPER"
 
-chatWhisperTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_Chat_Type_Button );
+chatWhisperTypeButtonObject = instance_create( originPoint_x, originPoint_y, obj_chatTypeButton );
 
 with(chatWhisperTypeButtonObject)
 {
@@ -272,7 +272,7 @@ var attributes = ds_list_create();
 var msgTypeCode = scr_getTypeMsgCode(typeMsg);
 
 ds_list_add(    attributes,
-                obj_player.name,
+                obj_character.name,
                 text,
                 msgTypeCode );
 

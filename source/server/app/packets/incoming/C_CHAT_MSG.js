@@ -3,14 +3,14 @@
     Date: 18/03/2020
     Author: Cristian Ferrero
 
-	Description: Handler que maneja la recepción del paquete "C_CHAT_MSG" enviado por el cliente.
+	Description: Handler que maneja la recepción del paquete 'C_CHAT_MSG' enviado por el cliente.
 	Este paquete contiene un mensaje de chat.
 
 */
 
 module.exports = packet_C_CHAT_MSG = {
 	process: (client, datapacket) => {
-		// Use the "PacketModel" defined in <01_packetmodels.js>.
+		// Use the 'PacketModel' defined in <01_packetmodels.js>.
 		const data = PacketModels.chat_message.parse(datapacket);
 
 		// Send confirmation to the same client
@@ -26,7 +26,7 @@ module.exports = packet_C_CHAT_MSG = {
 		switch (data.message_type) {
 			case Constants.CHAT.CHAT_MSG_TYPES.CHAT: {
 				const sendToSelf = false;
-				client.getAccount().getCharacterOnline().broadcastNearby([
+				client.getAccount().getCharacterOnline().broadcastNearbyCharacters([
 					Constants.PACKETS.S_CHAT_MSG_SPREAD,
 					data.character_name,
 					data.message_text,

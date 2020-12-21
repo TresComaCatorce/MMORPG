@@ -3,7 +3,7 @@
 packetName = "C_UPDATE";
 characterDataToSend = ds_list_create();
 
-with( obj_player ) {
+with( obj_character ) {
     ds_list_add(    other.characterDataToSend,
                     self.x,
                     self.y,

@@ -6,6 +6,13 @@
 			"typeId": "ENEMY",
 			"minHp": 4,
 			"maxHp": 6
+		},
+		{
+			"id": "SLIME",
+			"name": "Slime",
+			"typeId": "ENEMY",
+			"minHp": 8,
+			"maxHp": 13
 		}
 	],
 	"stage": [],
