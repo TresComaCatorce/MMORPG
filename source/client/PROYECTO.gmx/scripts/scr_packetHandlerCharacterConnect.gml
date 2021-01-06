@@ -16,7 +16,7 @@ var maxMana = buffer_read(argument0, buffer_u16);
 var currentExp = buffer_read(argument0, buffer_u16);
 var nextLevelExp = buffer_read(argument0, buffer_u16);
 
-show_debug_message("CBF: " + string(name) + " | " + string(level) + " | " + string(race) + " | ");
+show_debug_message("CBF player connected | name " + string(name) + " | level " + string(level) + " | race " + string(race) + " | currentMana: " + string(currentMana) + " | maxMana " + string(maxMana));
 
 global.playerOnline = instance_create( -1000, -1000, obj_character);
 
