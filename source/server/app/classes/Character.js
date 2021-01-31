@@ -41,7 +41,7 @@ module.exports = Character = class Character extends Entity {
 	constructor( characterData ) {
 		const { socket, _id, name, race, level, roomCode, x, y, accountSlot, state=Constants.STATES.CHARACTER.IDLE,
 			currentExp, nextLevelExp, currentHP, maxHP, currentMana, maxMana, currentStamina, maxStamina,
-			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness,
+			statStrength, statDexterity, statVitality, statEnergy, statIntelligence, statSpirit, statWildness
 			} = characterData;
 			
 		super({
