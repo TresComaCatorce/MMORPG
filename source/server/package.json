@@ -10,7 +10,7 @@
 		"minimist": "^1.2.5",
 		"mongoose": "^5.10.4",
 		"performance-now": "*",
-		"underscore": "^1.11.0",
+		"underscore": "^1.12.1",
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
