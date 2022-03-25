@@ -7,7 +7,7 @@
 		"binary-parser": "^1.6.2",
 		"colors": "^1.4.0",
 		"extend": "^3.0.2",
-		"minimist": "^1.2.5",
+		"minimist": "^1.2.6",
 		"mongoose": "^5.10.4",
 		"performance-now": "*",
 		"underscore": "^1.11.0",
